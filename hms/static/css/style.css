@@ -1,3 +1,31 @@
-h1{
-    color: aquamarine;
+body{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.main_div{
+
+    width: 95%;
+    margin: 6rem auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.sub_div{
+    padding-top: 3%;
+    width: 250px;
+    height: 230px;
+    text-align: center;
+    border: 2px solid black;
+    margin: 2rem;
+    background-color: white;
+}
+
+
+
+.room_main{
+    margin: 3rem 6rem;
 }

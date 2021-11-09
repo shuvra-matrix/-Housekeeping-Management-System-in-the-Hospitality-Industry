@@ -1,0 +1,48 @@
+{% extends 'admin/header.html' %}
+{% block body_block %}
+<div id="main">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+    </div>
+
+    <div class="room_main">
+        <div class="">
+            <h2>Room Status- Monday, 26 Oct 2020 12:18 AM</h2>
+        </div>
+
+        <div>
+            <table>
+                <thead>
+                    <th>Room #</th>
+                    <th>Room Type</th>
+                    <th>Room Status</th>
+                    <th>Reservation Info</th>
+                    <th>Occupancy</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                    <th>Updated By</th>
+                    <th>Update Time</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>East Wing</td>
+                    </tr>
+                    <tr>
+                        <td>E010</td>
+                        <td>Double</td>
+                        <td>Active</td>
+                        <td>Check-In</td>
+                        <td>Vacant</td>
+                        <td>Inspected</td>
+                        <td>This is in Good Condition </td>
+                        <td>Shuvra</td>
+                        <td>26 Oct 12.15 AM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+ </body>
+ </html>
+{% endblock %}

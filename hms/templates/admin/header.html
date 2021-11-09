@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <title>Housekeeping Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    @media screen and (max-width: 455px) {
+        .h3 {
+            font-size:16px;
+        }
+    }
+    </style>
+</head>
+<body style="background:#e6e6e6;color:black;">
+
+    <div class="w3-sidebar w3-light-grey w3-card-4 w3-animate-left" style="width: 180px; display: block;" id="mySidebar">
+        <div class="w3-bar w3-dark-grey">
+            <span class="w3-bar-item w3-padding-18">Housekeeping</span>
+            <button onclick="w3_close()" class="w3-bar-item w3-button w3-right w3-padding-16" title="close Sidebar">×</button>
+            </div>
+            <div class="w3-bar-block">
+            <a class="w3-bar-item w3-button w3-green" href="">Home</a>
+            <div class="w3-dropdown-hover">
+                <a class="w3-button" href="javascript:void(0)">Management <i class="fa fa-caret-down"></i></a>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                <a class="w3-bar-item w3-button" href="room_status">Room Status</a>
+                <a class="w3-bar-item w3-button" href="javascript:void(0)">Staf Status</a>
+                </div>
+            </div>
+            <a class="w3-bar-item w3-button" href="javascript:void(0)">Support</a>
+        </div>
+    </div>
+
+{% block body_block %}
+{% endblock %}
+
+<script src="{%static 'script/script.js'%}"></script>
+ </body>
+ </html>
