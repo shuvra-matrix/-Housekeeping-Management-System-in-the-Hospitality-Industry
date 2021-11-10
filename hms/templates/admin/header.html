@@ -26,11 +26,11 @@
             <button onclick="w3_close()" class="w3-bar-item w3-button w3-right w3-padding-16" title="close Sidebar">×</button>
             </div>
             <div class="w3-bar-block">
-            <a class="w3-bar-item w3-button w3-green" href="">Home</a>
+            <a class="w3-bar-item w3-button w3-green" href="{% url 'hmsapp:index' %}">Home</a>
             <div class="w3-dropdown-hover">
                 <a class="w3-button" href="javascript:void(0)">Management <i class="fa fa-caret-down"></i></a>
                 <div class="w3-dropdown-content w3-bar-block w3-card-4">
-                <a class="w3-bar-item w3-button" href="room_status">Room Status</a>
+                <a class="w3-bar-item w3-button" href="{% url 'hmsapp:room_status' %}">Room Status</a>
                 <a class="w3-bar-item w3-button" href="javascript:void(0)">Staf Status</a>
                 </div>
             </div>

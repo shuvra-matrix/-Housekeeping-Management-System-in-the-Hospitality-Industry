@@ -24,8 +24,47 @@ body{
     background-color: white;
 }
 
+/* admin index page closed */
 
+/* room status */
 
 .room_main{
     margin: 3rem 6rem;
 }
+
+table,
+tr,
+td {
+    border-collapse: collapse;
+    border: none;
+    padding: 1rem;
+}
+
+.room_table {
+    margin-top: 2rem;
+    width: 100%;
+    display: inline-block;
+   
+}
+
+.table_class{
+    width: 100%;
+}
+.table_head{
+    background-color:azure;
+    
+}
+th{
+    padding: .9rem;
+}
+
+.room_tr {
+    width: 100%;
+    background-color: beige;
+}
+.hidden_id{
+    color: beige;
+}
+
+
+/* room status closed */

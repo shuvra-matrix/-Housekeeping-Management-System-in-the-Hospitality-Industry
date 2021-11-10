@@ -10,9 +10,9 @@
             <h2>Room Status- Monday, 26 Oct 2020 12:18 AM</h2>
         </div>
 
-        <div>
-            <table>
-                <thead>
+        <div class="room_table">
+            <table class="table_class">
+                <thead class="table_head">
                     <th>Room #</th>
                     <th>Room Type</th>
                     <th>Room Status</th>
@@ -22,10 +22,20 @@
                     <th>Notes</th>
                     <th>Updated By</th>
                     <th>Update Time</th>
+                    <th>Edit Details</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>East Wing</td>
+                    <tr class="room_tr">
+                        <td id="room_td">East Wing</td>
+                        <td class="hidden_id">.</td>
+                        <td class="hidden_id">.</td>
+                        <td class="hidden_id">.</td>
+                        <td class="hidden_id">.</td>
+                        <td class="hidden_id">.</td>
+                        <td class="hidden_id">.</td>
+                        <td class="hidden_id">.</td>
+                        <td class="hidden_id">.</td>
+                        <td class="hidden_id">.</td>
                     </tr>
                     <tr>
                         <td>E010</td>
@@ -34,9 +44,10 @@
                         <td>Check-In</td>
                         <td>Vacant</td>
                         <td>Inspected</td>
-                        <td>This is in Good Condition </td>
+                        <td> <textarea name="" id="" cols="20" rows="1"></textarea> </td>
                         <td>Shuvra</td>
                         <td>26 Oct 12.15 AM</td>
+                        <td style="width: 2rem;"><a href="{% url 'hmsapp:room_manage' %}">&#x1F441;</a></td>
                     </tr>
                 </tbody>
             </table>

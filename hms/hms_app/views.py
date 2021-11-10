@@ -8,3 +8,7 @@ def index(requests):
 
 def room_status(requests):
     return render(requests, 'admin/room_status.html')
+
+
+def room_manage(request):
+    return render(request, 'admin/room_manage.html')
