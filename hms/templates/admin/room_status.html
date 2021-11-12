@@ -1,15 +1,15 @@
 {% extends 'admin/header.html' %}
 {% block body_block %}
-<div id="main" style="overflow: hidden;">
+<div id="main" style="overflow: hidden; margin-left: 180px;">
     <div class="w3-container w3-display-container">
             <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
-   
-
+            
+    </div>
     <div class="room_main" style="overflow: auto;">
         <div class="">
             <h2>Room Status- Monday, 26 Oct 2020 12:18 AM</h2>
         </div>
-
+    
         <div class="room_table">
             <table class="table_class">
                 <thead class="table_head">
@@ -135,17 +135,9 @@
                 <h5>E010</h5>
             </div>
         </div>
-
-
-
     </div>
- </div>
-{% endif %}
-
-
-
-
-
+    {% endif %}
+  
 </div>
  </body>
  </html>
