@@ -68,3 +68,35 @@ th{
 
 
 /* room status closed */
+
+/* room manage page */
+
+.main_div_manage{
+    position: relative;
+    width: 40%;
+    bottom: 249px;
+    margin: 6rem  auto;
+    padding: 2rem;
+    border: 2px solid black;
+    background-color: aquamarine;
+    border-radius: 12px;
+
+}
+
+.sub_div_manage{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+
+.clicked{
+    position: absolute;
+    top: 3px;
+    right: 13px;
+}
+
+
+/* room manage page closed */

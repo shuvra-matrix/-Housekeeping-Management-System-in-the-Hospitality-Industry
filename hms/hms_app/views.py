@@ -7,7 +7,16 @@ def index(requests):
     return render(requests , 'admin/index.html')
 
 def room_status(requests):
-    return render(requests, 'admin/room_status.html')
+    if requests.method == 'POST':
+        name = requests.POST.get('name')
+        
+        my_dict = { 
+               "clicked" : name,
+               }
+        return render(requests, 'admin/room_status.html', context=my_dict)
+    else:
+       
+        return render(requests, 'admin/room_status.html')
 
 
 def room_manage(request):
