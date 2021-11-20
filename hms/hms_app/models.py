@@ -21,6 +21,7 @@ class Room_floor(models.Model):
     floor_name = models.CharField(max_length=20)
     
     
+    
 class Room(models.Model):
     room_id = models.AutoField(primary_key=True)
     floor_id = models.ForeignKey(Room_floor, on_delete=models.CASCADE, related_name='floors_id')

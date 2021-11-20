@@ -17,7 +17,7 @@ def room_status(requests):
                 name = requests.POST.get('name')
                                 
                 my_dict = { 
-                    
+
                                     "floor_data" :floor_data,
                                     "room_data":room_data,
                                     "room_name_data":room_name_data,    
