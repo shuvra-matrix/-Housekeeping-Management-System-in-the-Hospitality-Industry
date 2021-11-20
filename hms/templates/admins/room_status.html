@@ -25,8 +25,10 @@
                     <th>Edit Details</th>
                 </thead>
                 <tbody>
+                    {% if floor_data %}
+                    {% for floor in floor_data %}
                     <tr class="room_tr">
-                        <td id="room_td">East Wing</td>
+                        <td id="room_td">{{floor.floor_name}}</td>
                         <td class="hidden_id">.</td>
                         <td class="hidden_id">.</td>
                         <td class="hidden_id">.</td>
@@ -37,16 +39,18 @@
                         <td class="hidden_id">.</td>
                         <td class="hidden_id">.</td>
                     </tr>
+                    {% for room_names in  room_name_data    %}
                     <tr>
-                        <td>E010</td>
-                        <td>Double</td>
-                        <td>Active</td>
-                        <td>Check-In</td>
-                        <td>Vacant</td>
-                        <td>Inspected</td>
-                        <td> <textarea name="" id="" cols="20" rows="1"></textarea> </td>
-                        <td>Shuvra</td>
-                        <td>26 Oct 12.15 AM</td>
+                        <td>{{room_names.room_name}}</td>
+                        {% for room in  room_data    %}
+                        <td>{{room.room_type}}</td>
+                        <td>{{room.room_status}}</td>
+                        <td>{{room.room_reservation_info}}</td>
+                        <td>{{room.room_occupancy}}</td>
+                        <td>{{room.room_inspect_status}}</td>
+                        <td> <textarea name="" id="" cols="20" rows="1">{{room.room_notes}}</textarea></td>
+                        <td>{{room.room_updated_by}}</td>
+                        <td>{{room.room_updated_time}}</td>
                         <td style="width: 2rem;">
                            
                         <form action="{% url 'hmsapp:room_status' %}" method="POST">
@@ -56,6 +60,10 @@
                         </form>
                         </td>
                     </tr>
+                    {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+                    {% endif %}
                 </tbody>
             </table>
         </div>

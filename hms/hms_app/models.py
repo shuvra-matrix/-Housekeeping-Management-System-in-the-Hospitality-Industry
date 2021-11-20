@@ -23,7 +23,7 @@ class Room_floor(models.Model):
     
 class Room(models.Model):
     room_id = models.AutoField(primary_key=True)
-    floor_id = models.ForeignKey(Room_floor, on_delete=models.CASCADE)
+    floor_id = models.ForeignKey(Room_floor, on_delete=models.CASCADE, related_name='floors_id')
     room_name = models.CharField(max_length=30)
     
 class Room_details(models.Model):
