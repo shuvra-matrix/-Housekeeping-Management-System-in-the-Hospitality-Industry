@@ -4,7 +4,7 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(requests):
-    return render(requests , 'admin/index.html')
+    return render(requests , 'admins/index.html')
 
 def room_status(requests):
     if requests.method == 'POST':
@@ -13,11 +13,11 @@ def room_status(requests):
         my_dict = { 
                "clicked" : name,
                }
-        return render(requests, 'admin/room_status.html', context=my_dict)
+        return render(requests, 'admins/room_status.html', context=my_dict)
     else:
        
-        return render(requests, 'admin/room_status.html')
+        return render(requests, 'admins/room_status.html')
 
 
 def room_manage(request):
-    return render(request, 'admin/room_manage.html')
+    return render(request, 'admins/room_manage.html')
