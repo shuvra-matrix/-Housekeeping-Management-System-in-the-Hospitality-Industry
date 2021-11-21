@@ -1,0 +1,59 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+    <div class="room_main" style="overflow: auto;">
+        <div class="">
+            <h3>Room Status- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+    
+        <div class="room_table">
+            <table class="table_class">
+                <thead class="table_head">
+                    <th>Room #</th>
+                    <th>Room Type</th>
+                    <th>Room Status</th>
+                    <th>Reservation Info</th>
+                    <th>Occupancy</th>
+                    <th>Status</th>
+                    <th>Room Notes</th>
+                    <th>Updated By</th>
+                    <th>Update Time</th>
+                    <th>Edit Details</th>
+                </thead>
+                <tbody>
+                    {% if room_data %}
+                    {% for room in  room_data    %}
+                    <tr>
+                        <td>{{room.room_id.room_name}}</td>
+                        <td>{{room.room_type}}</td>
+                        <td class="{{room.room_status}}">{{room.room_status}}</td>
+                        <td>{{room.room_reservation_info}}</td>
+                        <td ><p class="{{room.room_occupancy}}">{{room.room_occupancy}}</p></td>
+                        <td ><p class="{{room.room_inspect_status}}">{{room.room_inspect_status}}</p></td>
+                        <td> <input class="note_class" type="text" value="{{room.room_notes}}"></td>
+                        <td style="color: rgb(0, 0, 0);">{{room.room_updated_by.admin_name}}</td>
+                        <td>{{room.room_updated_time}}</td>
+                        <td style="width: 2rem;">
+                           
+                        <form action="{% url 'hmsapp:room_manage' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="room_data_id" value="{{room.id}}">
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
+</div>
+ </body>
+ </html>
+{% endblock %}

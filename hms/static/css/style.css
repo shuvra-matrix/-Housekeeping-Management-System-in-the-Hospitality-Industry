@@ -1,3 +1,201 @@
-h1{
-    color: aquamarine;
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body{
+    
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background: #5433FF !important;
+    background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF) !important;
+
+    background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF) !important;
+    font-family: 'Roboto',sans-serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.432);
+
 }
+
+.main_div{
+
+    width: 95%;
+    margin: 6rem 6rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.sub_div{
+    padding-top: 3%;
+    width: 250px;
+    height: 230px;
+    text-align: center;
+    border-radius: 12px;
+    margin: 2rem;
+    background-color: white;
+    box-shadow: 0px 0px 5px 5px #57565657;
+}
+
+/* admin index page closed */
+
+/* room status */
+
+.room_main{
+    margin: 3rem 3rem;
+}
+
+table,
+tr,
+td {
+    border-collapse: collapse;
+    border: none;
+    padding: 1rem;
+}
+
+.room_table {
+    margin-top: 2rem;
+    width: 100%;
+    display: inline-block;
+   
+}
+
+.table_class{
+    width: 100%;
+}
+.table_head{
+    background-color:azure;
+    
+}
+th{
+    padding: .9rem;
+    color: rgb(45, 48, 204);
+}
+
+.room_tr {
+    width: 100%;
+    background-color: beige;
+}
+.hidden_id{
+    color: beige;
+}
+.Dirty,
+.Occupied {
+    padding: .3rem;
+    background-color: red;
+    border-radius: 16px;
+    text-align: center;
+    color: white;
+}
+
+.Inspected,.Vacant{
+      padding: .3rem;
+      background-color:green;
+      border-radius: 16px;
+      text-align: center;
+      color: white;
+}
+.Active{
+    color: green;
+}
+.Out-of-Service,
+.Out-of-Order,
+.Out-of-Inventory {
+    color: red;
+}
+.note_class{
+     border: 1px rgb(51, 157, 228) solid;
+     border-radius: 16px;
+     padding: .5rem;
+     background-color: white !important;
+     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.432);
+}
+/* room status closed */
+
+/* room manage pop-up */
+
+.main_div_manage{
+   
+    margin: 1rem  auto;
+    padding: 2rem;
+   
+}
+
+.sub_div_manage{
+    display: flex;
+    flex-direction:column;
+   
+    width: 40%;
+    margin: auto;
+}
+
+.sp_sub{
+    padding-right: 1rem;
+}
+
+.input_class{
+    width: 80%;
+     border: 1px rgb(51, 157, 228) solid;
+     border-radius: 16px;
+     padding: .5rem;
+    background-color: white !important;
+     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.432);
+
+    }
+
+.button_class{
+    position: relative;
+    width: 50%;
+    margin: 1rem auto;
+    
+}
+.button{
+    background-color: rgb(127, 146, 255);
+    padding: .5rem;
+    border-radius: 18px;
+}
+
+.button-29 {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: 'Roboto',
+    sans-serif;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
+}
+
+.button-29:focus {
+    box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button-29:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.button-29:active {
+    box-shadow: #3c4fe0 0 3px 7px inset;
+    transform: translateY(2px);
+}
+/* room manage pop-up closed */

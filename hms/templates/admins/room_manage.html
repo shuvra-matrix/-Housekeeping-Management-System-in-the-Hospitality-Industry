@@ -1,0 +1,119 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+{% if room_data %}
+<form action="{% url 'hmsapp:room_update' %}" method="POST">
+    {% csrf_token %}
+    <div class="main_div_manage">
+        <div style="margin-left: 2rem;" class="">
+            <h3>Room Status- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+      {% for room in room_data %}
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <input type="hidden" value="{{room.id}}" name="room_id">
+                <p>Floor Name: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_id.floor_id.floor_name}}" readonly>
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Name:</p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_id.room_name}}" readonly>
+               
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Status:</p>
+            </div>
+            <div class="sp_sub">
+                <select name="room_status" class="input_class">
+                    <option value="{{room.room_status}}">{{room.room_status}}</option>
+                    <option value="Active">Active</option>
+                    <option value="Out-of-Service">Out of Service</option>
+                    <option value="Out-of-Order">Out of Order</option>
+                    <option value="Out-of-Inventory">Out of Inventory</option>
+                </select>  
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Reservation Info:</p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_reservation_info}}" readonly>
+     
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Occupancy :</p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_occupancy}}" readonly>
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Inspection Status:</p>
+            </div>
+            <div class="sp_sub">
+                <select name="room_inspected" class="input_class">
+                    <option value="{{room.room_inspect_status}}">{{room.room_inspect_status}}</option>
+                    <option value="Inspected">Inspected</option>
+                    <option value="Dirty">Dirty</option>
+                </select>
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Notes:</h3>
+            </div>
+            <div class="sp_sub">
+                <textarea class="input_class" name="room_note" id="" cols="40" rows="1">{{room.room_notes}}</textarea>
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Housekeeper: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" readonly value="{{room.room_housekeeper.housekeeper_name}}">
+            </div>
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Available Housekeeper:</h3>
+            </div>
+            <div class="sp_sub">
+                <select class="input_class" name="housekeeper_id" id="">
+                    <option value="{{room.room_housekeeper.id}}">{{room.room_housekeeper.housekeeper_name}}</option>
+                    {% for house in Housekeeper_data %}
+                    <option value="{{house.housekeeper_id.id}}">{{house.housekeeper_id.housekeeper_name}}</option>
+
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="button_class">
+                <button class="button-29" type="submit">Submit</button>
+            </div>
+        </div>
+        {% endfor %}
+</form>
+    </div>
+{% endif %}
+
+</div>
+
+
+{% endblock %}
