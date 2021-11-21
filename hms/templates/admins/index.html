@@ -7,41 +7,43 @@
                 <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
                 <h3 class="h3" style="position:fixed;top:36px;">Dashboard</h3>
             </div>
+            {% if total_room %}
             <div class="main_div">
                 <div class="sub_div">
-                    <h1>10</h1>
-                    <p>Clean</p>
+                    <h1 style="color:purple; font-size: 4rem;">{{total_room}}</h1>
+                    <p>TOTAL ROOM</p>
                 </div>
                 <div class="sub_div">
-                    <h1>10</h1>
-                    <p>Clean</p>
+                    <h1 style="color:deepskyblue;font-size: 4rem;">{{available_room}}</h1>
+                    <p>AVAILABLE</p>
                 </div>
                 <div class="sub_div">
-                    <h1>10</h1>
-                    <p>Clean</p>
+                    <h1 style="color: blueviolet;font-size: 4rem;">{{not_available_room}}</h1>
+                    <p>OCCUPIED</p>
                 </div>
                 <div class="sub_div">
-                    <h1>10</h1>
-                    <p>Clean</p>
+                    <h1 style="color:green;font-size: 4rem;">{{cleaned}}</h1>
+                    <p>CLEAN</p>
                 </div>
                 <div class="sub_div">
-                    <h1>10</h1>
-                    <p>Clean</p>
+                    <h1 style="color: red;font-size: 4rem;">{{dirty}}</h1>
+                    <p>DIRTY</p>
                 </div>
                 <div class="sub_div">
-                    <h1>10</h1>
-                    <p>Clean</p>
+                    <h1 style="color:darkgray;font-size: 4rem;">{{out_of_serviced}}</h1>
+                    <p>OUT OF SERVICE</p>
                 </div>
                 <div class="sub_div">
-                    <h1>10</h1>
-                    <p>Clean</p>
+                    <h1 style="color: darksalmon;font-size: 4rem;">{{out_of_order}}</h1>
+                    <p>OUT OF ORDER</p>
                 </div>
+                
                 <div class="sub_div">
-                    <h1>10</h1>
-                    <p>Clean</p>
+                    <h1 style="color: orange;font-size: 4rem;">{{housekeeper}}</h1>
+                    <p>AVAILABLE HOUSEKEEPER</p>
                 </div>
             </div>
-    
+    {% endif %}
     </div>
 
 {% endblock %}

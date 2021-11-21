@@ -5,7 +5,28 @@ from hms_app.models import Admin, Housekeeper, Room_floor, Room, Room_details, H
 # Create your views here.
 
 def index(requests):
-    return render(requests , 'admins/index.html')
+    total_room = Room.objects.all().count()
+    cleaned = Room_details.objects.filter(room_inspect_status="Inspected").count()
+    dirty = Room_details.objects.filter(room_inspect_status="Dirty").count()
+    out_of_serviced = Room_details.objects.filter(room_status="Out-of-Service").count()
+    out_of_order = Room_details.objects.filter(room_status="Out-of-Order").count()
+    available_room = Room_details.objects.filter(room_occupancy="Vacant").count()
+    not_available_room = Room_details.objects.filter(room_occupancy="Occupied").count()
+    housekeeper = Housekeeper_details.objects.filter(housekeeper_status="Available").count()
+    my_dict={
+        
+        "total_room": total_room,
+        "cleaned": cleaned,
+        "dirty": dirty,
+        
+        "out_of_serviced": out_of_serviced,
+        "out_of_order": out_of_order,
+        "available_room": available_room,
+        "not_available_room": not_available_room,
+        "housekeeper": housekeeper,
+    }
+    
+    return render(requests , 'admins/index.html',context=my_dict)
 
 def room_status(requests):
     room_data = Room_details.objects.all()
