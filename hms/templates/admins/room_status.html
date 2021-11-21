@@ -7,7 +7,7 @@
     </div>
     <div class="room_main" style="overflow: auto;">
         <div class="">
-            <h2>Room Status- Monday, 26 Oct 2020 12:18 AM</h2>
+            <h3>Room Status- Monday, 26 Oct 2020 12:18 AM</h3>
         </div>
     
         <div class="room_table">
@@ -25,126 +25,34 @@
                     <th>Edit Details</th>
                 </thead>
                 <tbody>
-                    {% if floor_data %}
-                    {% for floor in floor_data %}
-                    <tr class="room_tr">
-                        <td id="room_td">{{floor.floor_name}}</td>
-                        <td class="hidden_id">.</td>
-                        <td class="hidden_id">.</td>
-                        <td class="hidden_id">.</td>
-                        <td class="hidden_id">.</td>
-                        <td class="hidden_id">.</td>
-                        <td class="hidden_id">.</td>
-                        <td class="hidden_id">.</td>
-                        <td class="hidden_id">.</td>
-                        <td class="hidden_id">.</td>
-                    </tr>
-                    {% for room_names in  room_name_data    %}
+                    {% if room_data %}
+                    {% for room in  room_data    %}
                     <tr>
-                        <td>{{room_names.room_name}}</td>
-                        {% for room in  room_data    %}
+                        <td>{{room.room_id.room_name}}</td>
+                       
                         <td>{{room.room_type}}</td>
                         <td>{{room.room_status}}</td>
                         <td>{{room.room_reservation_info}}</td>
                         <td>{{room.room_occupancy}}</td>
                         <td>{{room.room_inspect_status}}</td>
-                        <td> <textarea name="" id="" cols="20" rows="1">{{room.room_notes}}</textarea></td>
-                        <td>{{room.room_updated_by}}</td>
+                        <td> <input type="text" value="{{room.room_notes}}"></td>
+                        <td>{{room.room_updated_by.admin_name}}</td>
                         <td>{{room.room_updated_time}}</td>
                         <td style="width: 2rem;">
                            
-                        <form action="{% url 'hmsapp:room_status' %}" method="POST">
+                        <form action="{% url 'hmsapp:room_manage' %}" method="POST">
                             {% csrf_token %}
-                            <input type="hidden" name="name" value="shuvra">
+                            <input type="hidden" name="room_data_id" value="{{room.id}}">
                             <button type="submit" class="click_button" >&#x1F441;</button>
                         </form>
                         </td>
                     </tr>
-                    {% endfor %}
-                    {% endfor %}
                     {% endfor %}
                     {% endif %}
                 </tbody>
             </table>
         </div>
     </div>
-
-
-{% if clicked %}
-    {{clicked.name}}
-     <div class="main_div_manage">
-         <div class="clicked">
-              <form action="{% url 'hmsapp:room_status' %}" method="GET">
-                {% csrf_token %}
-                    <button class="clicks" >x</button>
-             </form>
-         </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
-            </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
-            </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
-            </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
-            </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
-            </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
-            </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h3>
-            </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name: </h4>
-            </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-    </div>
-    {% endif %}
   
 </div>
  </body>

@@ -9,28 +9,21 @@ def index(requests):
 
 def room_status(requests):
     floor_data = Room_floor.objects.all()
-    for i in floor_data:
-        room_name_data = Room.objects.all().filter(floor_id=i.floor_id)
-        for j in room_name_data:
-            room_data = Room_details.objects.all().filter(room_id=j.room_id)
-            if requests.method == 'POST':
-                name = requests.POST.get('name')
-                                
-                my_dict = { 
-                                    "floor_data" :floor_data,
-                                    "room_data":room_data,
-                                    "room_name_data":room_name_data,    
-                                    "clicked" : name,
-                                    }
-                return render(requests, 'admins/room_status.html', context=my_dict)
-            else:
-                my_dict = {
-                                    "floor_data": floor_data,
-                                    "room_data": room_data,
-                                    "room_name_data": room_name_data,
-                                }
-                return render(requests, 'admins/room_status.html', context=my_dict)
+    room_name_data = Room.objects.all()
+    room_data = Room_details.objects.all()
+    my_dict = {            
+                "room_data": room_data,                     
+            }
+    return render(requests, 'admins/room_status.html', context=my_dict)
 
 
 def room_manage(request):
-    return render(request, 'admins/room_manage.html')
+    if request.method == "POST":
+        room_data_id = request.POST.get('room_data_id')
+        room_data = Room_details.objects.all().filter(id=room_data_id)
+        Housekeeper_data = Housekeeper_details.objects.all().filter(housekeeper_status='Available')
+        my_dict = {
+            "room_data": room_data,
+            "Housekeeper_data": Housekeeper_data,
+        }
+        return render(request, 'admins/room_manage.html',context=my_dict)

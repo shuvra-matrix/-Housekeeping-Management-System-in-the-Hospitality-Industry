@@ -1,84 +1,105 @@
 {% extends 'admins/header.html' %}
 {% block body_block %}
 
-<div id="main" style="overflow: hidden;">
+<div id="main" style="overflow: hidden; margin-left: 180px;">
     <div class="w3-container w3-display-container">
             <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
-             <h3 class="h3" style="position:fixed;top:36px;">Manage Room</h3>
-             <h3 style="margin-left: 6rem;" >Click</h3>
+            
     </div>
-
+{% if room_data %}
     <div class="main_div_manage">
-      
+        <div class="">
+            <h4>Room Status- Monday, 26 Oct 2020 12:18 AM</h4>
+        </div>
+      {% for room in room_data %}
         <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
+            <div class="sp_sub">
+                <p>Floor Name: </p>
             </div>
-            <div class="">
-                <h5>E010</h5>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_id.floor_id.floor_name}}" readonly>
             </div>
         </div>
         <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
+            <div class="sp_sub">
+                <p>Room Name:</p>
             </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
-            </div>
-            <div class="">
-                <h5>E010</h5>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_id.room_name}}" readonly>
+               
             </div>
         </div>
         <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
+            <div class="sp_sub">
+                <p>Room Status:</p>
             </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
-            </div>
-            <div class="">
-                <h5>E010</h5>
+            <div class="sp_sub">
+                <input class="input_class" type="text" readonly value="{{room.room_status}}">
+                
             </div>
         </div>
         <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h4>
+            <div class="sp_sub">
+                <p>Reservation Info:</p>
             </div>
-            <div class="">
-                <h5>E010</h5>
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name:</h3>
-            </div>
-            <div class="">
-                <h5>E010</h5>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_reservation_info}}" readonly>
+     
             </div>
         </div>
         <div class="sub_div_manage">
-            <div class="">
-                <h4>Room Name: </h4>
+            <div class="sp_sub">
+                <p>Occupancy :</p>
             </div>
-            <div class="">
-                <h5>E010</h5>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_occupancy}}" readonly>
             </div>
         </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Inspection Status:</p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_inspect_status}}" readonly>
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Notes:</h3>
+            </div>
+            <div class="sp_sub">
+                <textarea class="input_class" name="" id="" cols="40" rows="1">{{room.room_notes}}</textarea>
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Housekeeper: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" readonly value="{{room.room_housekeeper.housekeeper_name}}">
+            </div>
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Available Housekeeper:</h3>
+            </div>
+            <div class="sp_sub">
+                <select class="input_class" name="" id="">
+                    <option value="">Select Housekeeper</option>
+                    {% for house in Housekeeper_data %}
+                    <option value="{{house.housekeeper_id}}">{{house.housekeeper_id.housekeeper_name}}</option>
 
-
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="button_class">
+                <button class="button" type="submit">Submit</button>
+            </div>
+        </div>
+        {% endfor %}
 
     </div>
-
+{% endif %}
 
 </div>
 

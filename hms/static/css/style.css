@@ -29,7 +29,7 @@ body{
 /* room status */
 
 .room_main{
-    margin: 3rem 6rem;
+    margin: 3rem 3rem;
 }
 
 table,
@@ -72,31 +72,37 @@ th{
 /* room manage pop-up */
 
 .main_div_manage{
-    position: relative;
-    width: 40%;
-    bottom: 249px;
-    margin: 6rem  auto;
+   
+    margin: 1rem  auto;
     padding: 2rem;
-    border: 2px solid black;
-    background-color: aquamarine;
-    border-radius: 12px;
-
+   
 }
 
 .sub_div_manage{
     display: flex;
-    flex-direction:row;
-    justify-content: center;
-    align-items: center;
+    flex-direction:column;
+   
+    width: 40%;
+    margin: auto;
+}
+
+.sp_sub{
+    padding-right: 1rem;
+}
+
+.input_class{
+    width: 80%;
+}
+
+.button_class{
+    position: relative;
+    width: 50%;
+    margin: 1rem auto;
     
 }
-
-
-.clicked{
-    position: absolute;
-    top: 3px;
-    right: 13px;
+.button{
+    background-color: aquamarine;
+    padding: .5rem;
+    border-radius: 18px;
 }
-
-
 /* room manage pop-up closed */
