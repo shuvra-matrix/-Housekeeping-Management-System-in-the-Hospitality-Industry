@@ -8,14 +8,11 @@ def index(requests):
     return render(requests , 'admins/index.html')
 
 def room_status(requests):
-    floor_data = Room_floor.objects.all()
-    room_name_data = Room.objects.all()
     room_data = Room_details.objects.all()
     my_dict = {            
                 "room_data": room_data,                     
             }
     return render(requests, 'admins/room_status.html', context=my_dict)
-
 
 def room_manage(request):
     if request.method == "POST":
