@@ -10,8 +10,8 @@
 <form action="{% url 'hmsapp:room_update' %}" method="POST">
     {% csrf_token %}
     <div class="main_div_manage">
-        <div class="">
-            <h4>Room Status- Monday, 26 Oct 2020 12:18 AM</h4>
+        <div style="margin-left: 2rem;" class="">
+            <h3>Room Status- Monday, 26 Oct 2020 12:18 AM</h3>
         </div>
       {% for room in room_data %}
         <div class="sub_div_manage">
@@ -97,7 +97,7 @@
             </div>
             <div class="sp_sub">
                 <select class="input_class" name="housekeeper_id" id="">
-                    <option value="">Select Housekeeper</option>
+                    <option value="{{room.room_housekeeper.id}}">{{room.room_housekeeper.housekeeper_name}}</option>
                     {% for house in Housekeeper_data %}
                     <option value="{{house.housekeeper_id.id}}">{{house.housekeeper_id.housekeeper_name}}</option>
 
@@ -105,7 +105,7 @@
                 </select>
             </div>
             <div class="button_class">
-                <button class="button" type="submit">Submit</button>
+                <button class="button-29" type="submit">Submit</button>
             </div>
         </div>
         {% endfor %}
