@@ -7,6 +7,8 @@
             
     </div>
 {% if room_data %}
+<form action="{% url 'hmsapp:room_update' %}" method="POST">
+    {% csrf_token %}
     <div class="main_div_manage">
         <div class="">
             <h4>Room Status- Monday, 26 Oct 2020 12:18 AM</h4>
@@ -14,6 +16,7 @@
       {% for room in room_data %}
         <div class="sub_div_manage">
             <div class="sp_sub">
+                <input type="hidden" value="{{room.id}}" name="room_id">
                 <p>Floor Name: </p>
             </div>
             <div class="sp_sub">
@@ -60,7 +63,11 @@
                 <p>Room Inspection Status:</p>
             </div>
             <div class="sp_sub">
-                <input class="input_class" type="text" value="{{room.room_inspect_status}}" readonly>
+                <select name="room_inspected" class="input_class">
+                    <option value="{{room.room_inspect_status}}">{{room.room_inspect_status}}</option>
+                    <option value="Inspected">Inspected</option>
+                    <option value="Dirty">Dirty</option>
+                </select>
             </div>
         </div>
         <div class="sub_div_manage">
@@ -68,7 +75,7 @@
                 <p>Notes:</h3>
             </div>
             <div class="sp_sub">
-                <textarea class="input_class" name="" id="" cols="40" rows="1">{{room.room_notes}}</textarea>
+                <textarea class="input_class" name="room_note" id="" cols="40" rows="1">{{room.room_notes}}</textarea>
             </div>
         </div>
         <div class="sub_div_manage">
@@ -84,10 +91,10 @@
                 <p>Available Housekeeper:</h3>
             </div>
             <div class="sp_sub">
-                <select class="input_class" name="" id="">
+                <select class="input_class" name="housekeeper_id" id="">
                     <option value="">Select Housekeeper</option>
                     {% for house in Housekeeper_data %}
-                    <option value="{{house.housekeeper_id}}">{{house.housekeeper_id.housekeeper_name}}</option>
+                    <option value="{{house.housekeeper_id.id}}">{{house.housekeeper_id.housekeeper_name}}</option>
 
                     {% endfor %}
                 </select>
@@ -97,7 +104,7 @@
             </div>
         </div>
         {% endfor %}
-
+</form>
     </div>
 {% endif %}
 
