@@ -30,7 +30,9 @@ def room_update(request):
         room_id = request.POST.get("room_id")
         room_inspection = request.POST.get("room_inspected")
         room_note = request.POST.get("room_note")
+        room_status = request.POST.get("room_status")
         housekeeper_id = request.POST.get("housekeeper_id")
-        update_data = Room_details.objects.filter(id=room_id).update(room_inspect_status=room_inspection,room_notes=room_note,room_housekeeper=housekeeper_id)
+        update_data = Room_details.objects.filter(id=room_id).update(
+            room_inspect_status=room_inspection, room_notes=room_note, room_housekeeper=housekeeper_id, room_status=room_status)
         update_housekeeper_data = Housekeeper_details.objects.filter(housekeeper_id=housekeeper_id).update(housekeeper_status="Occupied")
         return redirect("/room_status")

@@ -56,6 +56,7 @@ td {
 }
 th{
     padding: .9rem;
+    color: rgb(45, 48, 204);
 }
 
 .room_tr {
@@ -65,8 +66,30 @@ th{
 .hidden_id{
     color: beige;
 }
+.Dirty,
+.Occupied {
+    padding: .3rem;
+    background-color: red;
+    border-radius: 16px;
+    text-align: center;
+    color: white;
+}
 
-
+.Inspected,.Vacant{
+      padding: .3rem;
+      background-color:green;
+      border-radius: 16px;
+      text-align: center;
+      color: white;
+}
+.Active{
+    color: green;
+}
+.Out-of-Service,
+.Out-of-Order,
+.Out-of-Inventory {
+    color: red;
+}
 /* room status closed */
 
 /* room manage pop-up */

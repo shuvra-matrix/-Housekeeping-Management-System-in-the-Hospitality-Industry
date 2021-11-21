@@ -37,8 +37,13 @@
                 <p>Room Status:</p>
             </div>
             <div class="sp_sub">
-                <input class="input_class" type="text" readonly value="{{room.room_status}}">
-                
+                <select name="room_status" class="input_class">
+                    <option value="{{room.room_status}}">{{room.room_status}}</option>
+                    <option value="Active">Active</option>
+                    <option value="Out-of-Service">Out of Service</option>
+                    <option value="Out-of-Order">Out of Order</option>
+                    <option value="Out-of-Inventory">Out of Inventory</option>
+                </select>  
             </div>
         </div>
         <div class="sub_div_manage">
