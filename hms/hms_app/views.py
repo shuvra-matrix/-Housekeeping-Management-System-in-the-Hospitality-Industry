@@ -115,3 +115,11 @@ def housekeeper_update(request):
         return redirect("/housekeepers")
         
          
+def housekeeper_delete(request):
+    if request.method == "POST":
+        id = request.POST.get("housekeeper_id")
+        print(id)
+        delete_housekeeper = Housekeeper.objects.filter(id=id).delete()
+        delete_housekeepr_data = Housekeeper_details.objects.filter(housekeeper_id=id).delete()
+        delete_housekeeper_room_data = Housekeeper_room_visit.objects.filter(housekeeper_id=id).delete()
+        return redirect("/housekeepers")

@@ -14,4 +14,5 @@ urlpatterns = [
     path("housekeepers/details", views.housekeeper_details,
          name="housekeeper_details"),
     path("housekeeper_update/", views.housekeeper_update, name="housekeeper_update"),
+    path("housekeeper_delete/", views.housekeeper_delete, name="housekeeper_delete"),
 ]
