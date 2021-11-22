@@ -110,6 +110,10 @@ th{
      background-color: white !important;
      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.432);
 }
+
+.click_button:hover{
+    cursor: pointer;
+}
 /* room status closed */
 
 /* room manage pop-up */
@@ -201,3 +205,18 @@ th{
     transform: translateY(2px);
 }
 /* room manage pop-up closed */
+
+/* housekeepr */
+
+.add_housekeeper {
+    padding: .5rem;
+    background-color: green;
+    color: white;
+    border-radius: 12px;
+    border: 0px;
+}
+.add_housekeeper:hover{
+    cursor:pointer;
+}
+
+/* close housekeeper */
