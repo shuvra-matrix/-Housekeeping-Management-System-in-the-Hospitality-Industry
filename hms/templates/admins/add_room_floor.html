@@ -59,6 +59,26 @@
          </div>
         <input type="hidden" name="add_room" value="add_room">
     {% endif %}
+
+
+
+    {% if floor %}
+
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Floor Name </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="" name="floor_name">
+            </div>
+        
+            <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Add Floor ?')" class="button-29" name="update" type="submit">Submit</button>
+            </div>
+         </div>
+        <input type="hidden" name="add_floor" value="add_floor">
+
+    {% endif %}
         
 </form>
     </div>

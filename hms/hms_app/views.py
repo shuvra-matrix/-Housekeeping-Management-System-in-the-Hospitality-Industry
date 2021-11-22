@@ -150,7 +150,16 @@ def add_room_floor(request):
             room_type = request.POST.get("room_type")
             floor_details = Room_floor.objects.get(floor_id=floor_id)
             create_room = Room.objects.create(floor_id=floor_details,room_name=room_name)
-            room_object_id = Room.objects.get(room_name=room_name)
-            create_room_data = Room_details.objects.create(room_id=room_object_id,room_type=room_type,room_updated_by="Shuvra Chakrabarty")
+            admin_data = Admin.objects.get(id="1")
+            create_room_data = Room_details.objects.create(room_id=create_room,room_type=room_type,room_updated_by=admin_data)
             return redirect("/rooms_and_floor")
-    
+        elif request.POST.get("floor") == "floor":
+            floor = "floor"
+            my_dict = {
+                "floor" : floor,
+            }
+            return render(request, "admins/add_room_floor.html",context=my_dict)
+        elif request.POST.get("add_floor") == "add_floor":
+            floor_name = request.POST.get("floor_name")
+            crete_floor = Room_floor.objects.create(floor_name=floor_name)
+            return redirect("/rooms_and_floor")
