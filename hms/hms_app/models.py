@@ -16,6 +16,14 @@ class Housekeeper(models.Model):
     housekeeper_password = models.CharField(max_length=30)
     housekeeper_mobile = models.CharField(max_length=20,null=True)
 
+
+class Staff(models.Model):
+    id = models.AutoField(primary_key=True)
+    staff_id = models.CharField(max_length=20)
+    staff_name = models.CharField(max_length=30)
+    staff_email = models.CharField(max_length=40)
+    staff_password = models.CharField(max_length=30)
+    staff_mobile = models.CharField(max_length=20, null=True)
     
 class Room_floor(models.Model):
     floor_id = models.AutoField(primary_key=True)
@@ -37,8 +45,9 @@ class Room_details(models.Model):
     room_occupancy = models.CharField(max_length=20,default="Vacant")
     room_notes = models.CharField(max_length=250,null=True)
     room_inspect_status = models.CharField(max_length=20, default="Inspected")
-    room_housekeeper = models.ForeignKey(Housekeeper, on_delete=models.CASCADE,null=True)
-    room_updated_by = models.ForeignKey(Admin, on_delete=models.CASCADE)
+    room_housekeeper = models.ForeignKey(Housekeeper, on_delete=models.DO_NOTHING,null=True)
+    room_updated_by = models.ForeignKey(Admin, on_delete=models.DO_NOTHING,null=True)
+    room_updated_by_staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING,null=True)
     room_updated_time = models.DateTimeField(auto_now_add=True, null=True)
     
 
