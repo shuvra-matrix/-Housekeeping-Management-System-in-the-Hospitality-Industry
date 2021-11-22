@@ -50,12 +50,12 @@ def room_manage(request):
 def room_update(request):
     if request.method == "POST":
         room_id = request.POST.get("room_id")
+        print(room_id)
         room_inspection = request.POST.get("room_inspected")
         room_note = request.POST.get("room_note")
         room_status = request.POST.get("room_status")
         housekeeper_id = request.POST.get("housekeeper_id")
-        update_data = Room_details.objects.filter(id=room_id).update(
-            room_inspect_status=room_inspection, room_notes=room_note, room_housekeeper=housekeeper_id, room_status=room_status)
+        update_data = Room_details.objects.filter(id=room_id).update(room_inspect_status=room_inspection, room_notes=room_note, room_housekeeper=housekeeper_id, room_status=room_status)
         update_housekeeper_data = Housekeeper_details.objects.filter(housekeeper_id=housekeeper_id).update(housekeeper_status="Occupied")
         housekeepr_data = Housekeeper.objects.get(id=housekeeper_id)
         room_data = Room.objects.get(room_id=room_id)
@@ -148,7 +148,7 @@ def add_room_floor(request):
             room_type = request.POST.get("room_type")
             floor_details = Room_floor.objects.get(floor_id=floor_id)
             create_room = Room.objects.create(floor_id=floor_details,room_name=room_name)
-            admin_data = Admin.objects.get(id="1")
+            admin_data = Admin.objects.get(id="3")
             create_room_data = Room_details.objects.create(room_id=create_room,room_type=room_type,room_updated_by=admin_data)
             return redirect("/rooms_and_floor")
         elif request.POST.get("floor") == "floor":
