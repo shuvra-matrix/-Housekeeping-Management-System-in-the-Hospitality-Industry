@@ -1,0 +1,70 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+
+<form action="{% url 'hmsapp:add_room' %}" method="POST">
+    {% csrf_token %}
+    <div class="main_div_manage">
+         <div style="margin-left: 2rem;" class="">
+            <h3>Add Room- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+        {% if room_floor_data %}
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Floor Name: </p>
+            </div>
+            <div class="sp_sub">
+                <select name="floor_id" class="input_class">
+                    <option value="">Select Floor</option>
+                    {% for floor in room_floor_data %}
+                    <option value="{{floor.floor_id}}">{{floor.floor_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+         </div>
+        
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Name </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="" name="room_name">
+            </div>
+            
+        
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Type: </p>
+            </div>
+            <div class="sp_sub">
+                <select name="room_type" class="input_class">
+                    <option value="">Select Room Types</option>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Triple">Triple</option>
+                    <option value="Queen">Queen</option>
+                    <option value="King">King</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                </select>
+            </div>
+            <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Add Room ?')" class="button-29" name="update" type="submit">Submit</button>
+            </div>
+         </div>
+        <input type="hidden" name="add_room" value="add_room">
+    {% endif %}
+        
+</form>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

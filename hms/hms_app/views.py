@@ -123,3 +123,34 @@ def housekeeper_delete(request):
         delete_housekeepr_data = Housekeeper_details.objects.filter(housekeeper_id=id).delete()
         delete_housekeeper_room_data = Housekeeper_room_visit.objects.filter(housekeeper_id=id).delete()
         return redirect("/housekeepers")
+
+
+def rooms_and_floor(request):
+    room_data = Room.objects.all()
+    floor_data = Room_floor.objects.all()
+    my_dict = {
+        "room_data": room_data,
+        "floor_data": floor_data,
+    }
+    
+    return render(request, "admins/rooms_and_floor.html",context=my_dict)
+
+
+def add_room_floor(request):
+    if request.method == "POST":
+        if request.POST.get("room") == "room":
+            floor_details = Room_floor.objects.all()
+            my_dict = {
+                "room_floor_data":floor_details,
+            }
+            return render(request, "admins/add_room_floor.html",context=my_dict)
+        elif request.POST.get("add_room") == "add_room":
+            floor_id = request.POST.get("floor_id")
+            room_name = request.POST.get("room_name")
+            room_type = request.POST.get("room_type")
+            floor_details = Room_floor.objects.get(floor_id=floor_id)
+            create_room = Room.objects.create(floor_id=floor_details,room_name=room_name)
+            room_object_id = Room.objects.get(room_name=room_name)
+            create_room_data = Room_details.objects.create(room_id=room_object_id,room_type=room_type,room_updated_by="Shuvra Chakrabarty")
+            return redirect("/rooms_and_floor")
+    

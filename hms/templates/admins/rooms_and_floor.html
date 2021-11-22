@@ -1,0 +1,108 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+    <div class="room_main" style="overflow: auto;">
+        <div class="">
+            <h3>Housekeeper- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+        
+        <div>
+            <div style="display: flex; flex-direction: row; ">
+                <form action="{% url 'hmsapp:add_room' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="room" value="room">
+                    <button style="margin-right: 3rem;" class="add_housekeeper"  type="submit"> Add Room</button>
+                </form>
+                <form action="{% url 'hmsapp:add_floor' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="floor" value="floor">
+                    <button class="add_housekeeper"  type="submit"> Add Floor</button>
+                </form>
+            </div>
+        </div>
+    <div class="room_table" style="display: flex; flex-direction: row;">
+
+           <div class="room_table" style="margin-right: 3rem;">
+            <table class="table_class" >
+                <thead class="table_head">
+                    <th>Id #</th>
+                    <th>Room Name</th>
+                    <th>Edit</th>
+                </thead>
+                <tbody>
+                    {% if floor_data %}
+                    {% for floor in  floor_data %}
+                    <tr>
+                        <td>{{floor.floor_id}}</td>
+                        <td>{{floor.floor_name}}</td>
+                        <td style="display: flex;align-items: center;justify-content: center;">
+                        <form action="{% url 'hmsapp:housekeeper_details' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="floor_id" value="{{floor.floor_id}}">
+                            <div style="display: flex; flex-direction: row;">
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                       
+                        <form action="{% url 'hmsapp:housekeeper_delete' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="floor_id" value="{{floor.floor_id}}">
+                            <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
+                        </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+
+            </div>
+            <div class="room_table">
+
+
+            <table class="table_class">
+                <thead class="table_head">
+                     <th>Id #</th>
+                    <th>Room Name</th>
+                    <th>Edit</th>
+                </thead>
+                <tbody>
+                    {% if room_data %}
+                    {% for room in  room_data %}
+                    <tr>
+                        <td>{{room.room_id}}</td>
+                        <td>{{room.room_name}}</td>
+                        <td style="display: flex;align-items: center;justify-content: center;">
+                        <form action="{% url 'hmsapp:housekeeper_details' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="room_id" value="{{room.room_id}}">
+                            <div style="display: flex; flex-direction: row;">
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                       
+                        <form action="{% url 'hmsapp:housekeeper_delete' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="room_id" value="{{room.room_id}}">
+                            <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
+                        </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+
+                </div>
+        </div>
+  </div>
+</div>
+ </body>
+ </html>
+{% endblock %}
