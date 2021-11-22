@@ -48,7 +48,7 @@ tr,
 td {
     border-collapse: collapse;
     border: none;
-    padding: 1rem;
+    padding: .6rem;
 }
 
 .room_table {
@@ -66,13 +66,18 @@ td {
     
 }
 th{
-    padding: .9rem;
+    padding: .6rem;
     color: rgb(45, 48, 204);
+    font-size: .96rem !important;
 }
-
+td{
+    font-size: .95rem !important;
+    text-align: center;
+}
 .room_tr {
     width: 100%;
     background-color: beige;
+    
 }
 .hidden_id{
     color: beige;
