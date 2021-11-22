@@ -120,8 +120,6 @@ def housekeeper_delete(request):
         id = request.POST.get("housekeeper_id")
         print(id)
         delete_housekeeper = Housekeeper.objects.filter(id=id).delete()
-        delete_housekeepr_data = Housekeeper_details.objects.filter(housekeeper_id=id).delete()
-        delete_housekeeper_room_data = Housekeeper_room_visit.objects.filter(housekeeper_id=id).delete()
         return redirect("/housekeepers")
 
 
@@ -163,3 +161,48 @@ def add_room_floor(request):
             floor_name = request.POST.get("floor_name")
             crete_floor = Room_floor.objects.create(floor_name=floor_name)
             return redirect("/rooms_and_floor")
+        elif request.POST.get("update_floor") == "update_floor":
+            floor_id = request.POST.get("floor_id")
+            floor_details = Room_floor.objects.all().filter(floor_id=floor_id)
+            my_dict = {
+                "floor_update_id" : floor_details
+            }
+            return render(request, "admins/add_room_floor.html", context=my_dict)
+            
+        elif request.POST.get("floor_data_update") == "floor_data_update":
+            print("update")
+            floor_id = request.POST.get("floor_id")
+            floor_name = request.POST.get("floor_name")
+            update = Room_floor.objects.filter(floor_id=floor_id).update(floor_name=floor_name) 
+            return redirect("/rooms_and_floor")
+        
+        elif request.POST.get("delete_floor") == "delete_floor":
+            floor_id = request.POST.get("floor_id")
+            delete_floor = Room_floor.objects.filter(floor_id=floor_id).delete()
+            return redirect("/rooms_and_floor")
+        elif request.POST.get("update_room") == "update_room":
+            room_id = request.POST.get("room_id")
+            room_data = Room.objects.all().filter(room_id=room_id)
+            floor_details = Room_floor.objects.all()
+            room_details = Room_details.objects.all().filter(room_id=room_id)
+            my_dict = {
+                "room_floor_data_update": floor_details,
+                "room_data_update" : room_data,
+                "room_details":room_details,
+            }
+            return render(request, "admins/add_room_floor.html", context=my_dict)
+        elif request.POST.get("update_room_data") == "update_room_data":
+            room_id = request.POST.get("room_id")
+            floor_id = request.POST.get("floor_id")
+            floor_details = Room_floor.objects.get(floor_id=floor_id)
+            room_name = request.POST.get("room_name")
+            room_type = request.POST.get("room_type")
+            update_room_data = Room.objects.filter(room_id=room_id).update(floor_id=floor_details,room_name=room_name)
+            update_room_status = Room_details.objects.filter(room_id=room_id).update(room_type=room_type)
+            return redirect("/rooms_and_floor")
+        elif request.POST.get("delete_room") == "delete_room":
+            room_id = request.POST.get("room_id")
+            delete_room = Room.objects.filter(room_id=room_id).delete()
+            return redirect("/rooms_and_floor")
+            
+            

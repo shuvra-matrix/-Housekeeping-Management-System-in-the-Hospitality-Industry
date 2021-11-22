@@ -15,11 +15,13 @@ urlpatterns = [
          name="housekeeper_details"),
     path("housekeeper_update/", views.housekeeper_update, name="housekeeper_update"),
     path("housekeeper_delete/", views.housekeeper_delete, name="housekeeper_delete"),
-    path("rooms_and_floor/", views.rooms_and_floor,
-         name="rooms_and_floor"),
+    path("rooms_and_floor/", views.rooms_and_floor,name="rooms_and_floor"),
     path("rooms_and_floor/add_room", views.add_room_floor,
          name="add_room"),
     path("rooms_and_floor/add_floor", views.add_room_floor,
          name="add_floor"),
-    
+    path("rooms_and_floor/edit_floor", views.add_room_floor,
+         name="edit_floor"),
+    path("rooms_and_floor/edit_room", views.add_room_floor,
+         name="edit_room"),
 ]

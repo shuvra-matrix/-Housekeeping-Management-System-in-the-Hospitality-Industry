@@ -40,15 +40,17 @@
                         <td>{{floor.floor_id}}</td>
                         <td>{{floor.floor_name}}</td>
                         <td style="display: flex;align-items: center;justify-content: center;">
-                        <form action="{% url 'hmsapp:housekeeper_details' %}" method="POST">
+                        <form action="{% url 'hmsapp:edit_floor' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="floor_id" value="{{floor.floor_id}}">
+                            <input type="hidden" name="update_floor" value="update_floor">
                             <div style="display: flex; flex-direction: row;">
                             <button type="submit" class="click_button" >&#x1F441;</button>
                         </form>
                        
-                        <form action="{% url 'hmsapp:housekeeper_delete' %}" method="POST">
+                        <form action="{% url 'hmsapp:edit_floor' %}" method="POST">
                         {% csrf_token %}
+                            <input type="hidden" name="delete_floor" value="delete_floor">
                             <input type="hidden" name="floor_id" value="{{floor.floor_id}}">
                             <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
                         </form>
@@ -78,15 +80,17 @@
                         <td>{{room.room_id}}</td>
                         <td>{{room.room_name}}</td>
                         <td style="display: flex;align-items: center;justify-content: center;">
-                        <form action="{% url 'hmsapp:housekeeper_details' %}" method="POST">
+                        <form action="{% url 'hmsapp:edit_room' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="room_id" value="{{room.room_id}}">
+                            <input type="hidden" name="update_room" value="update_room">
                             <div style="display: flex; flex-direction: row;">
                             <button type="submit" class="click_button" >&#x1F441;</button>
                         </form>
                        
-                        <form action="{% url 'hmsapp:housekeeper_delete' %}" method="POST">
+                        <form action="{% url 'hmsapp:edit_room' %}" method="POST">
                         {% csrf_token %}
+                        <input type="hidden" name="delete_room" value="delete_room">
                             <input type="hidden" name="room_id" value="{{room.room_id}}">
                             <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
                         </form>

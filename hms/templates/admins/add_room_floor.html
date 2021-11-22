@@ -7,13 +7,19 @@
             
     </div>
 
+
 <form action="{% url 'hmsapp:add_room' %}" method="POST">
     {% csrf_token %}
+
+<!-- add_room -->
+
+
     <div class="main_div_manage">
+         {% if room_floor_data %}
          <div style="margin-left: 2rem;" class="">
             <h3>Add Room- Monday, 26 Oct 2020 12:18 AM</h3>
         </div>
-        {% if room_floor_data %}
+       
         <div class="sub_div_manage">
             <div class="sp_sub">
                 <p>Floor Name: </p>
@@ -27,7 +33,7 @@
                 </select>
             </div>
          </div>
-        
+
         <div class="sub_div_manage">
             <div class="sp_sub">
                 <p>Room Name </p>
@@ -60,9 +66,17 @@
         <input type="hidden" name="add_room" value="add_room">
     {% endif %}
 
+<!-- add_room_end-->
+
+
+
+<!-- add_floor-->
 
 
     {% if floor %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Add Floor- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
 
         <div class="sub_div_manage">
             <div class="sp_sub">
@@ -80,6 +94,111 @@
 
     {% endif %}
         
+
+<!-- add_floor_end-->
+
+
+
+
+</form>
+<form action="{% url 'hmsapp:edit_floor' %}" method="POST">
+{% csrf_token %}
+
+<!-- update_floor-->
+
+
+    {% if floor_update_id %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Update Floor- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Floor Name </p>
+            </div>
+            <div class="sp_sub">
+                {% for floor in  floor_update_id %}
+                <input class="input_class" type="text" value="{{floor.floor_name}}" name="floor_name">
+                <input type="hidden" name="floor_id" value="{{floor.floor_id}}">
+                <input type="hidden" name="floor_data_update" value="floor_data_update">
+                {% endfor %}
+            </div>
+        
+            <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Update Floor ?')" class="button-29" name="update" type="submit">Update</button>
+            </div>
+         </div>
+
+    {% endif %}
+
+
+<!-- upadte_floor_end-->
+
+<!-- update_room-->
+
+
+    {% if room_floor_data_update %}
+         <div style="margin-left: 2rem;" class="">
+            <h3>Update Room- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Floor Name: </p>
+            </div>
+            <div class="sp_sub">
+                <select name="floor_id" class="input_class">
+                    {% for room_floor in room_data_update %}
+                    <option value="{{room_floor.floor_id.floor_id}}">{{room_floor.floor_id.floor_name}}</option>
+                   
+                    {% for floor in room_floor_data_update %}
+                    <option value="{{floor.floor_id}}">{{floor.floor_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+         </div>
+        
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Name </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room_floor.room_name}}" name="room_name">
+            </div>
+            
+        
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Type: </p>
+            </div>
+            <div class="sp_sub">
+                <select name="room_type" class="input_class">
+                    {% for room_det in room_details %}
+                    <option value="{{room_det.room_type}}">{{room_det.room_type}}</option>
+                    {% endfor %}
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Triple">Triple</option>
+                    <option value="Queen">Queen</option>
+                    <option value="King">King</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                </select>
+            </div>
+            <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Update Room ?')" class="button-29" name="update" type="submit">Update</button>
+            </div>
+         </div>
+            <input type="hidden" name="room_id" value="{{room_floor.room_id}}">
+          {% endfor %}
+
+    {% endif %}
+         
+         <input type="hidden" name="update_room_data" value="update_room_data">
+
+
+<!-- update_room_end-->
+
+
+
 </form>
     </div>
 
