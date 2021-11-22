@@ -57,6 +57,7 @@ def room_update(request):
         update_data = Room_details.objects.filter(id=room_id).update(
             room_inspect_status=room_inspection, room_notes=room_note, room_housekeeper=housekeeper_id, room_status=room_status)
         update_housekeeper_data = Housekeeper_details.objects.filter(housekeeper_id=housekeeper_id).update(housekeeper_status="Occupied",housekeeper_room_visit=room_id)
+        create_housekeeper_room = Housekeeper_room_visit.objects.create(housekeeper_id=housekeeper_id,room_id=room_id)
         return redirect("/room_status")
 
 
