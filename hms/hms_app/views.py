@@ -83,3 +83,35 @@ def add_housekeeper(request):
         return redirect("/housekeepers")
     
     return render(request, "admins/add_housekeeper.html")
+
+
+def housekeeper_details(request):
+    if request.method == "POST":
+        housekeeper_id = request.POST.get("housekeeper_id")
+        housekeeper_data = Housekeeper.objects.all().filter(id=housekeeper_id)
+        housekeeper_room_data = Housekeeper_room_visit.objects.all().filter(housekeeper_id=housekeeper_id)
+        housekeeper_room_data_count = Housekeeper_room_visit.objects.all().filter(
+            housekeeper_id=housekeeper_id).count()
+        if housekeeper_room_data_count > 0:
+            my_dict = {
+                "housekeeper_data": housekeeper_data,
+                "housekeeper_room_data": housekeeper_room_data,
+            }
+        else:
+            my_dict = {
+                "housekeeper_data": housekeeper_data,
+            }
+            
+        return render(request, "admins/housekeeper_details.html",context=my_dict)
+
+def housekeeper_update(request):
+    if request.method == "POST":
+        id = request.POST.get("id")
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        contact_number = request.POST.get('number')
+        housekeeper_id = request.POST.get('id')
+        update_data = Housekeeper.objects.filter(id=id).update(housekeeper_name=name,housekeeper_email=email,housekeeper_id=housekeeper_id,housekeeper_mobile=contact_number)
+        return redirect("/housekeepers")
+        
+         

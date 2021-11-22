@@ -1,0 +1,76 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+
+<form action="{% url 'hmsapp:housekeeper_update' %}" method="POST">
+    {% csrf_token %}
+    <div class="main_div_manage">
+        <div style="margin-left: 2rem;" class="">
+            <h3>Update Housekeeper- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+        {% if housekeeper_data %}
+        {% for data in housekeeper_data %}
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Housekeeper Name: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{data.housekeeper_name}}" name="name">
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Housekeeper Email: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="email" value="{{data.housekeeper_email}}" name="email">
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Housekeeper Contact Number: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{data.housekeeper_mobile}}" name="number" maxlength="12">
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Housekeeper ID: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{data.housekeeper_id}}" name="id" maxlength="18">
+            </div>
+         </div>
+        
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                 {% if housekeeper_room_data %}
+                <p>Housekeeper Service Room: </p>
+            </div>
+            {% for room in housekeeper_room_data %}
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room.room_id.room_name}}" name="id" readonly>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <div class="button_class">
+                <button class="button-29" name="update" type="submit">Update</button>
+        </div>
+        </div>
+        <input type="hidden" name="id" value="{{data.id}}">
+        
+</form>
+    </div>
+    {% endfor %}
+{% endif %}
+
+</div>
+
+
+{% endblock %}

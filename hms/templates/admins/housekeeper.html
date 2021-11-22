@@ -36,9 +36,9 @@
                         <td><p class="{{house.housekeeper_status}}">{{house.housekeeper_status}}</p></td>
                         <td style="width: 2rem;">
                            
-                        <form action="{% url 'hmsapp:room_manage' %}" method="POST">
+                        <form action="{% url 'hmsapp:housekeeper_details' %}" method="POST">
                             {% csrf_token %}
-                            <input type="hidden" name="housekeeper_id" value="{{house.housekeeper_id}}">
+                            <input type="hidden" name="housekeeper_id" value="{{house.housekeeper_id.id}}">
                             <div style="display: flex; flex-direction: row;">
                             <button type="submit" class="click_button" >&#x1F441;</button>
                         </form>
