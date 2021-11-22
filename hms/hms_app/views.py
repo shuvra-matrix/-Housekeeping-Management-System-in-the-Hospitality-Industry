@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from hms_app.models import Admin, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit
+from hms_app.models import Admin, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details,Housekeeper_room_visit
+from random import randint
 
 # Create your views here.
 
@@ -55,5 +56,27 @@ def room_update(request):
         housekeeper_id = request.POST.get("housekeeper_id")
         update_data = Room_details.objects.filter(id=room_id).update(
             room_inspect_status=room_inspection, room_notes=room_note, room_housekeeper=housekeeper_id, room_status=room_status)
-        update_housekeeper_data = Housekeeper_details.objects.filter(housekeeper_id=housekeeper_id).update(housekeeper_status="Occupied")
+        update_housekeeper_data = Housekeeper_details.objects.filter(housekeeper_id=housekeeper_id).update(housekeeper_status="Occupied",housekeeper_room_visit=room_id)
         return redirect("/room_status")
+
+
+def housekeepers_manage(request):
+    housekeeper = Housekeeper_details.objects.all()
+    my_dict = {
+        "housekeeper":housekeeper,
+    }
+    return render(request, "admins/housekeeper.html",context=my_dict)
+
+def add_housekeeper(request):
+    if request.method =="POST":
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        contact_number = request.POST.get('number')
+        housekeeper_id = request.POST.get('id')
+        password = randint(123654, 986545)
+        insert_value = Housekeeper.objects.create(housekeeper_name=name,housekeeper_email=email,housekeeper_mobile=contact_number,housekeeper_id=housekeeper_id,housekeeper_password=password)
+        get_value = Housekeeper.objects.get(housekeeper_id=housekeeper_id)
+        insert_new_value = Housekeeper_details.objects.create(housekeeper_id=get_value,housekeeper_status="Available")
+        return redirect("/housekeepers")
+    
+    return render(request, "admins/add_housekeeper.html")

@@ -86,7 +86,9 @@ th{
     color: white;
 }
 
-.Inspected,.Vacant{
+.Inspected,
+.Vacant,
+.Available {
       padding: .3rem;
       background-color:green;
       border-radius: 16px;
