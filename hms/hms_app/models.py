@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 
 # Create your models here.
 class Admin(models.Model):
@@ -61,7 +62,27 @@ class Housekeeper_details(models.Model):
     housekeeper_id = models.ForeignKey(Housekeeper, on_delete=models.CASCADE)
     housekeeper_status = models.CharField(max_length=20)
 
-    
+class Food_type(models.Model):
+    id=models.AutoField(primary_key=True)
+    food_type = models.CharField(max_length=10)
+
+class Food_drinks(models.Model):
+    id=models.AutoField(primary_key=True)
+    food_type = models.ForeignKey(Food_type,on_delete=models.CASCADE)
+    food_name = models.CharField(max_length=20)
+
+class Food_quentity(models.Model):
+    id = models.AutoField(primary_key=True)
+    food_drinks = models.ForeignKey(Food_drinks,on_delete=CASCADE)
+    quentity = models.CharField(max_length=20)
+
+class Room_service(models.Model):
+    id = models.AutoField(primary_key=True)
+    room_id = models.ForeignKey(Room,on_delete=models.CASCADE)
+    food_type = models.ForeignKey(Food_drinks,on_delete=models.DO_NOTHING)
+    food_quentity = models.ForeignKey(Food_quentity,on_delete=models.DO_NOTHING)
+
+
 
     
     

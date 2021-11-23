@@ -388,4 +388,4 @@ def edit_staff(request):
         
 
 def room_service(request):
-    pass
+    return render(request,"admins/add_room_service.html")
