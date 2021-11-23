@@ -32,5 +32,8 @@ urlpatterns = [
          name="add_staff"),
     path("staff/edit_staff", views.edit_staff,
          name="edit_staff"),
+     path("room_service/", views.room_service,
+         name="room_service"),
+    
     
 ]

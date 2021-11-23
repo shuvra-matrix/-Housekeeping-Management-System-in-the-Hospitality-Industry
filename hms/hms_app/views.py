@@ -386,3 +386,6 @@ def edit_staff(request):
     else:
         return render(request, 'other/login.html')
         
+
+def room_service(request):
+    pass
