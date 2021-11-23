@@ -30,7 +30,7 @@
             <table class="table_class" >
                 <thead class="table_head">
                     <th>Id #</th>
-                    <th>Room Name</th>
+                    <th>Floor Name</th>
                     <th>Edit</th>
                 </thead>
                 <tbody>
@@ -71,6 +71,7 @@
                 <thead class="table_head">
                      <th>Id #</th>
                     <th>Room Name</th>
+                    <th>Floor Name</th>
                     <th>Edit</th>
                 </thead>
                 <tbody>
@@ -79,6 +80,7 @@
                     <tr>
                         <td>{{room.room_id}}</td>
                         <td>{{room.room_name}}</td>
+                        <td>{{room.floor_id.floor_name}}</td>
                         <td style="display: flex;align-items: center;justify-content: center;">
                         <form action="{% url 'hmsapp:edit_room' %}" method="POST">
                             {% csrf_token %}
