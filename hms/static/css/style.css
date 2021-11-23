@@ -38,6 +38,89 @@ body{
 
 /* admin index page closed */
 
+/* login page css */
+
+.login_main_div {
+    background: #5433FF !important;
+    background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF) !important;
+
+    background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF) !important;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+
+}
+
+.login_sub_div {
+    background: white;
+    box-shadow: 3px 5px 6px 10px #0070d834;
+    padding: 2rem;
+    height: 90%;
+    width: 30%;
+    margin: 2rem auto;
+    border-radius: 12px;
+}
+
+.login_div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}
+
+input[class=log_input] {
+    width: 100%;
+    padding: .4rem;
+    border: 1px rgb(79, 183, 214) solid;
+    border-radius: 16px;
+}
+
+input[class=log_input]:focus {
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+
+}
+
+strong {
+    font-size: 2rem;
+}
+
+p {
+    font-size: .9rem;
+}
+
+button[name=login] {
+    width: 100%;
+    background: #5433FF !important;
+    background: -webkit-linear-gradient(to right, #A5FECB, #20BDFF, #5433FF) !important;
+
+    background: linear-gradient(to right, #A5FECB, #20BDFF, #5433FF) !important;
+    border: none;
+    border-radius: 16px;
+    color: black;
+}
+
+
+.log_option{
+    width: 100%;
+    padding: .4rem;
+    border: 1px rgb(79, 183, 214) solid;
+    border-radius: 16px;
+    background-color: white;
+}
+.log_option:focus{
+    outline: none !important;
+    border-color: #719ECE;
+    box-shadow: 0 0 10px #719ECE;
+}
+
+
+/* login page css done */
+
+
+
+
 /* room status */
 
 .room_main{
@@ -226,3 +309,56 @@ td{
 }
 
 /* close housekeeper */
+
+
+@media only screen and (max-width:1028px) {
+    .log_input {
+
+        width: 110%;
+
+    }
+
+    .login_sub_div {
+        width: 40%;
+        margin: 4rem auto;
+
+    }
+
+}
+
+
+@media only screen and (max-width:770px) {
+
+
+    
+
+    .login_main_div {
+        position: fixed;
+    }
+
+    .login_sub_div {
+        width: 50%;
+        padding: .5rem;
+        height: 80%;
+        margin: 4rem auto;
+    }
+
+    strong {
+        font-size: 1.5rem;
+    }
+
+}
+
+@media only screen and (max-width:492px) {
+
+    
+    .login_sub_div {
+        width: 70%;
+        padding: .5rem;
+    }
+
+    strong {
+        font-size: 1.3rem;
+    }
+
+}
