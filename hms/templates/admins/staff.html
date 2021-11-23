@@ -1,0 +1,67 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+    <div class="room_main" style="overflow: auto;">
+        <div class="">
+            <h3>Staff- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+        <div>
+            <form action="{% url 'hmsapp:add_staff' %}" method="POST">
+                 {% csrf_token %}
+                <input type="hidden" value="add_staff" name="add_staff">
+                <button class="add_housekeeper"  type="submit"> Add Staff</button>
+            </form>
+            
+        </div>
+    
+        <div class="room_table">
+            <table class="table_class">
+                <thead class="table_head">
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact No.</th>
+                    <th>Inspect</th>
+                </thead>
+                <tbody>
+                    {% if staff_details %}
+                    {% for staff in  staff_details    %}
+                    <tr>
+                        <td>{{staff.staff_name}}</td>
+                        <td>{{staff.staff_email}}</td>
+                        <td>{{staff.staff_mobile}}</td>
+                        <td style="width: 2rem;">
+                           
+                        <form action="{% url 'hmsapp:edit_staff' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="staff_id" value="{{staff.id}}">
+                            <input type="hidden" name="update_staff" value="update_staff">
+                            <div style="display: flex; flex-direction: row;">
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                       
+                        <form action="{% url 'hmsapp:edit_staff' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="staff_id" value="{{staff.id}}">
+                            <input type="hidden" name="staff_delete" value="staff_delete">
+                            <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
+                        </form>
+                            </div>
+                            
+                       
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
+</div>
+ </body>
+ </html>
+{% endblock %}

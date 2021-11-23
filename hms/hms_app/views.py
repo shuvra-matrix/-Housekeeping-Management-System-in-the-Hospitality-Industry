@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from hms_app.models import Admin, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details,Housekeeper_room_visit
+from hms_app.models import Admin, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details,Housekeeper_room_visit,Staff
 from random import randint
 
 # Create your views here.
@@ -206,3 +206,49 @@ def add_room_floor(request):
             return redirect("/rooms_and_floor")
             
             
+def staff(request):
+    staff_details = Staff.objects.all()
+    my_dict = {
+        "staff_details": staff_details,
+    }
+    return render(request, "admins/staff.html",context=my_dict)
+
+def add_staff(request):
+    if request.method == "POST":
+        if request.POST.get("add_staff") == "add_staff":
+            return render(request, "admins/add_staff.html")
+        elif request.POST.get("staff_added") == "staff_added":
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            contact_number = request.POST.get('number')
+            staff_id = request.POST.get('id')
+            password = randint(123654, 986545)
+            add_staff = Staff.objects.create(staff_name=name,staff_email=email,staff_id=staff_id,staff_mobile=contact_number,staff_password=password)
+            return redirect("/staff")
+
+def edit_staff(request):
+    if request.method == "POST":
+        if request.POST.get("update_staff") == "update_staff":
+            staff_id = request.POST.get("staff_id")
+            print(staff_id)
+            staff_details = Staff.objects.all().filter(id=staff_id)
+            my_dict = {
+                "staff_details":staff_details,
+            }
+            return render(request, "admins/update_staff.html",context=my_dict)
+            
+            pass
+        elif request.POST.get("staff_delete") == "staff_delete":
+            id = request.POST.get("staff_id")
+            delete_staff = Staff.objects.filter(id=id).delete()
+            return redirect("/staff")
+    
+        elif request.POST.get("staff_updated") == "staff_updated":
+            id = request.POST.get("staff_id")
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            contact_number = request.POST.get('number')
+            staff_id = request.POST.get('id')
+            update_staff = Staff.objects.filter(id=id).update(staff_name=name,staff_email=email,staff_mobile=contact_number,staff_id=staff_id)
+            return redirect("/staff")
+    

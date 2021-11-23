@@ -24,4 +24,11 @@ urlpatterns = [
          name="edit_floor"),
     path("rooms_and_floor/edit_room", views.add_room_floor,
          name="edit_room"),
+    path("staff/", views.staff,
+         name="staff"),
+    path("staff/add_staff", views.add_staff,
+         name="add_staff"),
+    path("staff/edit_staff", views.edit_staff,
+         name="edit_staff"),
+    
 ]
