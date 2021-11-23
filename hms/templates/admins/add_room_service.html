@@ -1,0 +1,175 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+    <div class="room_main" style="overflow: auto;">
+        <div class="">
+            <h3>Room Service - Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+
+
+     <div style="display: flex; flex-direction: row;">
+
+            <div style=" display: flex; flex-direction: column; flex: 10 30 ;position: relative; width: 100%; ">
+                 <div >
+                    <h5>Room Name</h5>
+                    <div style="display: flex;flex-direction: row;">
+                        <div style="width: 330px;">
+                        <form action="{% url 'hmsapp:room_service' %}" method="POST">
+                           {% csrf_token %}
+                            <select name="room_id" class="input_class">
+                                 {% if 'initial' in request.session %}
+                                    <option value="">Select Room</option>
+                                {% endif %}
+
+                                {% if 'room_id' in request.session %}
+                                    {% for i in room_details %}
+                                    <option value="{{i.room_id}}">{{i.room_name}}</option>
+                                    {% endfor %}
+                                {% endif %}
+                                    {% for i in room_details %}
+                                        <option value="{{i.room_id}}">{{i.room_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                    </div>
+                </div>
+                <div >
+                    <h5>Food Type</h5>
+                    <div style="display: flex;flex-direction: row;">
+                        <div style="width: 330px;">
+                            <select name="food_type" class="input_class">
+                                 {% if 'initial' in request.session %}
+                                    <option value="">Select Food Type</option>
+                                    {% endif %}
+
+                                {% if 'food_type_id' in request.session %}
+                                    {% for i in food_type_details %}
+                                    <option value="{{i.id}}">{{i.food_type}}</option>
+                                    {% endfor %}
+                                {% endif %}
+                                    {% for i in food_type %}
+                                    <option value="{{i.id}}">{{i.food_type}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <input type="hidden" name="food_types" value="food_types">
+                            <div>
+                                <button style="padding: .6rem; background-color: slateblue; border-radius: 16px; border: 0px; color: white;" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div >
+                    <h5>Food Name</h5>
+                    <div style="display: flex;flex-direction: row;">
+                        <div style="width: 330px;">
+                         <form action="{% url 'hmsapp:room_service' %}" method="POST">
+                             {% csrf_token %}
+                                <select name="food" class="input_class">
+                                    {% if 'second_initial' in request.session %}
+                                        <option value="">Select Food</option>
+                                    {% endif %}
+
+                                    {% if 'foods' in request.session %}
+                                    {% for i in food_details %}
+                                    <option value="{{i.id}}">{{i.food_name}}</option>
+                                    {% endfor %}
+                                    {% endif %}
+
+                                    {% if select_food %}
+                                    {% for i in select_food %}
+                                    <option value="{{i.id}}">{{i.food_name}}</option>
+                                    {% endfor %}
+                                    {% endif %}
+                                   
+                                </select>
+                                 
+                        </div>
+                        <div>
+                            <button style="padding: .6rem; background-color: slateblue; border-radius: 16px; border: 0px; color: white;" type="submit">Search</button>
+                        </div>
+                         <input type="hidden" name="foods" value="foods">
+                    </div>
+                    </form>
+                </div>
+                <div>
+                    <h5>Food Quentity</h5>
+                    <div style="display: flex;flex-direction: row;">
+                              <div style="width: 330px;">
+                         <form action="{% url 'hmsapp:room_service' %}" method="POST">
+                             {% csrf_token %}
+                                <select name="foods_quentity" class="input_class">
+                                    {% if 'third_initial' in request.session %}
+                                        <option value="">Select Food Quantity</option>
+                                    {% endif %}
+
+                                    {% if food_quentity_details %}
+                                    {% for i in food_quentity_details %}
+                                    <option value="{{i.id}}">{{i.quentity}}</option>
+                                    {% endfor %}
+                                    {% endif %}
+                                   
+                                </select>
+                                 
+                        </div>
+                        <div>
+                            <button style="padding: .6rem; background-color: slateblue; border-radius: 16px; border: 0px; color: white;" type="submit">Add List</button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="food_quentity" value="food_quentity">
+                </form>
+                </div>
+                <form action="{% url 'hmsapp:place_order' %}" method="POST">
+                     {% csrf_token %}
+                <div style="margin-top: 2rem; margin-left: 5rem;">
+                    <button onclick="return confirm('Are you sure you want to place order?')" style="padding: .6rem; background-color: slateblue; border-radius: 16px; border: 0px; color: white;" type="submit">Place Order</button>
+                </div>
+                </form>
+
+            </div>
+        <div>
+        <div class="room_table" style="display: flex; flex: 20 30; overflow: auto;" >
+            <table class="table_class">
+                <thead class="table_head">
+                    <th>Order id</th>
+                    <th>Room Name</th>
+                    <th>Food Name</th>
+                    <th>Quentity</th>
+                    <th>Edit</th>
+                </thead>
+                <tbody>
+                  {% if list_data %}
+                  {% for l in list_data %}
+                    <tr>
+
+                        <td>{{l.id}}</td>
+                        <td>{{l.room.room_name}}</td>
+                        <td>{{l.food_name.food_name}}</td>
+                        <td>{{l.quentity.quentity}}</td>
+                        <td style="width: 2rem;">
+                           
+                            <form action="{% url 'hmsapp:room_service' %}" method="POST">
+                            {% csrf_token %}
+                                <input type="hidden" value="delete_list" name="delete_list">
+                                <input type="hidden" name="list_id" value="{{l.id}}">
+                                <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
+ </body>
+ </html>
+{% endblock %}

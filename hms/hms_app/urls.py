@@ -45,6 +45,7 @@ urlpatterns = [
      path("food/delete_food",views.add_food,name="delete_food"),
     path("food/update_quentity", views.add_food, name="edit_quentity"),
      path("food/delete_quentity",views.add_food,name="delete_quentity"),
+    path("room_service/place_order", views.place_order, name="place_order"),
     
     
 ]

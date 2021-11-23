@@ -81,9 +81,15 @@ class Room_service(models.Model):
     room_id = models.ForeignKey(Room,on_delete=models.CASCADE)
     food_type = models.ForeignKey(Food_drinks,on_delete=models.DO_NOTHING)
     food_quentity = models.ForeignKey(Food_quentity,on_delete=models.DO_NOTHING)
+    time = models.DateTimeField(auto_now_add=True, null=True)
 
-
-
+class Food_order_list(models.Model):
+    id = models.AutoField(primary_key=True)
+    room = models.ForeignKey(Room, on_delete=models.DO_NOTHING)
+    food_name = models.ForeignKey(Food_drinks, on_delete=models.DO_NOTHING)
+    quentity = models.ForeignKey(Food_quentity, on_delete=models.DO_NOTHING)
+    
+    
     
     
         

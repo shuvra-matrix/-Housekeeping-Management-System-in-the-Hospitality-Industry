@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details,Housekeeper_room_visit,Staff,Food_quentity,Food_drinks,Food_type,Room_service
+from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list
 from random import randint
 
 # Create your views here.
@@ -401,6 +401,7 @@ def food(request):
 
 
 def add_food(request):
+    
     if request.method == "POST":
         if request.POST.get("add_food_type") == "add_food_type":
             add_food_type = "add_food_type"
@@ -507,4 +508,104 @@ def add_food(request):
 
 
 def room_service(request):
-    return render(request,"admins/add_room_service.html")
+    food_type = Food_type.objects.all()
+    room_details = Room.objects.all()
+    if request.method == "POST":
+        if request.POST.get("food_types") == "food_types":
+            del request.session['initial']
+            request.session["second_initial"] = "second_initial"
+            room_id = request.POST.get("room_id")
+            room_details = Room.objects.all().filter(room_id=room_id)
+            request.session["room_id"] = room_id
+            food_type_id = request.POST.get("food_type")
+            food_type_details = Food_type.objects.all().filter(id=food_type_id)
+            select_food = Food_drinks.objects.all().filter(food_type=food_type_id)
+            request.session['food_type_id'] = food_type_id
+            for i in food_type_details:
+                request.session['food_type_name'] = i.food_type
+            if request.session.has_key('room_id'):
+                room_id = request.session.get("room_id")
+                list_data = Food_order_list.objects.all().filter(room=room_id)
+            else:
+                list_data = None
+            my_dicts = {
+                "list_data": list_data,
+                "room_details": room_details,
+                "select_food":select_food,
+                "food_type_details": food_type_details,
+            }
+            return render(request, "admins/add_room_service.html", context=my_dicts)
+    
+        elif request.POST.get("foods") == "foods":
+            del request.session["second_initial"]
+            food_id = request.POST.get("food")
+            request.session['food_drinks_id'] = food_id
+            room_id = request.session.get("room_id")
+            room_details = Room.objects.all().filter(room_id=room_id)
+            food_type_id = request.session.get("food_type_id")
+            food_details = Food_drinks.objects.all().filter(id=food_id)
+            food_type_details = Food_type.objects.all().filter(id=food_type_id)
+            for i in food_type_details:
+                food_quentity_details = Food_quentity.objects.all().filter(food_type=i.id)
+            
+                request.session['foods'] = "foods"
+                request.session['third_initial'] = "third_initial"
+                if request.session.has_key('room_id'):
+                    room_id = request.session.get("room_id")
+                    list_data = Food_order_list.objects.all().filter(room=room_id)
+                else:
+                    list_data = None
+                dicts = {
+                    "list_data": list_data,
+                    "room_details": room_details,
+                    "food_type_details":food_type_details,
+                    "food_details": food_details,
+                    "food_quentity_details": food_quentity_details,
+                    
+                }
+
+                return render(request, "admins/add_room_service.html", context=dicts)
+            
+        elif request.POST.get("food_quentity") == "food_quentity":
+            food_quentity_id = request.POST.get("foods_quentity")
+            room_id = request.session.get("room_id")
+            food_type_id = request.session.get('food_type_id') 
+            food_id = request.session.get('food_drinks_id')
+            room_details = Room.objects.get(room_id=room_id)
+            food_details = Food_drinks.objects.get(id=food_id)
+            food_quentiry = Food_quentity.objects.get(id=food_quentity_id)
+            create_data = Food_order_list.objects.create(room=room_details,food_name=food_details,quentity=food_quentiry)
+            
+            return redirect("/room_service")
+        
+        elif request.POST.get("delete_list") == "delete_list":
+            list_id = request.POST.get("list_id")
+            delete_list = Food_order_list.objects.filter(id=list_id).delete()
+            return redirect("/room_service")
+        
+    if request.session.has_key('room_id'):
+        room_id = request.session.get("room_id")
+        list_data = Food_order_list.objects.all().filter(room=room_id)
+    else:
+        list_data = None
+
+    my_dict = {
+        "list_data": list_data,
+        "room_details": room_details,
+        "food_type": food_type,
+    }
+   
+    request.session['initial'] = "initial"
+    request.session['second_initial'] = "second_initial"
+    request.session['third_initial'] = "third_initial"
+    return render(request,"admins/add_room_service.html",context=my_dict)
+
+
+
+def place_order(request):
+    room_id = request.session.get("room_id")
+    list_data = Food_order_list.objects.all().filter(room=room_id).delete()
+    del request.session["room_id"]
+    del request.session['food_drinks_id']
+    del request.session['food_type_id']
+    return redirect("/room_service")
