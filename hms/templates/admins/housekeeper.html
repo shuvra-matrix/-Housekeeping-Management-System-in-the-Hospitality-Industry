@@ -9,6 +9,7 @@
         <div class="">
             <h3>Housekeeper- Monday, 26 Oct 2020 12:18 AM</h3>
         </div>
+         {% if 'admin_id' in request.session %}
         <div>
             <form action="{% url 'hmsapp:add_housekeeper' %}" method="get">
                  {% csrf_token %}
@@ -16,7 +17,7 @@
             </form>
             
         </div>
-    
+        {% endif %}
         <div class="room_table">
             <table class="table_class">
                 <thead class="table_head">
@@ -42,12 +43,13 @@
                             <div style="display: flex; flex-direction: row;">
                             <button type="submit" class="click_button" >&#x1F441;</button>
                         </form>
-                       
+                        {% if 'admin_id' in request.session %}
                         <form action="{% url 'hmsapp:housekeeper_delete' %}" method="POST">
                         {% csrf_token %}
                             <input type="hidden" name="housekeeper_id" value="{{house.housekeeper_id.id}}">
                             <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
                         </form>
+                        {% endif %}
                             </div>
                             
                        

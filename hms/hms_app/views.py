@@ -205,9 +205,8 @@ def housekeeper_details(request):
         if request.method == "POST":
             housekeeper_id = request.POST.get("housekeeper_id")
             housekeeper_data = Housekeeper.objects.all().filter(id=housekeeper_id)
-            housekeeper_room_data = Housekeeper_room_visit.objects.all().filter(housekeeper_id=housekeeper_id)
-            housekeeper_room_data_count = Housekeeper_room_visit.objects.all().filter(
-                housekeeper_id=housekeeper_id).count()
+            housekeeper_room_data = Housekeeper_room_visit.objects.all().order_by("id").filter(housekeeper_id=housekeeper_id)[0:1]
+            housekeeper_room_data_count = Housekeeper_room_visit.objects.all().filter(housekeeper_id=housekeeper_id).count()
             if housekeeper_room_data_count > 0:
                 my_dict = {
                     "housekeeper_data": housekeeper_data,
@@ -242,7 +241,7 @@ def housekeeper_delete(request):
 
 
 def rooms_and_floor(request):
-    if request.session.has_key('login'):
+    if request.session.has_key('admin_id'):
         room_data = Room.objects.all()
         floor_data = Room_floor.objects.all()
         my_dict = {
@@ -256,7 +255,7 @@ def rooms_and_floor(request):
     
 
 def add_room_floor(request):
-    if request.session.has_key('login'):
+    if request.session.has_key('admin_id'):
         if request.method == "POST":
             if request.POST.get("room") == "room":
                 floor_details = Room_floor.objects.all()
@@ -331,7 +330,7 @@ def add_room_floor(request):
     
             
 def staff(request):
-    if request.session.has_key('login'):
+    if request.session.has_key('admin_id'):
         staff_details = Staff.objects.all()
         my_dict = {
             "staff_details": staff_details,
@@ -342,7 +341,7 @@ def staff(request):
     
     
 def add_staff(request):
-    if request.session.has_key('login'):
+    if request.session.has_key('admin_id'):
         if request.method == "POST":
             if request.POST.get("add_staff") == "add_staff":
                 return render(request, "admins/add_staff.html")
@@ -359,7 +358,7 @@ def add_staff(request):
     
 
 def edit_staff(request):
-    if request.session.has_key('login'):
+    if request.session.has_key('admin_id'):
         if request.method == "POST":
             if request.POST.get("update_staff") == "update_staff":
                 staff_id = request.POST.get("staff_id")

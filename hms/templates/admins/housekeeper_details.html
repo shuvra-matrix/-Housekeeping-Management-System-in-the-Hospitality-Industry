@@ -7,7 +7,11 @@
             
     </div>
 
+{% if 'admin_id' in request.session %}
 <form action="{% url 'hmsapp:housekeeper_update' %}" method="POST">
+{% endif %}
+
+
     {% csrf_token %}
     <div class="main_div_manage">
         <div style="margin-left: 2rem;" class="">
@@ -59,9 +63,11 @@
             </div>
             {% endfor %}
             {% endif %}
-            <div class="button_class">
-                <button onclick="return confirm('Are you sure you want to Update ?')" class="button-29" name="update" type="submit">Update</button>
-        </div>
+             {% if 'admin_id' in request.session %}
+                <div class="button_class">
+                    <button onclick="return confirm('Are you sure you want to Update ?')" class="button-29" name="update" type="submit">Update</button>
+                </div>
+            {% endif %}
         </div>
         <input type="hidden" name="id" value="{{data.id}}">
         

@@ -35,6 +35,7 @@
                 <a class="w3-bar-item w3-button" href="{% url 'hmsapp:housekeepers' %}">Housekeepers</a>
                 </div>
             </div>
+            {% if 'admin_id' in request.session %}
             <div class="w3-dropdown-hover">
                 <a class="w3-button" href="javascript:void(0)">Management <i class="fa fa-caret-down"></i></a>
                 <div class="w3-dropdown-content w3-bar-block w3-card-4">
@@ -42,6 +43,7 @@
                 <a class="w3-bar-item w3-button" href="{% url 'hmsapp:staff' %}">Staff Section</a>
                 </div>
             </div>
+            {% endif %}
             <a class="w3-bar-item w3-button" href="{% url 'hmsapp:logout' %}">Log out</a>
         </div>
     </div>
