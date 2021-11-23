@@ -129,17 +129,17 @@
                         <td>{{q.food_type.food_type}}</td>
                         <td>{{q.quentity}}</td>
                         <td style="display: flex;align-items: center;justify-content: center;">
-                        <form action="{% url 'hmsapp:edit_room' %}" method="POST">
+                        <form action="{% url 'hmsapp:edit_quentity' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="quentity_id" value="{{q.id}}">
-                            <input type="hidden" name="update_room" value="update_room">
+                            <input type="hidden" name="update_quentity" value="update_quentity">
                             <div style="display: flex; flex-direction: row;">
                             <button type="submit" class="click_button" >&#x1F441;</button>
                         </form>
                        
-                        <form action="{% url 'hmsapp:edit_room' %}" method="POST">
+                        <form action="{% url 'hmsapp:edit_quentity' %}" method="POST">
                         {% csrf_token %}
-                        <input type="hidden" name="delete_room" value="delete_room">
+                        <input type="hidden" name="delete_quentity" value="delete_quentity">
                             <input type="hidden" name="quentity_id" value="{{q.id}}">
                             <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
                         </form>
