@@ -34,6 +34,8 @@ urlpatterns = [
          name="edit_staff"),
      path("room_service/", views.room_service,
          name="room_service"),
+     path("add_food/", views.food,
+         name="food"),
     
     
 ]

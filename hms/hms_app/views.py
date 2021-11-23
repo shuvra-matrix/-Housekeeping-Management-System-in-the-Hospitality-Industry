@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from hms_app.models import Admin, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details,Housekeeper_room_visit,Staff
+from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details,Housekeeper_room_visit,Staff,Food_quentity,Food_drinks,Food_type,Room_service
 from random import randint
 
 # Create your views here.
@@ -385,7 +385,18 @@ def edit_staff(request):
                 return redirect("/staff")
     else:
         return render(request, 'other/login.html')
-        
+
+
+def food(request):
+    food_type = Food_type.objects.all()
+    food_drinks = Food_drinks.objects.all()
+    food_quentity = Food_quentity.objects.all()
+    my_dict = {
+        "food_type":food_type,
+        "food_drinks":food_drinks,
+        "food_quentity":food_quentity,
+    }
+    return render(request,"admins/food.html",context=my_dict)
 
 def room_service(request):
     return render(request,"admins/add_room_service.html")
