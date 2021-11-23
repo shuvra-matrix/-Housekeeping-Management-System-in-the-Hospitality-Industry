@@ -36,7 +36,14 @@
                 </div>
             </div>
 
-            <a class="w3-bar-item w3-button" href="{% url 'hmsapp:room_service' %}">Room Service</a>
+            <div class="w3-dropdown-hover">
+                <a class="w3-button" href="javascript:void(0)">Room Service <i class="fa fa-caret-down"></i></a>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                <a class="w3-bar-item w3-button" href="{% url 'hmsapp:room_service' %}">View Room Service </a>
+                <a class="w3-bar-item w3-button" href="{% url 'hmsapp:housekeepers' %}">Create Room Service</a>
+                </div>
+            </div>
+
 
             {% if 'admin_id' in request.session %}
             <div class="w3-dropdown-hover">
