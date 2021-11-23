@@ -73,7 +73,7 @@ class Food_drinks(models.Model):
 
 class Food_quentity(models.Model):
     id = models.AutoField(primary_key=True)
-    food_drinks = models.ForeignKey(Food_drinks,on_delete=CASCADE)
+    food_type = models.ForeignKey(Food_type,on_delete=CASCADE)
     quentity = models.CharField(max_length=20)
 
 class Room_service(models.Model):

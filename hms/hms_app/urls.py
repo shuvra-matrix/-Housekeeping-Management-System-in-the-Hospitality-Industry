@@ -34,8 +34,11 @@ urlpatterns = [
          name="edit_staff"),
      path("room_service/", views.room_service,
          name="room_service"),
-     path("add_food/", views.food,
+     path("food/", views.food,
          name="food"),
+     path("food/add_food_types",views.add_food,name="add_food_type"),
+     path("food/add_food",views.add_food,name="add_food"),
+     path("food/add_quentity",views.add_food,name="add_quentity"),
     
     
 ]

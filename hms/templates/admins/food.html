@@ -12,19 +12,19 @@
         
         <div>
             <div style="display: flex; flex-direction: row; ">
-                <form action="{% url 'hmsapp:add_room' %}" method="POST">
+                <form action="{% url 'hmsapp:add_food_type' %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="room" value="room">
+                    <input type="hidden" name="add_food_type" value="add_food_type">
                     <button style="margin-right: 3rem;" class="add_housekeeper"  type="submit"> Add Food Type</button>
                 </form>
-                <form action="{% url 'hmsapp:add_floor' %}" method="POST">
+                <form action="{% url 'hmsapp:add_food' %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="floor" value="floor">
+                    <input type="hidden" name="add_food" value="add_food">
                     <button class="add_housekeeper"  type="submit"> Add Food</button>
                 </form>
-                <form action="{% url 'hmsapp:add_floor' %}" method="POST">
+                <form action="{% url 'hmsapp:add_quentity' %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="floor" value="floor">
+                    <input type="hidden" name="add_quentity" value="add_quentity">
                     <button style="margin-left: 3rem" class="add_housekeeper"  type="submit"> Add Quentity</button>
                 </form>
             </div>
@@ -126,7 +126,7 @@
                     {% for q in  food_quentity %}
                     <tr>
                         <td>{{q.id}}</td>
-                        <td>{{q.food_drinks.food_type.food_type}}</td>
+                        <td>{{q.food_type.food_type}}</td>
                         <td>{{q.quentity}}</td>
                         <td style="display: flex;align-items: center;justify-content: center;">
                         <form action="{% url 'hmsapp:edit_room' %}" method="POST">

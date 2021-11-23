@@ -1,0 +1,238 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+
+
+<form action="{% url 'hmsapp:add_food_type' %}" method="POST">
+    {% csrf_token %}
+
+<!-- add_food_type -->
+
+
+    <div class="main_div_manage">
+         {% if add_food_type %}
+         <div style="margin-left: 2rem;" class="">
+            <h3>Add Food Types- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+       
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Food Types Name: </p>
+            </div>
+            <div class="sp_sub">
+                <input type="text" name="food_types" value="" class="input_class"> 
+            </div>
+            <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Add Food Types ?')" class="button-29" name="update" type="submit">Submit</button>
+            </div>
+         </div>
+        <input type="hidden" name="added_food_type" value="added_food_type">
+    {% endif %}
+
+<!-- add_room_end-->
+
+
+
+<!-- add_food-->
+
+
+    {% if pass_food_type %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Add Floor- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Food Types </p>
+            </div>
+            <div class="sp_sub">
+                <div class="sp_sub">
+                <select name="food_types_id" class="input_class">
+                    <option value="">Select Food Types</option>
+                    {% for food_type in pass_food_type %}
+                    <option value="{{food_type.id}}">{{food_type.food_type}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+                <div class="sp_sub">
+                    <p>Food Name: </p>
+                </div>
+                <div class="sp_sub">
+                    <input type="text" name="food_name" value="" class="input_class"> 
+                </div>
+                <div class="button_class">
+                    <button onclick="return confirm('Are you sure you want to Add Food ?')" class="button-29" name="update" type="submit">Submit</button>
+                </div>
+         </div>
+        <input type="hidden" name="added_food" value="added_food">
+
+    {% endif %}
+        
+
+<!-- add_floor_end-->
+
+
+
+
+
+<!-- add_quentity-->
+
+
+    {% if pass_quentity_food_type %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Add Floor- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Food Types </p>
+            </div>
+            <div class="sp_sub">
+                <div class="sp_sub">
+                <select name="food_types_id" class="input_class">
+                    <option value="">Select Food Types</option>
+                    {% for food_type in pass_quentity_food_type %}
+                    <option value="{{food_type.id}}">{{food_type.food_type}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+                <div class="sp_sub">
+                    <p>Quentity Types: </p>
+                </div>
+                <div class="sp_sub">
+                    <input type="text" name="quentity" value="" class="input_class"> 
+                </div>
+                <div class="button_class">
+                    <button onclick="return confirm('Are you sure you want to Add Quentity ?')" class="button-29" name="update" type="submit">Submit</button>
+                </div>
+         </div>
+        <input type="hidden" name="added_quentity" value="added_quentity">
+
+    {% endif %}
+        
+
+<!-- add_quentity_end-->
+
+
+
+
+
+
+
+
+
+
+</form>
+<form action="{% url 'hmsapp:edit_floor' %}" method="POST">
+{% csrf_token %}
+
+<!-- update_floor-->
+
+
+    {% if floor_update_id %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Update Floor- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Floor Name </p>
+            </div>
+            <div class="sp_sub">
+                {% for floor in  floor_update_id %}
+                <input class="input_class" type="text" value="{{floor.floor_name}}" name="floor_name">
+                <input type="hidden" name="floor_id" value="{{floor.floor_id}}">
+                <input type="hidden" name="floor_data_update" value="floor_data_update">
+                {% endfor %}
+            </div>
+        
+            <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Update Floor ?')" class="button-29" name="update" type="submit">Update</button>
+            </div>
+         </div>
+
+    {% endif %}
+
+
+<!-- upadte_floor_end-->
+
+<!-- update_room-->
+
+
+    {% if room_floor_data_update %}
+         <div style="margin-left: 2rem;" class="">
+            <h3>Update Room- Monday, 26 Oct 2020 12:18 AM</h3>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Floor Name: </p>
+            </div>
+            <div class="sp_sub">
+                <select name="floor_id" class="input_class">
+                    {% for room_floor in room_data_update %}
+                    <option value="{{room_floor.floor_id.floor_id}}">{{room_floor.floor_id.floor_name}}</option>
+                   
+                    {% for floor in room_floor_data_update %}
+                    <option value="{{floor.floor_id}}">{{floor.floor_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+         </div>
+        
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Name </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{room_floor.room_name}}" name="room_name">
+            </div>
+            
+        
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Type: </p>
+            </div>
+            <div class="sp_sub">
+                <select name="room_type" class="input_class">
+                    {% for room_det in room_details %}
+                    <option value="{{room_det.room_type}}">{{room_det.room_type}}</option>
+                    {% endfor %}
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Triple">Triple</option>
+                    <option value="Queen">Queen</option>
+                    <option value="King">King</option>
+                    <option value="Executive Suite">Executive Suite</option>
+                </select>
+            </div>
+            <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Update Room ?')" class="button-29" name="update" type="submit">Update</button>
+            </div>
+         </div>
+            <input type="hidden" name="room_id" value="{{room_floor.room_id}}">
+          {% endfor %}
+
+    {% endif %}
+         
+         <input type="hidden" name="update_room_data" value="update_room_data">
+
+
+<!-- update_room_end-->
+
+
+
+</form>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

@@ -398,5 +398,55 @@ def food(request):
     }
     return render(request,"admins/food.html",context=my_dict)
 
+
+
+def add_food(request):
+    if request.method == "POST":
+        if request.POST.get("add_food_type") == "add_food_type":
+            add_food_type = "add_food_type"
+            my_dict = {
+                "add_food_type": add_food_type,
+            }
+            return render(request,"admins/add_food.html",context=my_dict)
+        elif request.POST.get("added_food_type") == "added_food_type":
+            food_type = request.POST.get("food_types")
+            create_food_type = Food_type.objects.create(food_type=food_type)
+            return redirect("/food")
+        
+        elif request.POST.get("add_food") == "add_food":
+            food_type = Food_type.objects.all()
+            my_dict = {
+                "pass_food_type" : food_type,
+            }
+            return render(request,"admins/add_food.html",context=my_dict)
+
+        elif request.POST.get("added_food") == "added_food":
+            food_type_id = request.POST.get("food_types_id")
+            food_name = request.POST.get("food_name")
+            food_types_object = Food_type.objects.get(id=food_type_id)
+            create_food = Food_drinks.objects.create(food_type=food_types_object,food_name=food_name)
+            return redirect("/food")
+
+
+        elif request.POST.get("add_quentity") == "add_quentity":
+            food_type = Food_type.objects.all()
+            my_dict = {
+                "pass_quentity_food_type" : food_type,
+            }
+            return render(request,"admins/add_food.html",context=my_dict)
+        
+        elif request.POST.get("added_quentity") == "added_quentity":
+            food_type_id = request.POST.get("food_types_id")
+            quentity = request.POST.get("quentity")
+            food_types_object = Food_type.objects.get(id=food_type_id)
+            create_food = Food_quentity.objects.create(food_type=food_types_object,quentity=quentity)
+            return redirect("/food")
+
+            
+
+
+
+
+
 def room_service(request):
     return render(request,"admins/add_room_service.html")
