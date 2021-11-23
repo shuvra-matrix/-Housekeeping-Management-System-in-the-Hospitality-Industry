@@ -47,7 +47,6 @@ class Room_details(models.Model):
     room_inspect_status = models.CharField(max_length=20, default="Inspected")
     room_housekeeper = models.ForeignKey(Housekeeper, on_delete=models.DO_NOTHING,null=True)
     room_updated_by = models.ForeignKey(Admin, on_delete=models.DO_NOTHING,null=True)
-    room_updated_by_staff = models.ForeignKey(Staff, on_delete=models.DO_NOTHING,null=True)
     room_updated_time = models.DateTimeField(auto_now_add=True, null=True)
     
 
