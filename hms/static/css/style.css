@@ -35,6 +35,7 @@ body{
     box-shadow: 0px 0px 5px 5px #57565657;
 }
 
+
 /* admin index page closed */
 
 /* room status */
@@ -48,7 +49,7 @@ tr,
 td {
     border-collapse: collapse;
     border: none;
-    padding: 1rem;
+    padding: .6rem;
 }
 
 .room_table {
@@ -66,13 +67,18 @@ td {
     
 }
 th{
-    padding: .9rem;
+    padding: .6rem;
     color: rgb(45, 48, 204);
+    font-size: .96rem !important;
 }
-
+td{
+    font-size: .95rem !important;
+    text-align: center;
+}
 .room_tr {
     width: 100%;
     background-color: beige;
+    
 }
 .hidden_id{
     color: beige;
@@ -86,7 +92,9 @@ th{
     color: white;
 }
 
-.Inspected,.Vacant{
+.Inspected,
+.Vacant,
+.Available {
       padding: .3rem;
       background-color:green;
       border-radius: 16px;
@@ -107,6 +115,10 @@ th{
      padding: .5rem;
      background-color: white !important;
      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.432);
+}
+
+.click_button:hover{
+    cursor: pointer;
 }
 /* room status closed */
 
@@ -199,3 +211,18 @@ th{
     transform: translateY(2px);
 }
 /* room manage pop-up closed */
+
+/* housekeepr */
+
+.add_housekeeper {
+    padding: .5rem;
+    background-color: green;
+    color: white;
+    border-radius: 12px;
+    border: 0px;
+}
+.add_housekeeper:hover{
+    cursor:pointer;
+}
+
+/* close housekeeper */

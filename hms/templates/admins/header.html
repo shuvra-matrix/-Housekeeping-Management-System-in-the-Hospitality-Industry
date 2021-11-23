@@ -20,18 +20,26 @@
 </head>
 <body style="background:#e6e6e6;color:black;">
 
-    <div class="w3-sidebar w3-light-grey w3-card-4 w3-animate-left" style="width: 180px; display: block; background-color: #7eebda !important;" id="mySidebar" >
-        <div class="w3-bar w3-dark-grey">
+    <div class="w3-sidebar w3-light-grey w3-card-4 w3-animate-left" style="width: 180px; display: block; background-color: #7eebda33 !important;" id="mySidebar" >
+        <div class="w3-bar w3-dark-grey" style="  color: #000 !important;
+    background-color: #7eebda33 !important;">
             <span class="w3-bar-item w3-padding-18">Housekeeping</span>
             <button onclick="w3_close()" class="w3-bar-item w3-button w3-right w3-padding-16" title="close Sidebar">×</button>
             </div>
             <div class="w3-bar-block">
             <a class="w3-bar-item w3-button w3-green" href="{% url 'hmsapp:index' %}">Home</a>
             <div class="w3-dropdown-hover">
-                <a class="w3-button" href="javascript:void(0)">Management <i class="fa fa-caret-down"></i></a>
+                <a class="w3-button" href="javascript:void(0)">Housekeeping <i class="fa fa-caret-down"></i></a>
                 <div class="w3-dropdown-content w3-bar-block w3-card-4">
                 <a class="w3-bar-item w3-button" href="{% url 'hmsapp:room_status' %}">Room Status</a>
-                <a class="w3-bar-item w3-button" href="javascript:void(0)">Staf Status</a>
+                <a class="w3-bar-item w3-button" href="{% url 'hmsapp:housekeepers' %}">Housekeepers</a>
+                </div>
+            </div>
+            <div class="w3-dropdown-hover">
+                <a class="w3-button" href="javascript:void(0)">Management <i class="fa fa-caret-down"></i></a>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                <a class="w3-bar-item w3-button" href="{% url 'hmsapp:rooms_and_floor' %}">Rooms And Floors</a>
+                <a class="w3-bar-item w3-button" href="{% url 'hmsapp:staff' %}">Staff Section</a>
                 </div>
             </div>
             <a class="w3-bar-item w3-button" href="javascript:void(0)">Support</a>
