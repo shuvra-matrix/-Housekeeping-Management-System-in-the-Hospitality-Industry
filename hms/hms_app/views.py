@@ -472,7 +472,7 @@ def add_food(request):
             }
             return render(request,"admins/add_food.html",context=my_dict)
         elif request.POST.get("updated_food") == "updated_food":
-            food_id = request.POST.get("food_types_id")
+            food_id = request.POST.get("food_id")
             food_name = request.POST.get("food_name")
             food_types_object = Food_type.objects.get(id=food_id)
             upadte_food_data = Food_drinks.objects.filter(id=food_id).update(food_name=food_name,food_type=food_types_object)
@@ -481,7 +481,27 @@ def add_food(request):
             food_id = request.POST.get("food_id")
             delete_data = Food_drinks.objects.filter(id=food_id).delete()
             return redirect("/food")
+        elif request.POST.get("update_quentity") == "update_quentity":
+            quentity_id = request.POST.get("quentity_id")
+            quentity_data = Food_quentity.objects.all().filter(id=quentity_id)
+            food_type_data = Food_type.objects.all()
+            my_dict = {
+                "quentity_data": quentity_data,
+                "food_type_data" : food_type_data,
+            }
+            return render(request, "admins/add_food.html", context=my_dict)
 
+        elif request.POST.get("updated_quentity") == "added_quentity":
+            quentity_id = request.POST.get("quentity_id")
+            quentity = request.POST.get("quentity")
+            food_type_id = request.POST.get("food_type")
+            food_types_object = Food_type.objects.get(id=food_type_id)
+            update_data = Food_quentity.objects.filter(id=quentity_id).update(food_type=food_types_object,quentity=quentity)
+            return redirect("/food")
+        elif request.POST.get("delete_quentity") == "delete_quentity":
+            quentity_id = request.POST.get("quentity_id")
+            delete_quentity = Food_quentity.objects.filter(id=quentity_id).delete()
+            return redirect("/food")
 
 
 
