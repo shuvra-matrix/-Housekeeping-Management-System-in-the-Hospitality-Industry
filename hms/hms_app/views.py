@@ -574,6 +574,7 @@ def room_service(request):
                 
             elif request.POST.get("food_quentity") == "food_quentity":
                 food_quentity_id = request.POST.get("foods_quentity")
+                request.session['quantity'] = food_quentity_id
                 room_id = request.session.get("room_id")
                 food_type_id = request.session.get('food_type_id') 
                 food_id = request.session.get('food_drinks_id')
@@ -614,6 +615,14 @@ def place_order(request):
     if request.session.has_key('login'):
         room_id = request.session.get("room_id")
         list_data = Food_order_list.objects.all().filter(room=room_id).delete()
+        quantity_id = request.session.get('quantity')
+        food_type_id = request.session.get('food_type_id') 
+        food_id = request.session.get('food_drinks_id')
+        room_details = Room.objects.get(room_id=room_id)
+        food_details = Food_drinks.objects.get(id=food_id)
+        food_quentiry = Food_quentity.objects.get(id=quantity_id)
+        create_data = Room_service.objects.create(
+            room_id=room_details, food_type=food_details, food_quentity=food_quentiry)
         del request.session["room_id"]
         del request.session['food_drinks_id']
         del request.session['food_type_id']
