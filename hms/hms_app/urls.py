@@ -6,6 +6,7 @@ app_name= "hmsapp"
 
 urlpatterns = [
     path('',views.index,name='index'),
+    path('login/', views.login, name='login'),
     path('room_status/', views.room_status,name="room_status"),
     path('room_manage/',views.room_manage,name="room_manage"),
     path('room_update/',views.room_update,name="room_update"),

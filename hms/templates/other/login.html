@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <title>Housekeeping Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="login_main_div">
+    <div class="login_sub_div">
+            <div class="login_div">
+               <strong>Login</strong>
+            </div>
+            <div class="login_div">
+               <p>Please enter your username and password!</p>
+            </div>
+        <form action="" method="POST">
+            <div class="login_div">
+                <input class="log_input" id="email" type="text" name="user_id" placeholder="Username" required>
+            </div>
+            <div class="login_div">
+                <input class="log_input" type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="login_div">
+               <select name="user_type" class="log_option">
+                   <option value="">Select User</option>
+                   <option value="Admin">Admin</option>
+                   <option value="Staff">Staff</option>
+                   <option value="Housekeeper">Housekeeper</option>
+               </select>
+            </div>
+            <div class="login_div">
+                <button class="btn btn-primary" value="login" name="login">Log In </button>
+            </div>
+            <div class="login_div">
+                <p style="color: #ad3b6d;">  </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+
+</html>

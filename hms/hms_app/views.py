@@ -4,6 +4,11 @@ from hms_app.models import Admin, Housekeeper, Room_floor, Room, Room_details, H
 from random import randint
 
 # Create your views here.
+def login(request):
+    return render(request, "other/login.html")
+
+
+
 
 def index(requests):
     total_room = Room.objects.all().count()
