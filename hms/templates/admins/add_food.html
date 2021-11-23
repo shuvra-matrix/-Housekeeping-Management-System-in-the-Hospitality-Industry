@@ -34,7 +34,7 @@
         <input type="hidden" name="added_food_type" value="added_food_type">
     {% endif %}
 
-<!-- add_room_end-->
+<!-- add_food_types_end-->
 
 
 
@@ -75,7 +75,7 @@
     {% endif %}
         
 
-<!-- add_floor_end-->
+<!-- add_food_end-->
 
 
 
@@ -130,105 +130,99 @@
 
 
 </form>
-<form action="{% url 'hmsapp:edit_floor' %}" method="POST">
+<form action="{% url 'hmsapp:edit_food_type' %}" method="POST">
 {% csrf_token %}
 
 <!-- update_floor-->
 
 
-    {% if floor_update_id %}
-        <div style="margin-left: 2rem;" class="">
-            <h3>Update Floor- Monday, 26 Oct 2020 12:18 AM</h3>
+    {% if updates_food_type %}
+        <div class="main_div_manage">
+         <div style="margin-left: 2rem;" class="">
+            <h3>Update Food Types- Monday, 26 Oct 2020 12:18 AM</h3>
         </div>
+       
         <div class="sub_div_manage">
             <div class="sp_sub">
-                <p>Floor Name </p>
+                <p>Food Types Name: </p>
             </div>
             <div class="sp_sub">
-                {% for floor in  floor_update_id %}
-                <input class="input_class" type="text" value="{{floor.floor_name}}" name="floor_name">
-                <input type="hidden" name="floor_id" value="{{floor.floor_id}}">
-                <input type="hidden" name="floor_data_update" value="floor_data_update">
-                {% endfor %}
+                {% for i in updates_food_type %}
+                        <input type="text" value="{{i.food_type}}" name="food_type" class="input_class">
             </div>
-        
             <div class="button_class">
-                <button onclick="return confirm('Are you sure you want to Update Floor ?')" class="button-29" name="update" type="submit">Update</button>
+                <button onclick="return confirm('Are you sure you want to Add Food Types ?')" class="button-29" name="update" type="submit">Submit</button>
             </div>
          </div>
+        <input type="hidden" name="updated_food_type" value="updated_food_type">
+        <input type="hidden" name="food_type_id" value="{{i.id}}">
+     {% endfor %}
 
     {% endif %}
+
 
 
 <!-- upadte_floor_end-->
 
-<!-- update_room-->
+<!-- update_food-->
 
 
-    {% if room_floor_data_update %}
-         <div style="margin-left: 2rem;" class="">
-            <h3>Update Room- Monday, 26 Oct 2020 12:18 AM</h3>
+    {% if food_details %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Update Foods - Monday, 26 Oct 2020 12:18 AM</h3>
         </div>
+
         <div class="sub_div_manage">
             <div class="sp_sub">
-                <p>Floor Name: </p>
+                <p>Food Types </p>
             </div>
             <div class="sp_sub">
-                <select name="floor_id" class="input_class">
-                    {% for room_floor in room_data_update %}
-                    <option value="{{room_floor.floor_id.floor_id}}">{{room_floor.floor_id.floor_name}}</option>
+                <div class="sp_sub">
+                <select name="food_types_id" class="input_class">
+                    {% for food_type in food_details %}
+                        <option value="{{food_type.food_type.id}}">{{food_type.food_type.food_type}}</option>
+                        {% for i in all_food_types %}
+                        <option value="{{i.id}}">{{i.food_type}}</option>
+                        {% endfor %}
                    
-                    {% for floor in room_floor_data_update %}
-                    <option value="{{floor.floor_id}}">{{floor.floor_name}}</option>
-                    {% endfor %}
                 </select>
             </div>
-         </div>
-        
-        <div class="sub_div_manage">
-            <div class="sp_sub">
-                <p>Room Name </p>
-            </div>
-            <div class="sp_sub">
-                <input class="input_class" type="text" value="{{room_floor.room_name}}" name="room_name">
-            </div>
-            
-        
-        </div>
-        <div class="sub_div_manage">
-            <div class="sp_sub">
-                <p>Room Type: </p>
-            </div>
-            <div class="sp_sub">
-                <select name="room_type" class="input_class">
-                    {% for room_det in room_details %}
-                    <option value="{{room_det.room_type}}">{{room_det.room_type}}</option>
-                    {% endfor %}
-                    <option value="Single">Single</option>
-                    <option value="Double">Double</option>
-                    <option value="Triple">Triple</option>
-                    <option value="Queen">Queen</option>
-                    <option value="King">King</option>
-                    <option value="Executive Suite">Executive Suite</option>
-                </select>
-            </div>
-            <div class="button_class">
-                <button onclick="return confirm('Are you sure you want to Update Room ?')" class="button-29" name="update" type="submit">Update</button>
-            </div>
-         </div>
-            <input type="hidden" name="room_id" value="{{room_floor.room_id}}">
-          {% endfor %}
 
+                <div class="sp_sub">
+                    <p>Food Name: </p>
+                </div>
+                <div class="sp_sub">
+                    <input type="text" name="food_name" value="{{food_type.food_name}}" class="input_class"> 
+                </div>
+                <div class="button_class">
+                    <button onclick="return confirm('Are you sure you want to Update Food ?')" class="button-29" name="update" type="submit">Update</button>
+                </div>
+         </div>
+         <input type="hidden" name="food_id" value="{{food_type.id}}">
+        <input type="hidden" name="updated_food" value="updated_food">
+        {% endfor %}
     {% endif %}
-         
-         <input type="hidden" name="update_room_data" value="update_room_data">
-
-
-<!-- update_room_end-->
 
 
 
-</form>
+<!-- update_food_end-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </form>
     </div>
 
 

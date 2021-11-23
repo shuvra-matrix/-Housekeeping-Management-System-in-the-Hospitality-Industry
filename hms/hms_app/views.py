@@ -442,7 +442,45 @@ def add_food(request):
             create_food = Food_quentity.objects.create(food_type=food_types_object,quentity=quentity)
             return redirect("/food")
 
+        elif request.POST.get("update_food_type") == "update_food_type":
+            food_type_id = request.POST.get("food_type_id")
+            food_types = Food_type.objects.all().filter(id=food_type_id)
+            all_food_type = Food_type.objects.all()
+            my_dict ={
+                "updates_food_type" : food_types,
+                "all_food_type" : all_food_type,
+            }
+            return render(request,"admins/add_food.html",context=my_dict)
             
+        elif request.POST.get("updated_food_type") == "updated_food_type":
+            food_type_id = request.POST.get("food_type_id")
+            food_type = request.POST.get("food_type")
+            update_food_type = Food_type.objects.filter(id=food_type_id).update(food_type=food_type)
+            return redirect("/food")
+
+        elif request.POST.get("delete_food_type") == "delete_food_type":
+            food_type_id = request.POST.get("food_type_id")
+            delete_food_type = Food_type.objects.filter(id=food_type_id).delete()
+            return redirect("/food")
+        elif request.POST.get("update_food") == "update_food":
+            food_id = request.POST.get("food_id")
+            food_details = Food_drinks.objects.all().filter(id=food_id)
+            food_types = Food_type.objects.all()
+            my_dict = {
+                "food_details" : food_details,
+                "all_food_types" : food_types,
+            }
+            return render(request,"admins/add_food.html",context=my_dict)
+        elif request.POST.get("updated_food") == "updated_food":
+            food_id = request.POST.get("food_types_id")
+            food_name = request.POST.get("food_name")
+            food_types_object = Food_type.objects.get(id=food_id)
+            upadte_food_data = Food_drinks.objects.filter(id=food_id).update(food_name=food_name,food_type=food_types_object)
+            return redirect("/food")
+        elif request.POST.get("delete_food") == "delete_food":
+            food_id = request.POST.get("food_id")
+            delete_data = Food_drinks.objects.filter(id=food_id).delete()
+            return redirect("/food")
 
 
 

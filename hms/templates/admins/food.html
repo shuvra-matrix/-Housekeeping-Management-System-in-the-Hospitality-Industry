@@ -45,17 +45,17 @@
                         <td>{{type.id}}</td>
                         <td>{{type.food_type}}</td>
                         <td style="display: flex;align-items: center;justify-content: center;">
-                        <form action="{% url 'hmsapp:edit_floor' %}" method="POST">
+                        <form action="{% url 'hmsapp:edit_food_type' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden" name="food_type_id" value="{{type.id}}">
-                            <input type="hidden" name="update_floor" value="update_floor">
+                            <input type="hidden" name="update_food_type" value="update_food_type">
                             <div style="display: flex; flex-direction: row;">
                             <button type="submit" class="click_button" >&#x1F441;</button>
                         </form>
                        
-                        <form action="{% url 'hmsapp:edit_floor' %}" method="POST">
+                        <form action="{% url 'hmsapp:delete_food_type' %}" method="POST">
                         {% csrf_token %}
-                            <input type="hidden" name="delete_floor" value="delete_floor">
+                            <input type="hidden" name="delete_food_type" value="delete_food_type">
                             <input type="hidden" name="food_type_id" value="{{type.id}}">
                             <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
                         </form>
@@ -87,18 +87,18 @@
                         <td>{{food.food_type.food_type}}</td>
                         <td>{{food.food_name}}</td>
                         <td style="display: flex;align-items: center;justify-content: center;">
-                        <form action="{% url 'hmsapp:edit_room' %}" method="POST">
+                        <form action="{% url 'hmsapp:edit_food' %}" method="POST">
                             {% csrf_token %}
-                            <input type="hidden" name="food_drinks_id" value="{{food.id}}">
-                            <input type="hidden" name="update_room" value="update_room">
+                            <input type="hidden" name="food_id" value="{{food.id}}">
+                            <input type="hidden" name="update_food" value="update_food">
                             <div style="display: flex; flex-direction: row;">
                             <button type="submit" class="click_button" >&#x1F441;</button>
                         </form>
                        
-                        <form action="{% url 'hmsapp:edit_room' %}" method="POST">
+                        <form action="{% url 'hmsapp:delete_food' %}" method="POST">
                         {% csrf_token %}
-                        <input type="hidden" name="delete_room" value="delete_room">
-                            <input type="hidden" name="food_drinks_id" value="{{food.id}}">
+                            <input type="hidden" name="delete_food" value="delete_food">
+                            <input type="hidden" name="food_id" value="{{food.id}}">
                             <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
                         </form>
                             </div>
