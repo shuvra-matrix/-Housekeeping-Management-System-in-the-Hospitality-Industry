@@ -43,7 +43,7 @@ urlpatterns = [
      path("food/delete_food_type",views.add_food,name="delete_food_type"),
      path("food/edit_food",views.add_food,name="edit_food"),
      path("food/delete_food",views.add_food,name="delete_food"),
-     path("food/update_quentity",views.add_food,name="update_quentity"),
+    path("food/update_quentity", views.add_food, name="edit_quentity"),
      path("food/delete_quentity",views.add_food,name="delete_quentity"),
     
     
