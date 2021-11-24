@@ -555,7 +555,8 @@ def room_service(request):
                     request.session['food_type_name'] = i.food_type
                 if request.session.has_key('room_id'):
                     room_id = request.session.get("room_id")
-                    list_data = Food_order_list.objects.all().filter(room=room_id)
+                    list_data = Food_order_list.objects.all().filter(
+                        room=room_id).filter(show_list="yes")
                 else:
                     list_data = None
                 my_dicts = {
@@ -583,7 +584,8 @@ def room_service(request):
                     request.session['third_initial'] = "third_initial"
                     if request.session.has_key('room_id'):
                         room_id = request.session.get("room_id")
-                        list_data = Food_order_list.objects.all().filter(room=room_id)
+                        list_data = Food_order_list.objects.all().filter(
+                            room=room_id).filter(show_list="yes")
                     else:
                         list_data = None
                     dicts = {
@@ -618,7 +620,7 @@ def room_service(request):
             
         if request.session.has_key('room_id'):
             room_id = request.session.get("room_id")
-            list_data = Food_order_list.objects.all().filter(room=room_id)
+            list_data = Food_order_list.objects.all().filter(room=room_id).filter(show_list="yes")
         else:
             list_data = None
 
@@ -632,6 +634,7 @@ def room_service(request):
         request.session['initial'] = "initial"
         request.session['second_initial'] = "second_initial"
         request.session['third_initial'] = "third_initial"
+        request.session['show'] = "show"
         return render(request,"admins/add_room_service.html",context=my_dict)
     else:
         return render(request, 'other/login.html')
@@ -641,18 +644,51 @@ def room_service(request):
 def place_order(request):
     if request.session.has_key('login'):
         room_id = request.session.get("room_id")
-        list_data = Food_order_list.objects.all().filter(room=room_id).delete()
-        quantity_id = request.session.get('quantity')
-        food_type_id = request.session.get('food_type_id') 
-        food_id = request.session.get('food_drinks_id')
-        room_details = Room.objects.get(room_id=room_id)
-        food_details = Food_drinks.objects.get(id=food_id)
-        food_quentiry = Food_quentity.objects.get(id=quantity_id)
-        create_data = Room_service.objects.create(
-            room_id=room_details, food_type=food_details, food_quentity=food_quentiry,time=time())
+        list_data = Food_order_list.objects.all().filter(room=room_id)
+        
+        for i in list_data:
+            food_id = request.session.get('food_drinks_id')
+            room_details = Room.objects.get(room_id=room_id)
+            updated_by = request.session.get("name")
+            if request.session.get("show") == "show":
+                create_data = Room_service.objects.create(
+                    room_id=room_details, food_list_id= i , order_taken_by=updated_by, time=time(),show_details="yes")
+            else:
+                create_data = Room_service.objects.create(
+                    room_id=room_details, food_list_id=i, order_taken_by=updated_by, time=time(), show_details="no")
+            request.session['show'] = "not_show"
+            update_list = Food_order_list.objects.filter(id=i.id).update(show_list="no")
+            
+            
+        del request.session["quantity"]
+        del request.session["food_type_id"]
+        del request.session["food_drinks_id"]
         del request.session["room_id"]
-        del request.session['food_drinks_id']
-        del request.session['food_type_id']
+        del request.session['show']
         return redirect("/room_service")
     else:
         return render(request, 'other/login.html')
+
+def view_room_service(request):
+    
+    room_service = Room_service.objects.all().filter(show_details="yes")
+    my_dict = {
+        "room_service": room_service,
+        "time":time,
+    }
+    if request.method == "POST":
+        if request.POST.get("back") == "back":
+            pass
+        else:
+            room_id = request.POST.get("room_id")
+            food_list = Room_service.objects.all().filter(
+                room_id=room_id).filter(order_status="Under-Cooking")
+            my_dict = {
+                "food_list": food_list,
+            }
+            return render(request, "admins/view_ordered_food.html", context=my_dict)
+        
+        
+        
+    
+    return render(request, "admins/view_room_service.html", context=my_dict)

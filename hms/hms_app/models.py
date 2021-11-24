@@ -76,19 +76,23 @@ class Food_quentity(models.Model):
     food_type = models.ForeignKey(Food_type,on_delete=CASCADE)
     quentity = models.CharField(max_length=20)
 
-class Room_service(models.Model):
-    id = models.AutoField(primary_key=True)
-    room_id = models.ForeignKey(Room,on_delete=models.CASCADE)
-    food_type = models.ForeignKey(Food_drinks,on_delete=models.DO_NOTHING)
-    food_quentity = models.ForeignKey(Food_quentity,on_delete=models.DO_NOTHING)
-    room_scervice_updated_by = models.CharField(max_length=50, null=True)
-    time = models.CharField(max_length=20, null=True)
 
 class Food_order_list(models.Model):
     id = models.AutoField(primary_key=True)
     room = models.ForeignKey(Room, on_delete=models.DO_NOTHING)
     food_name = models.ForeignKey(Food_drinks, on_delete=models.DO_NOTHING)
     quentity = models.ForeignKey(Food_quentity, on_delete=models.DO_NOTHING)
+    show_list = models.CharField(max_length=5, default="yes")
+
+class Room_service(models.Model):
+    id = models.AutoField(primary_key=True)
+    room_id = models.ForeignKey(Room,on_delete=models.CASCADE)
+    food_list_id = models.ForeignKey(Food_order_list, on_delete=models.DO_NOTHING)
+    order_taken_by = models.CharField(max_length=50, null=True)
+    order_status = models.CharField(max_length=20,default="Under-Cooking")
+    time = models.CharField(max_length=20, null=True)
+    show_details= models.CharField(max_length=5)
+
     
     
     

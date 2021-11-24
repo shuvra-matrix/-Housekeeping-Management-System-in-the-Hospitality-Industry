@@ -46,6 +46,9 @@ urlpatterns = [
     path("food/update_quentity", views.add_food, name="edit_quentity"),
      path("food/delete_quentity",views.add_food,name="delete_quentity"),
     path("room_service/place_order", views.place_order, name="place_order"),
+    path("room_service/view_room_service", views.view_room_service, name="view_room_service"),
+    path("room_service/view_room_service",
+         views.view_room_service, name="show_food_details"),
     
     
 ]
