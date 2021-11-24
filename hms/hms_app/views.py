@@ -642,6 +642,7 @@ def room_service(request):
 
 
 def place_order(request):
+   
     if request.session.has_key('login'):
         room_id = request.session.get("room_id")
         list_data = Food_order_list.objects.all().filter(room=room_id)
@@ -670,25 +671,27 @@ def place_order(request):
         return render(request, 'other/login.html')
 
 def view_room_service(request):
-    
-    room_service = Room_service.objects.all().filter(show_details="yes")
-    my_dict = {
-        "room_service": room_service,
-        "time":time,
-    }
-    if request.method == "POST":
-        if request.POST.get("back") == "back":
-            pass
-        else:
-            room_id = request.POST.get("room_id")
-            food_list = Room_service.objects.all().filter(
-                room_id=room_id).filter(order_status="Under-Cooking")
-            my_dict = {
-                "food_list": food_list,
-            }
-            return render(request, "admins/view_ordered_food.html", context=my_dict)
+    if request.session.has_key('login'):
+        room_service = Room_service.objects.all().filter(show_details="yes")
+        my_dict = {
+            "room_service": room_service,
+            "time":time,
+        }
+        if request.method == "POST":
+            if request.POST.get("back") == "back":
+                pass
+            else:
+                room_id = request.POST.get("room_id")
+                food_list = Room_service.objects.all().filter(
+                    room_id=room_id).filter(order_status="Under-Cooking")
+                my_dict = {
+                    "food_list": food_list,
+                }
+                return render(request, "admins/view_ordered_food.html", context=my_dict)
+            
+            
+            
         
-        
-        
-    
-    return render(request, "admins/view_room_service.html", context=my_dict)
+        return render(request, "admins/view_room_service.html", context=my_dict)
+    else:
+        return render(request, 'other/login.html')
