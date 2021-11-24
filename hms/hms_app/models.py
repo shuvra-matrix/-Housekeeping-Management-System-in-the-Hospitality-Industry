@@ -47,8 +47,8 @@ class Room_details(models.Model):
     room_notes = models.CharField(max_length=250,null=True)
     room_inspect_status = models.CharField(max_length=20, default="Inspected")
     room_housekeeper = models.ForeignKey(Housekeeper, on_delete=models.DO_NOTHING,null=True)
-    room_updated_by = models.ForeignKey(Admin, on_delete=models.DO_NOTHING,null=True)
-    room_updated_time = models.DateTimeField(auto_now_add=True, null=True)
+    room_updated_by = models.CharField(max_length=50 ,null=True)
+    room_updated_time = models.CharField(max_length=20, null=True)
     
 
 class Housekeeper_room_visit(models.Model):
@@ -81,7 +81,8 @@ class Room_service(models.Model):
     room_id = models.ForeignKey(Room,on_delete=models.CASCADE)
     food_type = models.ForeignKey(Food_drinks,on_delete=models.DO_NOTHING)
     food_quentity = models.ForeignKey(Food_quentity,on_delete=models.DO_NOTHING)
-    time = models.DateTimeField(auto_now_add=True, null=True)
+    room_scervice_updated_by = models.CharField(max_length=50, null=True)
+    time = models.CharField(max_length=20, null=True)
 
 class Food_order_list(models.Model):
     id = models.AutoField(primary_key=True)

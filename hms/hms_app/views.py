@@ -1,9 +1,23 @@
+from django.utils import timezone
+import pytz
+from datetime import datetime
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list
 from random import randint
 
+
+
 # Create your views here.
+
+
+
+
+
+
+
+
+
 def login(request):
     if request.session.has_key('login'):
         return redirect("/")
@@ -103,6 +117,11 @@ def logout(requests):
 
 
 def index(requests):
+
+    IST = pytz.timezone('Asia/Kolkata')
+    datetime_ist = datetime.now(IST)
+    requests.session["time"] = datetime_ist.strftime('%A, %b %Y %I:%M %p ')
+
     if requests.session.has_key('login'):
         total_room = Room.objects.all().count()
         cleaned = Room_details.objects.filter(room_inspect_status="Inspected").count()
@@ -132,7 +151,8 @@ def index(requests):
 def room_status(requests):
     if requests.session.has_key('login'):
         room_data = Room_details.objects.all()
-        my_dict = {            
+        my_dict = { 
+                    "time" : requests.session.get("time"),           
                     "room_data": room_data,                     
                 }
         return render(requests, 'admins/room_status.html', context=my_dict)
