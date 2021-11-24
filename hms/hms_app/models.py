@@ -93,7 +93,15 @@ class Room_service(models.Model):
     time = models.CharField(max_length=20, null=True)
     show_details= models.CharField(max_length=5)
 
-    
+class Customer_complaints(models.Model):
+    id = models.AutoField(primary_key=True)
+    complaints = models.CharField(max_length=255)
+    room_id = models.ForeignKey(Room, on_delete=models.DO_NOTHING)
+    complaints_taken_by = models.CharField(max_length=50)
+    complaints_by = models.CharField(max_length=50)
+    time = models.CharField(max_length=20)
+    status = models.CharField(max_length=20,default="Review")
+     
     
     
     

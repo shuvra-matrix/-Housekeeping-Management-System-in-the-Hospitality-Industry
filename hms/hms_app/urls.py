@@ -50,5 +50,6 @@ urlpatterns = [
     path("room_service/view_room_service",
          views.view_room_service, name="show_food_details"),
     
+    path("other_service/customer_complaint", views.complaint, name="complaint"),
     
 ]

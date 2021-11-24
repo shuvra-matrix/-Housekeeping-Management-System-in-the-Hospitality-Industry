@@ -695,3 +695,8 @@ def view_room_service(request):
         return render(request, "admins/view_room_service.html", context=my_dict)
     else:
         return render(request, 'other/login.html')
+
+
+
+def complaint(request):
+    return render(request, "admins/complaint.html")
