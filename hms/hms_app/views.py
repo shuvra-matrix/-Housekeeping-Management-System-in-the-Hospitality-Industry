@@ -11,9 +11,10 @@ from random import randint
 # Create your views here.
 
 
-
-
-
+def time():
+    IST = pytz.timezone('Asia/Kolkata')
+    datetime_ist = datetime.now(IST)
+    return datetime_ist.strftime('%A, %b %Y %I:%M %p ')
 
 
 
@@ -32,8 +33,9 @@ def login(request):
                     user_details = Admin.objects.get(admin_email=user_email)
                     if user_password == user_details.admin_password:
                         request.session['login'] = "login"
+                        request.session['id'] = user_details.id
                         request.session['admin_id'] = user_details.id
-                        request.session['admin_name'] = user_details.admin_name
+                        request.session['name'] = user_details.admin_name
                         return redirect("/")
                     else:
                         message = "Invalid Credentials"
@@ -58,8 +60,8 @@ def login(request):
                     user_details = Staff.objects.get(staff_email=user_email)
                     if user_password == user_details.staff_password:
                         request.session['login'] = "login"
-                        request.session['staff_id'] = user_details.id
-                        request.session['staff_name'] = user_details.staff_name
+                        request.session['id'] = user_details.id
+                        request.session['name'] = user_details.staff_name
                         return redirect("/")
                     else:
                         message = "Invalid Credentials"
@@ -118,9 +120,7 @@ def logout(requests):
 
 def index(requests):
 
-    IST = pytz.timezone('Asia/Kolkata')
-    datetime_ist = datetime.now(IST)
-    requests.session["time"] = datetime_ist.strftime('%A, %b %Y %I:%M %p ')
+
 
     if requests.session.has_key('login'):
         total_room = Room.objects.all().count()
@@ -151,8 +151,9 @@ def index(requests):
 def room_status(requests):
     if requests.session.has_key('login'):
         room_data = Room_details.objects.all()
+        
         my_dict = { 
-                    "time" : requests.session.get("time"),           
+                    "time" : time(),           
                     "room_data": room_data,                     
                 }
         return render(requests, 'admins/room_status.html', context=my_dict)
@@ -176,13 +177,12 @@ def room_manage(request):
 def room_update(request):
     if request.method == "POST":
         room_id = request.POST.get("room_id")
-        print(room_id)
         room_inspection = request.POST.get("room_inspected")
-        print(room_inspection)
         room_note = request.POST.get("room_note")
         room_status = request.POST.get("room_status")
         housekeeper_id = request.POST.get("housekeeper_id")
-        update_data = Room_details.objects.filter(room_id=room_id).update(room_inspect_status=room_inspection, room_notes=room_note, room_housekeeper=housekeeper_id, room_status=room_status)
+        updated_by = request.session.get("name")
+        update_data = Room_details.objects.filter(room_id=room_id).update(room_inspect_status=room_inspection, room_notes=room_note, room_housekeeper=housekeeper_id, room_status=room_status,room_updated_by=updated_by,room_updated_time=time())
         update_housekeeper_data = Housekeeper_details.objects.filter(housekeeper_id=housekeeper_id).update(housekeeper_status="Occupied")
         housekeepr_data = Housekeeper.objects.get(id=housekeeper_id)
         room_data = Room.objects.get(room_id=room_id)
@@ -195,6 +195,7 @@ def housekeepers_manage(request):
     if request.session.has_key('login'):
         housekeeper = Housekeeper_details.objects.all()
         my_dict = {
+            "time": time(),
             "housekeeper":housekeeper,
         }
         return render(request, "admins/housekeeper.html",context=my_dict)
@@ -265,6 +266,7 @@ def rooms_and_floor(request):
         room_data = Room.objects.all()
         floor_data = Room_floor.objects.all()
         my_dict = {
+            "time": time(),
             "room_data": room_data,
             "floor_data": floor_data,
         }
@@ -353,6 +355,7 @@ def staff(request):
     if request.session.has_key('admin_id'):
         staff_details = Staff.objects.all()
         my_dict = {
+            "time" : time(), 
             "staff_details": staff_details,
         }
         return render(request, "admins/staff.html",context=my_dict)
@@ -413,6 +416,7 @@ def food(request):
         food_drinks = Food_drinks.objects.all()
         food_quentity = Food_quentity.objects.all()
         my_dict = {
+            "time" : time(), 
             "food_type":food_type,
             "food_drinks":food_drinks,
             "food_quentity":food_quentity,
@@ -559,6 +563,7 @@ def room_service(request):
                     "room_details": room_details,
                     "select_food":select_food,
                     "food_type_details": food_type_details,
+                    "time": time(),
                 }
                 return render(request, "admins/add_room_service.html", context=my_dicts)
         
@@ -587,6 +592,7 @@ def room_service(request):
                         "food_type_details":food_type_details,
                         "food_details": food_details,
                         "food_quentity_details": food_quentity_details,
+                        "time": time(),
                         
                     }
 
@@ -620,6 +626,7 @@ def room_service(request):
             "list_data": list_data,
             "room_details": room_details,
             "food_type": food_type,
+            "time": time(),
         }
     
         request.session['initial'] = "initial"
@@ -642,7 +649,7 @@ def place_order(request):
         food_details = Food_drinks.objects.get(id=food_id)
         food_quentiry = Food_quentity.objects.get(id=quantity_id)
         create_data = Room_service.objects.create(
-            room_id=room_details, food_type=food_details, food_quentity=food_quentiry)
+            room_id=room_details, food_type=food_details, food_quentity=food_quentiry,time=time())
         del request.session["room_id"]
         del request.session['food_drinks_id']
         del request.session['food_type_id']

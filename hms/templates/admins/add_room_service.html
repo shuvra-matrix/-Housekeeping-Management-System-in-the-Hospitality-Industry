@@ -7,7 +7,7 @@
     </div>
     <div class="room_main" style=" margin-left: 10rem;">
         <div class="">
-            <h3>Room Service - Monday, 26 Oct 2020 12:18 AM</h3>
+            <h3>Room Service - {{time}}</h3>
         </div>
 
 
@@ -97,7 +97,7 @@
                     </form>
                 </div>
                 <div>
-                    <h5>Food Quentity</h5>
+                    <h5>Food Quantity</h5>
                     <div style="display: flex;flex-direction: row;">
                               <div style="width: 330px;">
                          <form action="{% url 'hmsapp:room_service' %}" method="POST">
