@@ -5,10 +5,14 @@
 
             <div class="w3-container w3-display-container">
                 <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
-                <h3 class="h3" style="position:fixed;top:36px;">Dashboard</h3>
+                
+            </div>
+             <div  >
+                    <h3 style="margin-left: 7.8rem; margin-top: 2rem; margin-right: 3.8rem;" class="h3" style="position:fixed;top:36px;">Welcome {{name}}</h3>
             </div>
             {% if total_room %}
             <div class="main_div">
+               
                 <div class="sub_div">
                     <h1 style="color:purple; font-size: 4rem;">{{total_room}}</h1>
                     <p>TOTAL ROOM</p>

@@ -7,7 +7,7 @@
     </div>
     <div class="room_main" style="overflow: auto;">
         <div class="">
-            <h3>Room Status- Monday, 26 Oct 2020 12:18 AM</h3>
+            <h3>Room Status- {{time}}</h3>
         </div>
     
         <div class="room_table">
@@ -35,7 +35,7 @@
                         <td ><p class="{{room.room_occupancy}}">{{room.room_occupancy}}</p></td>
                         <td ><p class="{{room.room_inspect_status}}">{{room.room_inspect_status}}</p></td>
                         <td> <input class="note_class" type="text" value="{{room.room_notes}}"></td>
-                        <td style="color: rgb(0, 0, 0);">{{room.room_updated_by.admin_name}}</td>
+                        <td style="color: rgb(0, 0, 0);">{{room.room_updated_by}}</td>
                         <td>{{room.room_updated_time}}</td>
                         <td style="width: 2rem;">
                            

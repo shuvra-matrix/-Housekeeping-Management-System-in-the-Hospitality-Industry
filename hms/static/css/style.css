@@ -17,7 +17,7 @@ body{
 .main_div{
 
     width: 95%;
-    margin: 6rem 6rem;
+    margin: 2rem 6rem;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -147,6 +147,7 @@ td {
 }
 .table_head{
     background-color:azure;
+    border: 1px solid rgba(0, 0, 0, 0.288);
     
 }
 th{
@@ -298,17 +299,116 @@ td{
 /* housekeepr */
 
 .add_housekeeper {
-    padding: .5rem;
-    background-color: green;
-    color: white;
-    border-radius: 12px;
-    border: 0px;
+      border: 0px;
+      background-color: #eba21a;
+      padding: .7rem;  
+      display: inline;
+      border-radius: 45px;
+      box-shadow: 3px 7px 10px rgba(0, 0, 0, 0.315);
+      transition: all 0.3s ease 0s;
+      cursor: pointer;
+      outline: none;
 }
+
+
+
+
+
 .add_housekeeper:hover{
-    cursor:pointer;
+      background-color: #2EE59D;
+      box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+      color: #fff;
+      transform: translateY(-7px);
 }
 
 /* close housekeeper */
+
+
+/* others_start */
+
+
+h3{ 
+    border-radius: 8px;
+    padding: .7rem;   
+    background-color: #206eff1e;
+     box-shadow: 6px 7px 10px rgba(0, 0, 0, 0.315);
+     font-size: 1.3rem !important;
+}
+
+.search_button{
+
+    border: 0px;
+    background-color: #6d10e7;
+    padding: .7rem;
+    display: inline;
+    border-radius: 45px;
+    box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.315);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    color: white;
+}
+
+.search_button:hover {
+    background-color: #4e2da7;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+.order_button{
+       border: 0px;
+       background-color: #3710e7;
+       padding: .7rem;
+       display: inline;
+       border-radius: 45px;
+       box-shadow: 7px 7px 10px rgba(0, 0, 0, 0.315);
+       transition: all 0.3s ease 0s;
+       cursor: pointer;
+       outline: none;
+       color: white;
+}
+
+.order_button:hover {
+    background-color: #6d0ca5;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+}
+
+
+
+.Under-Cooking,
+.Review {
+      padding: .26rem 0rem;
+      background-color: rgb(255, 102, 0);
+      border-radius: 16px;
+      text-align: center;
+      color: white;
+}
+
+.Case-Closed{
+    padding: .26rem 0rem;
+    background-color: rgb(37, 121, 30);
+    border-radius: 16px;
+    text-align: center;
+    color: white;
+}
+
+
+#new_button{
+    color: white;
+    background-color: rgba(33, 129, 207, 0.384);
+    padding: .7rem;
+    border-radius: 12px;
+    display: inline;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+
+}
 
 
 @media only screen and (max-width:1028px) {

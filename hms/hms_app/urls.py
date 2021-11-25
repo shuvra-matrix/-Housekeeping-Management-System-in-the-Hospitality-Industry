@@ -32,5 +32,32 @@ urlpatterns = [
          name="add_staff"),
     path("staff/edit_staff", views.edit_staff,
          name="edit_staff"),
+     path("room_service/", views.room_service,
+         name="room_service"),
+     path("food/", views.food,
+         name="food"),
+     path("food/add_food_types",views.add_food,name="add_food_type"),
+     path("food/add_food",views.add_food,name="add_food"),
+     path("food/add_quentity",views.add_food,name="add_quentity"),
+     path("food/edit_food_type",views.add_food,name="edit_food_type"),
+     path("food/delete_food_type",views.add_food,name="delete_food_type"),
+     path("food/edit_food",views.add_food,name="edit_food"),
+     path("food/delete_food",views.add_food,name="delete_food"),
+    path("food/update_quentity", views.add_food, name="edit_quentity"),
+     path("food/delete_quentity",views.add_food,name="delete_quentity"),
+    path("room_service/place_order", views.place_order, name="place_order"),
+    path("room_service/view_room_service", views.view_room_service, name="view_room_service"),
+    path("room_service/view_room_service",
+         views.view_room_service, name="show_food_details"),
+    
+    path("other_service/customer_complaint", views.complaint, name="complaint"),
+    
+    
+    
+    path("other_service/daily_activities",
+         views.dealy_activities, name="dealy_activities"),
+    path("housekeeping_daily_activity",
+         views.housekeeping_daily_activity, name="housekeeping_daily_activity"),
+    path("management/staff_type",views.Staff_types, name="staff_type"),
     
 ]

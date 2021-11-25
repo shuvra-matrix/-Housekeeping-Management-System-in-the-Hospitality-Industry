@@ -1,0 +1,264 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+
+
+<form action="{% url 'hmsapp:add_food_type' %}" method="POST">
+    {% csrf_token %}
+
+<!-- add_food_type -->
+
+
+    <div class="main_div_manage">
+         {% if add_food_type %}
+         <div style="margin-left: 2rem;" class="">
+            <h3>Add Food Types</h3>
+        </div>
+       
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Food Types Name: </p>
+            </div>
+            <div class="sp_sub">
+                <input type="text" name="food_types" value="" class="input_class"> 
+            </div>
+            <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Add Food Types ?')" class="button-29" name="update" type="submit">Submit</button>
+            </div>
+         </div>
+        <input type="hidden" name="added_food_type" value="added_food_type">
+    {% endif %}
+
+<!-- add_food_types_end-->
+
+
+
+<!-- add_food-->
+
+
+    {% if pass_food_type %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Add Food</h3>
+        </div>
+
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Food Types </p>
+            </div>
+            <div class="sp_sub">
+                <div class="sp_sub">
+                <select name="food_types_id" class="input_class">
+                    <option value="">Select Food Types</option>
+                    {% for food_type in pass_food_type %}
+                    <option value="{{food_type.id}}">{{food_type.food_type}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+                <div class="sp_sub">
+                    <p>Food Name: </p>
+                </div>
+                <div class="sp_sub">
+                    <input type="text" name="food_name" value="" class="input_class"> 
+                </div>
+                <div class="button_class">
+                    <button onclick="return confirm('Are you sure you want to Add Food ?')" class="button-29" name="update" type="submit">Submit</button>
+                </div>
+         </div>
+        <input type="hidden" name="added_food" value="added_food">
+
+    {% endif %}
+        
+
+<!-- add_food_end-->
+
+
+
+
+
+<!-- add_quentity-->
+
+
+    {% if pass_quentity_food_type %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Add Quantity</h3>
+        </div>
+
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Food Types </p>
+            </div>
+            <div class="sp_sub">
+                <div class="sp_sub">
+                <select name="food_types_id" class="input_class">
+                    <option value="">Select Food Types</option>
+                    {% for food_type in pass_quentity_food_type %}
+                    <option value="{{food_type.id}}">{{food_type.food_type}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+                <div class="sp_sub">
+                    <p>Quantity Types: </p>
+                </div>
+                <div class="sp_sub">
+                    <input type="text" name="quentity" value="" class="input_class"> 
+                </div>
+                <div class="button_class">
+                    <button onclick="return confirm('Are you sure you want to Add Quentity ?')" class="button-29" name="update" type="submit">Submit</button>
+                </div>
+         </div>
+        <input type="hidden" name="added_quentity" value="added_quentity">
+
+    {% endif %}
+        
+
+<!-- add_quentity_end-->
+
+
+
+
+
+
+
+
+
+
+</form>
+<form action="{% url 'hmsapp:edit_food_type' %}" method="POST">
+{% csrf_token %}
+
+<!-- update_food_type-->
+
+
+    {% if updates_food_type %}
+        <div class="main_div_manage">
+         <div style="margin-left: 2rem;" class="">
+            <h3>Update Food Types</h3>
+        </div>
+       
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Food Types Name: </p>
+            </div>
+            <div class="sp_sub">
+                {% for i in updates_food_type %}
+                        <input type="text" value="{{i.food_type}}" name="food_type" class="input_class">
+            </div>
+            <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Update Food Types ?')" class="button-29" name="update" type="submit">Update</button>
+            </div>
+         </div>
+        <input type="hidden" name="updated_food_type" value="updated_food_type">
+        <input type="hidden" name="food_type_id" value="{{i.id}}">
+     {% endfor %}
+
+    {% endif %}
+
+
+
+<!-- upadte_food_type_end-->
+
+<!-- update_food-->
+
+
+    {% if food_details %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Update Foods</h3>
+        </div>
+
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Food Types </p>
+            </div>
+            <div class="sp_sub">
+                <div class="sp_sub">
+                <select name="food_types_id" class="input_class">
+                    {% for food_type in food_details %}
+                        <option value="{{food_type.food_type.id}}">{{food_type.food_type.food_type}}</option>
+                        {% for i in all_food_types %}
+                        <option value="{{i.id}}">{{i.food_type}}</option>
+                        {% endfor %}
+                   
+                </select>
+            </div>
+
+                <div class="sp_sub">
+                    <p>Food Name: </p>
+                </div>
+                <div class="sp_sub">
+                    <input type="text" name="food_name" value="{{food_type.food_name}}" class="input_class"> 
+                </div>
+                <div class="button_class">
+                    <button onclick="return confirm('Are you sure you want to Update Food ?')" class="button-29" name="update" type="submit">Update</button>
+                </div>
+         </div>
+         <input type="hidden" name="food_id" value="{{food_type.id}}">
+        <input type="hidden" name="updated_food" value="updated_food">
+        {% endfor %}
+    {% endif %}
+
+
+
+<!-- update_food_end-->
+
+
+<!-- update_food_quentity-->
+
+
+   {% if quentity_data %}
+        <div style="margin-left: 2rem;" class="">
+            <h3>Update Quantity </h3>
+        </div>
+
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Food Types </p>
+            </div>
+            <div class="sp_sub">
+                <div class="sp_sub">
+                <select name="food_type" class="input_class">
+                    {% for i in quentity_data %}
+                    <option value="{{i.food_type.id}}">{{i.food_type.food_type}}</option>
+                    {% for food_types in food_type_data %}
+                    <option value="{{food_types.id}}">{{food_types.food_type}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+                <div class="sp_sub">
+                    <p>Quantity Types: </p>
+                </div>
+                <div class="sp_sub">
+                    <input type="text" name="quentity" value="{{i.quentity}}" class="input_class"> 
+                </div>
+                <div class="button_class">
+                    <button onclick="return confirm('Are you sure you want to Update Quentity ?')" class="button-29" name="update" type="submit">Update</button>
+                </div>
+         </div>
+        <input type="hidden" name="updated_quentity" value="added_quentity">
+        <input type="hidden" name="food_type_id" value="{{i.food_type.id}}">
+        <input type="hidden" value="{{i.id}}" name="quentity_id">
+
+        {% endfor %}
+    {% endif %}
+
+
+<!-- update_food_quentity_end-->
+
+
+
+
+        </form>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

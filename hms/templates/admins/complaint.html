@@ -1,0 +1,65 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+    <div class="room_main" style="overflow: auto;">
+        <div class="">
+            <h3>Customer Complaints- {{time}}</h3>
+        </div>
+        <div style="margin-top: 2rem;">
+            <form action="{% url 'hmsapp:complaint' %}" method="POST">
+                 {% csrf_token %}
+                 <input type="hidden" name="add_complaint" value="add_complaint">
+                <button class="add_housekeeper"  type="submit"> Add Complaint</button>
+            </form>
+            
+        </div>
+        <div class="room_table">
+            <table class="table_class">
+                <thead class="table_head">
+                    <th>Id#</th>
+                    <th>Room No</th>
+                    <th>Complaint By</th>
+                    <th>Complain</th>
+                    <th>Complaint Taken By</th>
+                    <th>Complaint Status</th>
+                    <th>Time</th>
+                    <th>Edit</th>
+                </thead>
+                <tbody>
+                    {% if complaint %}
+                    {% for c in  complaint   %}
+                    <tr>
+                        <td>{{c.id}}</td>
+                        <td>{{c.room_id.room_name}}</td>
+                        <td>{{c.complaints_by}}</td>
+                        <td><input type="text" name="" class="input_class" value="{{c.complaints}}"></td>
+                        <td>{{c.complaints_taken_by}}</td>
+                        <td><p class="{{c.status}}">{{c.status}}</p></td>
+                        <td>{{c.time}}</td>
+                        <td style="width: 2rem;">
+                           
+                        <form action="{% url 'hmsapp:complaint' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="complaint_id" value="{{c.id}}">
+                            <input type="hidden" value="complaint_update" name="complaint_update">
+                            <div style="display: flex; flex-direction: row;">
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
+</div>
+ </body>
+ </html>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+{% for c in complaints_details %}
+<form action="{% url 'hmsapp:complaint' %}" method="POST">
+    {% csrf_token %}
+    <div class="main_div_manage">
+        <div style="margin-left: 2rem;" class="">
+            <h3>Show Complaints </h3>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Room Name: </p>
+            </div>
+            <div class="sp_sub">
+                 
+                <input type="text" value="{{c.room_id.room_name}}" readonly class="input_class">  
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Customer Name </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="{{c.complaints_by}}" name="customer_name" readonly>
+            </div>
+        </div>
+        
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Complaint </p>
+            </div>
+            <div class="sp_sub">
+                <textarea class="input_class" name="complaint" id="" cols="10" rows="5">{{c.complaints}}</textarea>
+            </div>
+           
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Complaint Status </p>
+            </div>
+            <div class="sp_sub">
+                <select name="com_status" class="input_class" required>
+                        <option value="{{c.status}}">{{c.status}}</option>
+                        
+                        <option value="Case-Closed">Case-Closed</option>
+                </select>
+            </div>
+             <div class="button_class">
+                <button onclick="return confirm('Are you sure you want to Update?')" class="button-29" type="submit">Submit</button>
+            </div>
+        </div>
+        <input type="hidden" name="com_id" value="{{c.id}}">
+        <input type="hidden" name="com_up" value="com_up">
+</form>
+    </div>
+{% endfor %}
+
+</div>
+
+
+{% endblock %}
+
+
+         

@@ -1,0 +1,162 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+    <div class="room_main" style="overflow: auto;">
+        <div class="">
+            <h3>Food Section - {{time}}</h3>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <div style="display: flex; flex-direction: row; ">
+                <form action="{% url 'hmsapp:add_food_type' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="add_food_type" value="add_food_type">
+                    <button style="margin-right: 3rem;" class="add_housekeeper"  type="submit"> Add Food Type</button>
+                </form>
+                <form action="{% url 'hmsapp:add_food' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="add_food" value="add_food">
+                    <button class="add_housekeeper"  type="submit"> Add Food</button>
+                </form>
+                <form action="{% url 'hmsapp:add_quentity' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="add_quentity" value="add_quentity">
+                    <button style="margin-left: 3rem" class="add_housekeeper"  type="submit"> Add Quentity</button>
+                </form>
+            </div>
+        </div>
+        
+    <div class="room_table" style="display: flex; flex-direction: row;">
+
+           <div class="room_table" style="margin-right: 1.8rem;">
+            <table class="table_class" >
+                <thead class="table_head">
+                    <th>Id #</th>
+                    <th>Food Type</th>
+                    <th>Edit</th>
+                </thead>
+                <tbody>
+                    {% if food_type %}
+                    {% for type in  food_type %}
+                    <tr>
+                        <td>{{type.id}}</td>
+                        <td>{{type.food_type}}</td>
+                        <td style="display: flex;align-items: center;justify-content: center;">
+                        <form action="{% url 'hmsapp:edit_food_type' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="food_type_id" value="{{type.id}}">
+                            <input type="hidden" name="update_food_type" value="update_food_type">
+                            <div style="display: flex; flex-direction: row;">
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                       
+                        <form action="{% url 'hmsapp:delete_food_type' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="delete_food_type" value="delete_food_type">
+                            <input type="hidden" name="food_type_id" value="{{type.id}}">
+                            <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
+                        </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+
+            </div>
+            <div class="room_table" style="margin-right: 1.8rem;">
+
+
+            <table class="table_class">
+                <thead class="table_head">
+                     <th>Id #</th>
+                    <th>Food Type</th>
+                    <th>Name</th>
+                    <th>Edit</th>
+                </thead>
+                <tbody>
+                    {% if food_drinks %}
+                    {% for food in  food_drinks %}
+                    <tr>
+                        <td>{{food.id}}</td>
+                        <td>{{food.food_type.food_type}}</td>
+                        <td>{{food.food_name}}</td>
+                        <td style="display: flex;align-items: center;justify-content: center;">
+                        <form action="{% url 'hmsapp:edit_food' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="food_id" value="{{food.id}}">
+                            <input type="hidden" name="update_food" value="update_food">
+                            <div style="display: flex; flex-direction: row;">
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                       
+                        <form action="{% url 'hmsapp:delete_food' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="delete_food" value="delete_food">
+                            <input type="hidden" name="food_id" value="{{food.id}}">
+                            <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
+                        </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+
+                </div>
+                 <div class="room_table">
+
+
+            <table class="table_class">
+                <thead class="table_head">
+                     <th>Id #</th>
+                    <th>Food Type</th>
+                    <th>Quentity</th>
+                    <th>Edit</th>
+                </thead>
+                <tbody>
+                    {% if food_quentity %}
+                    {% for q in  food_quentity %}
+                    <tr>
+                        <td>{{q.id}}</td>
+                        <td>{{q.food_type.food_type}}</td>
+                        <td>{{q.quentity}}</td>
+                        <td style="display: flex;align-items: center;justify-content: center;">
+                        <form action="{% url 'hmsapp:edit_quentity' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="quentity_id" value="{{q.id}}">
+                            <input type="hidden" name="update_quentity" value="update_quentity">
+                            <div style="display: flex; flex-direction: row;">
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                       
+                        <form action="{% url 'hmsapp:edit_quentity' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_quentity" value="delete_quentity">
+                            <input type="hidden" name="quentity_id" value="{{q.id}}">
+                            <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
+                        </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+
+
+                </div>
+        </div>
+  </div>
+</div>
+ </body>
+ </html>
+{% endblock %}

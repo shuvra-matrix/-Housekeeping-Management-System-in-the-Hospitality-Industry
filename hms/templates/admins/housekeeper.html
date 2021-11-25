@@ -7,10 +7,10 @@
     </div>
     <div class="room_main" style="overflow: auto;">
         <div class="">
-            <h3>Housekeeper- Monday, 26 Oct 2020 12:18 AM</h3>
+            <h3>Housekeeper- {{time}}</h3>
         </div>
          {% if 'admin_id' in request.session %}
-        <div>
+        <div style="margin-top: 2rem;">
             <form action="{% url 'hmsapp:add_housekeeper' %}" method="get">
                  {% csrf_token %}
                 <button class="add_housekeeper"  type="submit"> Add Housekeeper</button>
@@ -20,7 +20,7 @@
         {% endif %}
         <div class="room_table">
             <table class="table_class">
-                <thead class="table_head">
+                <thead class="table_head" >
                     <th>Name</th>
                     <th>Email</th>
                     <th>Contact No.</th>

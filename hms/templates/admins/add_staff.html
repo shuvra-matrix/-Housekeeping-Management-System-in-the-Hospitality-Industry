@@ -11,7 +11,7 @@
     {% csrf_token %}
     <div class="main_div_manage">
         <div style="margin-left: 2rem;" class="">
-            <h3>Add Staff- Monday, 26 Oct 2020 12:18 AM</h3>
+            <h3>Add Staff </h3>
         </div>
         <div class="sub_div_manage">
             <div class="sp_sub">
@@ -35,6 +35,19 @@
             </div>
             <div class="sp_sub">
                 <input class="input_class" type="text" value="" name="number" maxlength="12">
+            </div>
+        </div>
+          <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Staff Type: </p>
+            </div>
+            <div class="sp_sub">
+                <select name="staff_type_id" id="" class="input_class">
+                    <option value="">Select Staff Type</option>
+                    {% for i in staff_type %}
+                    <option value="{{i.id}}">{{i.staff_type}}</option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
         <div class="sub_div_manage">
