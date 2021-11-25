@@ -59,5 +59,7 @@ urlpatterns = [
     path("housekeeping_daily_activity",
          views.housekeeping_daily_activity, name="housekeeping_daily_activity"),
     path("management/staff_type",views.Staff_types, name="staff_type"),
+    path("other_service/monthly_roster",
+         views.monthly_roster, name="monthly_roster"),
     
 ]

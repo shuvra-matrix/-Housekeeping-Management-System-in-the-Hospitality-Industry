@@ -1,0 +1,83 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+{% if monthly_roster  %}
+ <form action="{% url 'hmsapp:monthly_roster' %}" method="POST">
+    {% csrf_token %}
+    <div class="main_div_manage">
+        <div style="margin-left: 2rem;" class="">
+            <h3>Update Staff Duty Roster </h3>
+        </div>
+        {% for i in monthly_roster %}
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Staff Type: </p>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              
+                    <div class="sp_sub">
+                        <input type="text" class="input_class" value="{{i.staff_type.staff_type}}" name="staff_type" readonly>
+                    </div>
+            </div>
+        </div>
+       
+    
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Staff Name: </p>
+            </div>
+            <div class="sp_sub">
+                 <input type="text" class="input_class" value="{{i.staff_name.staff_name}}" name="staff_name" readonly>
+            </div>
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Duty Date From: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="date" value="{{i.date_from}}" name="date_from">
+            </div>
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Duty Date To: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="date" value="{{i.date_to}}" name="date_to">
+            </div>
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Duty Time From: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="time" value="{{i.time_from}}" name="time_from">
+            </div>
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Duty Time To: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="time" value="{{i.time_to}}" name="tome_to">
+            </div>
+        
+        <div class="button_class">
+                <button style="margin-left: 2rem;" class="button-29" type="submit">Submit</button>
+        </div>
+        </div>
+        <input type="hidden" name="id" value="{{i.id}}">
+        <input type="hidden" name="staff_up" value="staff_up">
+</form>
+    </div>
+{% endfor %}
+{% endif %}
+</div>
+
+
+{% endblock %}

@@ -51,6 +51,7 @@ class Room_details(models.Model):
     room_reservation_info = models.CharField(max_length=20,null=True)
     room_occupancy = models.CharField(max_length=20,default="Vacant")
     room_notes = models.CharField(max_length=250,null=True)
+    room_housekeeper_note = models.CharField(max_length=255,null=True)
     room_inspect_status = models.CharField(max_length=20, default="Inspected")
     room_housekeeper = models.ForeignKey(Housekeeper, on_delete=models.DO_NOTHING,null=True)
     room_updated_by = models.CharField(max_length=50 ,null=True)
@@ -117,3 +118,16 @@ class Housekeeping_daily_activity(models.Model):
     id = models.AutoField(primary_key=True)
     activity = models.ForeignKey(Daily_activities, on_delete=models.CASCADE)
     time = models.CharField(max_length=10, default="00000000")
+
+
+class Monthly_roster(models.Model):
+    id = models.AutoField(primary_key=True)
+    staff_type = models.ForeignKey(Staff_type, on_delete=models.SET_NULL,null=True)
+    staff_name = models.ForeignKey(Staff, on_delete=models.SET_NULL,null=True)
+    date_from = models.CharField(max_length=15)
+    date_to = models.CharField(max_length=15)
+    time_from = models.CharField(max_length=15)
+    time_to = models.CharField(max_length=15)
+    update_time = models.CharField(max_length=15)
+    update_by = models.CharField(max_length=25)
+    

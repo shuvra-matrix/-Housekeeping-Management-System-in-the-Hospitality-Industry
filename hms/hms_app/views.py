@@ -3,7 +3,7 @@ import pytz
 from datetime import datetime
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list, Customer_complaints, Daily_activities, Housekeeping_daily_activity,Staff_type
+from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list, Customer_complaints, Daily_activities, Housekeeping_daily_activity, Staff_type, Monthly_roster
 from random import randint
 
 
@@ -21,6 +21,12 @@ def time_snd():
     IST = pytz.timezone('Asia/Kolkata')
     datetime_ist = datetime.now(IST)
     return datetime_ist.strftime('%Y%m%d')
+
+
+def time_tnd():
+    IST = pytz.timezone('Asia/Kolkata')
+    datetime_ist = datetime.now(IST)
+    return datetime_ist.strftime('%Y-%m-%d')
 
 def login(request):
     if request.session.has_key('login'):
@@ -147,8 +153,12 @@ def index(requests):
         not_available_room = Room_details.objects.filter(room_occupancy="Occupied").count()
         housekeeper = Housekeeper_details.objects.filter(housekeeper_status="Available").count()
         name = requests.session.get("name").title()
+        if requests.session.has_key("staff_type"):
+            staff_type = requests.session.get("staff_type")
+        else:
+            staff_type = "staff_type"
         my_dict={
-            
+            "staff_type":staff_type,
             "total_room": total_room,
             "cleaned": cleaned,
             "dirty": dirty,
@@ -897,3 +907,76 @@ def housekeeping_daily_activity(request):
         return render(request, "admins/housekeeping_daily_activity.html", context=my_dict)
     else:
         return render(request, 'other/login.html')
+
+
+def monthly_roster(request):
+    if request.method == "POST":
+        if request.POST.get("add_monthly_roster") == "add_monthly_roster":
+            staff_type = Staff_type.objects.all()
+            request.session["first"] = "first"
+            my_dict = {
+                "staff_type": staff_type,
+            }
+            return render(request, "admins/add_monthly_roster.html",  context=my_dict)
+        
+        if request.POST.get("staff_type") == "staff_type":
+            del request.session["first"]
+            request.session["second"] = "second"
+            staff_type_id = request.POST.get("staff_type_id")
+            print(staff_type_id)
+            staff_type = Staff_type.objects.all().filter(id=staff_type_id)
+            print(staff_type)
+            for i in staff_type:
+                staff_name_details = Staff.objects.all().filter(staff_type=i)
+            
+            my_dict = {
+                "time": time_tnd(),
+                "staff_type": staff_type,
+                "staff_name_details": staff_name_details,
+            }
+            return render(request, "admins/add_monthly_roster.html",  context=my_dict)
+        
+        if request.POST.get("all_submit") == "all_submit":
+            del request.session["second"]
+            staff_type_id = request.POST.get("staff_type_id")
+            staf_name_id = request.POST.get("staf_name_id")
+            date_from = request.POST.get("date_from")
+            date_to = request.POST.get("date_to")
+            time_from = request.POST.get("time_from")
+            time_to = request.POST.get("tome_to")
+            
+            staf_type_details = Staff_type.objects.get(id=staff_type_id)
+            staff_details = Staff.objects.get(id=staf_name_id)
+            updated_by = request.session.get("name")
+            create_monthly_roster = Monthly_roster.objects.create(
+                staff_type=staf_type_details, staff_name=staff_details, date_from=date_from, date_to=date_to, time_from=time_from, time_to=time_to, update_time=time(), update_by=updated_by)
+            return redirect("/other_service/monthly_roster")
+        if request.POST.get("update_monthly_roster") == "update_monthly_roster":
+            roster_id = request.POST.get("id")
+            monthly_roster = Monthly_roster.objects.all().filter(id=roster_id)
+            my_dict = {
+                "monthly_roster": monthly_roster,
+            }
+            return render(request, "admins/update_monthly_roster.html", context=my_dict)
+        if request.POST.get("staff_up") == "staff_up":
+            roster_id = request.POST.get("id")
+            date_from = request.POST.get("date_from")
+            date_to = request.POST.get("date_to")
+            time_from = request.POST.get("time_from")
+            time_to = request.POST.get("tome_to")
+            updated_by = request.session.get("name")
+            monthly_roster = Monthly_roster.objects.filter(id=roster_id).update(date_from=date_from,date_to=date_to,time_from=time_from,time_to=time_to,update_by=updated_by,update_time=time())
+            return redirect("/other_service/monthly_roster")
+        
+        if request.POST.get("delete_monthly_roster") == "delete_monthly_roster":
+            roster_id = request.POST.get("id")
+            monthly_roster = Monthly_roster.objects.filter(id=roster_id).delete()
+            return redirect("/other_service/monthly_roster")
+        
+    monthly_roster = Monthly_roster.objects.all()
+    my_dict = {
+        "monthly_roster":monthly_roster,
+        "time":time(),
+    }
+
+    return render(request, "admins/monthly_roster.html", context=my_dict)

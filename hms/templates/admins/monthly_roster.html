@@ -1,0 +1,71 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+    <div class="room_main" style="overflow: auto;">
+        <div class="">
+            <h3>Monthly Roster- {{time}}</h3>
+        </div>
+        <div style="margin-top: 2rem;">
+            <form action="{% url 'hmsapp:monthly_roster' %}" method="POST">
+                 {% csrf_token %}
+                <input type="hidden" value="add_monthly_roster" name="add_monthly_roster">
+                <button class="add_housekeeper"  type="submit">Create Mothly Roster</button>
+            </form>
+            
+        </div>
+    
+        <div class="room_table">
+            <table class="table_class">
+                <thead class="table_head">
+                    <th>Id#</th>
+                    <th>Staff Type</th>
+                    <th>Staff Name</th>
+                    <th>Working Date</th>
+                    <th>Working Hour</th>
+                    <th>Inspect</th>
+                </thead>
+                <tbody>
+                    {% if monthly_roster %}
+                    {% for m in  monthly_roster  %}
+                    <tr>
+                        <td>{{m.id}}</td>
+                        <td>{{m.staff_type.staff_type}}</td>
+                        <td>{{m.staff_name.staff_name}}</td>
+                        <td>{{m.date_from}} To {{m.date_to}}</td>
+                        <td>{{m.time_from}} To {{m.time_to}}</td>
+                        <td style="width: 2rem;">
+                           
+                        <form action="{% url 'hmsapp:monthly_roster' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{m.id}}">
+                            <input type="hidden" name="update_monthly_roster" value="update_monthly_roster">
+                            <div style="display: flex; flex-direction: row;">
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                       
+                        <form action="{% url 'hmsapp:monthly_roster' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="id" value="{{m.id}}">
+                            <input type="hidden" name="delete_monthly_roster" value="delete_monthly_roster">
+                            <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
+                        </form>
+                            </div>
+                            
+                       
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
+</div>
+ </body>
+ </html>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from hms_app.models import Admin, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_type, Food_drinks, Food_quentity, Room_service, Food_order_list, Customer_complaints, Daily_activities, Housekeeping_daily_activity,Staff_type
+from hms_app.models import Admin, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_type, Food_drinks, Food_quentity, Room_service, Food_order_list, Customer_complaints, Daily_activities, Housekeeping_daily_activity, Staff_type, Monthly_roster
 # Register your models here.
 admin.site.register(Admin),
 admin.site.register(Housekeeper),
@@ -18,4 +18,5 @@ admin.site.register(Customer_complaints),
 admin.site.register(Daily_activities),
 admin.site.register(Housekeeping_daily_activity),
 admin.site.register(Staff_type),
+admin.site.register(Monthly_roster),
 

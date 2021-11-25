@@ -1,0 +1,114 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+
+
+    {% csrf_token %}
+    <div class="main_div_manage">
+        <div style="margin-left: 2rem;" class="">
+            <h3>Staff Duty Roster </h3>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Staff Type: </p>
+            </div>
+            <div style="display: flex; flex-direction: column;">
+                <form action="{% url 'hmsapp:monthly_roster' %}" method="POST">
+                     {% csrf_token %}
+                    <div class="sp_sub">
+                        <select name="staff_type_id" class="input_class">
+                            {% if "first" in request.session %}
+                            <option value="">Select Staff Type</option>
+                            {% endif %}
+                              {% if "second" in request.session %}
+                             {% for i in staff_type %}
+                            <option value="{{i.id}}">{{i.staff_type}}</option>
+                            {% endfor %}
+                            {% endif %}
+                            {% if staff_type %}
+                            {% for i in staff_type %}
+                            <option value="{{i.id}}">{{i.staff_type}}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div style="display: flex; justify-content: center; margin-right: 10rem; margin-top: 1rem;">
+                        <button class="search_button">Search</button>
+                    </div>
+                    <input type="hidden" name="staff_type" value="staff_type">
+                   
+                 </form>
+            </div>
+        </div>
+        <form action="{% url 'hmsapp:monthly_roster' %}" method="POST">
+         {% csrf_token %}
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Staff Name: </p>
+            </div>
+            <div class="sp_sub">
+                    <select name="staf_name_id" class="input_class">
+                            {% if staff_name_details %}
+                            <option value="">Select Staff Name</option>
+                            {% for j in staff_name_details %}
+                            <option value="{{j.id}}">{{j.staff_name}}</option>
+                            {% endfor %}
+
+                            {% endif %}
+                    </select>
+            </div>
+            {% for k in staff_type %}
+            <input type="hidden" name="staff_type_id" value="{{k.id}}">
+            <input type="hidden" name="all_submit" value="all_submit">
+            {% endfor %}
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Duty Date From: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="date" value="{{time}}" name="date_from">
+            </div>
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Duty Date To: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="date" value="" name="date_to">
+            </div>
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Duty Time From: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="time" value="" name="time_from">
+            </div>
+        </div>
+         <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Duty Time To: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="time" value="" name="tome_to">
+            </div>
+        
+        <div class="button_class">
+                <button style="margin-left: 2rem;" class="button-29" type="submit">Submit</button>
+        </div>
+        </div>
+        <input type="hidden" name="staff_added" value="staff_added">
+</form>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
