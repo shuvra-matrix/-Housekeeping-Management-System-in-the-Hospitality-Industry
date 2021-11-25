@@ -27,7 +27,7 @@
                 <tbody>
                     {% if room_data %}
                     {% for room in  room_data    %}
-                    <tr>
+                    <tr style="border: 2px solid rgba(9, 108, 221, 0.363);">
                         <td>{{room.room_id.room_name}}</td>
                         <td>{{room.room_type}}</td>
                         <td class="{{room.room_status}}">{{room.room_status}}</td>

@@ -32,12 +32,12 @@
                     {% if monthly_roster %}
                     {% for m in  monthly_roster  %}
                     <tr>
-                        <td>{{m.id}}</td>
-                        <td>{{m.staff_type.staff_type}}</td>
-                        <td>{{m.staff_name.staff_name}}</td>
-                        <td>{{m.date_from}} To {{m.date_to}}</td>
-                        <td>{{m.time_from}} To {{m.time_to}}</td>
-                        <td style="width: 2rem;">
+                        <td style="background-color: rgb(85, 15, 151); color: white;">{{m.id}}</td>
+                        <td style="background-color: blueviolet; color: white;">{{m.staff_type.staff_type}}</td>
+                        <td style="background-color: rgb(164, 23, 219); color: white;">{{m.staff_name.staff_name}}</td>
+                        <td style="background-color: rgb(226, 87, 23); color: white;">{{m.date_from}} To {{m.date_to}}</td>
+                        <td style="background-color: rgb(218, 138, 18); color: white;">{{m.time_from}} To {{m.time_to}}</td>
+                        <td style="width: 2rem;background-color: rgb(17, 155, 35); color: white;">
                            
                         <form action="{% url 'hmsapp:monthly_roster' %}" method="POST">
                             {% csrf_token %}
