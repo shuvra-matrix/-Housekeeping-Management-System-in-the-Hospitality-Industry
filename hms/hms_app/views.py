@@ -3,7 +3,7 @@ import pytz
 from datetime import datetime
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list, Customer_complaints, Daily_activities, Housekeeping_daily_activity
+from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list, Customer_complaints, Daily_activities, Housekeeping_daily_activity,Staff_type
 from random import randint
 
 
@@ -358,6 +358,69 @@ def add_room_floor(request):
     else:
         return render(request, 'other/login.html')
     
+
+
+
+
+def Staff_types(request):
+    staff_type = Staff_type.objects.all()
+    
+    my_dict = {
+        "staff_type":staff_type,
+        "time":time,
+    }
+    
+    if request.method == "POST":
+        if request.POST.get("add_staff") == "add_staff":
+            return render(request, "admins/add_staff_type.html")
+        
+        elif request.POST.get("staff_type_added") == "staff_type_added":
+            staff_type = request.POST.get("staff_type")
+            create_staff_type = Staff_type.objects.create(staff_type=staff_type)
+            return redirect("/management/staff_type")
+        elif request.POST.get("update_staff_type") == "update_staff_type":
+            staff_type_id = request.POST.get("staff_type_id")
+            staff_type_details = Staff_type.objects.all().filter(id=staff_type_id)
+            
+            my_dict = {"staff_type_details":staff_type_details}
+            return render(request, "admins/update_staff_type.html", context=my_dict)
+
+            
+            
+            
+            
+            
+            
+        elif request.POST.get("staff_type_updated") == "staff_type_updated":
+            staff_type_id = request.POST.get("staff_type_id")
+            staff_type = request.POST.get("staff_type")
+            update_data = Staff_type.objects.filter(id=staff_type_id).update(staff_type=staff_type)
+            return redirect("/management/staff_type")
+            
+        elif request.POST.get("delete_staff_type") == "delete_staff_type":
+            staff_type_id = request.POST.get("staff_type_id")
+            print(staff_type_id)
+            update_data = Staff_type.objects.filter(id=staff_type_id).delete()
+            return redirect("/management/staff_type")
+    
+    return render(request, "admins/staff_type.html", context=my_dict)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
 def staff(request):
     if request.session.has_key('admin_id'):

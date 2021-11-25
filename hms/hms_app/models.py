@@ -18,10 +18,16 @@ class Housekeeper(models.Model):
     housekeeper_mobile = models.CharField(max_length=20,null=True)
 
 
+class Staff_type(models.Model):
+    id = models.AutoField(primary_key=True)
+    staff_type = models.CharField(max_length=50)
+
+
 class Staff(models.Model):
     id = models.AutoField(primary_key=True)
     staff_id = models.CharField(max_length=20)
     staff_name = models.CharField(max_length=30)
+    staff_type = models.ForeignKey(Staff_type, on_delete=models.SET_NULL,null=True)
     staff_email = models.CharField(max_length=40)
     staff_password = models.CharField(max_length=30)
     staff_mobile = models.CharField(max_length=20, null=True)
