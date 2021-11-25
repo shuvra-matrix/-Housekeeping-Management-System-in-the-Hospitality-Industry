@@ -406,21 +406,6 @@ def Staff_types(request):
     return render(request, "admins/staff_type.html", context=my_dict)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             
 def staff(request):
     if request.session.has_key('admin_id'):
@@ -438,14 +423,18 @@ def add_staff(request):
     if request.session.has_key('admin_id'):
         if request.method == "POST":
             if request.POST.get("add_staff") == "add_staff":
-                return render(request, "admins/add_staff.html")
+                staff_type = Staff_type.objects.all()
+                my_dict = {"staff_type":staff_type}
+                return render(request, "admins/add_staff.html",context=my_dict)
             elif request.POST.get("staff_added") == "staff_added":
                 name = request.POST.get('name')
                 email = request.POST.get('email')
                 contact_number = request.POST.get('number')
                 staff_id = request.POST.get('id')
+                staff_type_id = request.POST.get("staff_type_id")
+                staff_type_details = Staff_type.objects.get(id=staff_type_id)
                 password = randint(123654, 986545)
-                add_staff = Staff.objects.create(staff_name=name,staff_email=email,staff_id=staff_id,staff_mobile=contact_number,staff_password=password)
+                add_staff = Staff.objects.create(staff_name=name,staff_email=email,staff_id=staff_id,staff_mobile=contact_number,staff_password=password,staff_type= staff_type_details)
                 return redirect("/staff")
         
     else:
@@ -457,9 +446,10 @@ def edit_staff(request):
         if request.method == "POST":
             if request.POST.get("update_staff") == "update_staff":
                 staff_id = request.POST.get("staff_id")
-                print(staff_id)
+                staff_type = Staff_type.objects.all()
                 staff_details = Staff.objects.all().filter(id=staff_id)
                 my_dict = {
+                    "staff_type": staff_type,
                     "staff_details":staff_details,
                 }
                 return render(request, "admins/update_staff.html",context=my_dict)
@@ -474,9 +464,11 @@ def edit_staff(request):
                 id = request.POST.get("staff_id")
                 name = request.POST.get('name')
                 email = request.POST.get('email')
+                staff_type_id = request.POST.get("staff_type_id")
+                staff_type_details = Staff_type.objects.get(id=staff_type_id)
                 contact_number = request.POST.get('number')
                 staff_id = request.POST.get('id')
-                update_staff = Staff.objects.filter(id=id).update(staff_name=name,staff_email=email,staff_mobile=contact_number,staff_id=staff_id)
+                update_staff = Staff.objects.filter(id=id).update(staff_name=name,staff_email=email,staff_mobile=contact_number,staff_id=staff_id,staff_type=staff_type_details)
                 return redirect("/staff")
         return redirect("/staff")
     else:

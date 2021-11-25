@@ -24,6 +24,7 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Contact No.</th>
+                    <th>Staff Type</th>
                     <th>Inspect</th>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@
                         <td>{{staff.staff_name}}</td>
                         <td>{{staff.staff_email}}</td>
                         <td>{{staff.staff_mobile}}</td>
+                        <td>{{staff.staff_type.staff_type}}</td>
                         <td style="width: 2rem;">
                            
                         <form action="{% url 'hmsapp:edit_staff' %}" method="POST">
