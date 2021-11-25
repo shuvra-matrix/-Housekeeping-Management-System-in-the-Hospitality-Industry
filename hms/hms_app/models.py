@@ -105,5 +105,9 @@ class Customer_complaints(models.Model):
 class Daily_activities(models.Model):
     id = models.AutoField(primary_key=True)
     activity = models.CharField(max_length=50)
-    
+    time = models.CharField(max_length=10, default="00000000")
         
+class Housekeeping_daily_activity(models.Model):
+    id = models.AutoField(primary_key=True)
+    activity = models.ForeignKey(Daily_activities, on_delete=models.CASCADE)
+    time = models.CharField(max_length=10, default="00000000")

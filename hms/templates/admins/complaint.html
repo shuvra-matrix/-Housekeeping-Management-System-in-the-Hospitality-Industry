@@ -9,7 +9,7 @@
         <div class="">
             <h3>Customer Complaints- {{time}}</h3>
         </div>
-        <div>
+        <div style="margin-top: 2rem;">
             <form action="{% url 'hmsapp:complaint' %}" method="POST">
                  {% csrf_token %}
                  <input type="hidden" name="add_complaint" value="add_complaint">

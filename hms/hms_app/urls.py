@@ -56,4 +56,7 @@ urlpatterns = [
     
     path("other_service/daily_activities",
          views.dealy_activities, name="dealy_activities"),
+    path("housekeeping_daily_activity",
+         views.housekeeping_daily_activity, name="housekeeping_daily_activity")
+    
 ]

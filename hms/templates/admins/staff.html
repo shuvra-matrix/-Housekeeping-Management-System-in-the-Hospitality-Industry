@@ -9,7 +9,7 @@
         <div class="">
             <h3>Staff- {{time}}</h3>
         </div>
-        <div>
+        <div style="margin-top: 2rem;">
             <form action="{% url 'hmsapp:add_staff' %}" method="POST">
                  {% csrf_token %}
                 <input type="hidden" value="add_staff" name="add_staff">

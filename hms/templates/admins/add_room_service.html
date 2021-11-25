@@ -58,7 +58,7 @@
                             </div>
                             <input type="hidden" name="food_types" value="food_types">
                             <div>
-                                <button style="padding: .6rem; background-color: slateblue; border-radius: 16px; border: 0px; color: white;" type="submit">Search</button>
+                                <button class="search_button" type="submit">Search</button>
                             </div>
                         </form>
                     </div>
@@ -90,7 +90,7 @@
                                  
                         </div>
                         <div>
-                            <button style="padding: .6rem; background-color: slateblue; border-radius: 16px; border: 0px; color: white;" type="submit">Search</button>
+                            <button class="search_button" type="submit">Search</button>
                         </div>
                          <input type="hidden" name="foods" value="foods">
                     </div>
@@ -117,7 +117,7 @@
                                  
                         </div>
                         <div>
-                            <button style="padding: .6rem; background-color: slateblue; border-radius: 16px; border: 0px; color: white;" type="submit">Add List</button>
+                            <button class="search_button" type="submit">Add List</button>
                         </div>
                     </div>
                     <input type="hidden" name="food_quentity" value="food_quentity">
@@ -126,7 +126,7 @@
                 <form action="{% url 'hmsapp:place_order' %}" method="POST">
                      {% csrf_token %}
                 <div style="margin-top: 2rem; margin-left: 5rem;">
-                    <button onclick="return confirm('Are you sure you want to place order?')" style="padding: .6rem; background-color: slateblue; border-radius: 16px; border: 0px; color: white;" type="submit">Place Order</button>
+                    <button  onclick="return confirm('Are you sure you want to place order?')" class="order_button" type="submit">Place Order</button>
                 </div>
                 </form>
 

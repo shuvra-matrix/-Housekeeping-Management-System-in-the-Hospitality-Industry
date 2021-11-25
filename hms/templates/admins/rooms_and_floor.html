@@ -10,7 +10,7 @@
             <h3>Room & Floor - {{time}}</h3>
         </div>
         
-        <div>
+        <div style="margin-top: 2rem;">
             <div style="display: flex; flex-direction: row; ">
                 <form action="{% url 'hmsapp:add_room' %}" method="POST">
                     {% csrf_token %}

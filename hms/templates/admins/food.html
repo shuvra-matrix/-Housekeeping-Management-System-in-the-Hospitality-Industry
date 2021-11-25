@@ -10,7 +10,7 @@
             <h3>Food Section - {{time}}</h3>
         </div>
         
-        <div>
+        <div style="margin-top: 2rem;">
             <div style="display: flex; flex-direction: row; ">
                 <form action="{% url 'hmsapp:add_food_type' %}" method="POST">
                     {% csrf_token %}
@@ -29,6 +29,7 @@
                 </form>
             </div>
         </div>
+        
     <div class="room_table" style="display: flex; flex-direction: row;">
 
            <div class="room_table" style="margin-right: 1.8rem;">

@@ -3,7 +3,7 @@ import pytz
 from datetime import datetime
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list, Customer_complaints, Daily_activities
+from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list, Customer_complaints, Daily_activities, Housekeeping_daily_activity
 from random import randint
 
 
@@ -17,7 +17,10 @@ def time():
     return datetime_ist.strftime('%A, %b %Y %I:%M %p ')
 
 
-
+def time_snd():
+    IST = pytz.timezone('Asia/Kolkata')
+    datetime_ist = datetime.now(IST)
+    return datetime_ist.strftime('%Y%m%d')
 
 def login(request):
     if request.session.has_key('login'):
@@ -791,5 +794,38 @@ def dealy_activities(request):
         
         return render(request, "admins/daily_activities.html" , context=my_dict)
 
+    else:
+        return render(request, 'other/login.html')
+
+
+def housekeeping_daily_activity(request):
+    if request.session.has_key('login'):
+        activity = Daily_activities.objects.exclude(time=time_snd())
+        activity_count = Daily_activities.objects.exclude(time=time_snd()).count()
+        if activity_count == 0:
+            activity = "All Activity Done For Today"
+            my_dict = {
+                "time": time(),
+                "dealy": activity,
+                
+            }
+        else:
+            my_dict = {
+                "time": time(),
+                "dealy_activities": activity,
+
+            }
+        
+        if request.method == "POST":
+            if request.POST.get("submit_activity") == "submit_activity":
+                activity_id = request.POST.get("activity_id")
+                update_activity = Daily_activities.objects.filter(
+                    id=activity_id).update(time=time_snd())
+                activity_details = Daily_activities.objects.get(id=activity_id)
+                create_housekeeper_activity = Housekeeping_daily_activity.objects.create(activity=activity_details,time=time_snd())
+                return redirect("/housekeeping_daily_activity")
+                
+                
+        return render(request, "admins/housekeeping_daily_activity.html", context=my_dict)
     else:
         return render(request, 'other/login.html')
