@@ -52,8 +52,6 @@ urlpatterns = [
     
     path("other_service/customer_complaint", views.complaint, name="complaint"),
     
-    
-    
     path("other_service/daily_activities",
          views.dealy_activities, name="dealy_activities"),
     path("housekeeping_daily_activity",
@@ -61,9 +59,7 @@ urlpatterns = [
     path("management/staff_type",views.Staff_types, name="staff_type"),
     path("other_service/monthly_roster",
          views.monthly_roster, name="monthly_roster"),
-    path("index/",
-         views.housekeeper_index, name="housekeeper_index"),
-    path("show_details/",
-         views.housekeeper_index, name="housekeeper_room_manage"),
+    path("index/",views.housekeeper_index, name="housekeeper_index"),
+    path("show_details/",views.housekeeper_index, name="housekeeper_room_manage"),
     
 ]

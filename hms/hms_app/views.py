@@ -8,7 +8,7 @@ from random import randint
 
 
 
-# Create your views here.
+
 
 
 def time():
@@ -983,6 +983,8 @@ def monthly_roster(request):
         return render(request, "admins/monthly_roster.html", context=my_dict)
     else:
         return render(request, 'other/login.html')
+
+
 
 
 
