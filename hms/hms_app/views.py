@@ -756,37 +756,40 @@ def complaint(request):
 
 
 def dealy_activities(request):
-    
-    dealy_activities = Daily_activities.objects.all()
-    my_dict = {
-        "time": time(),
-        "dealy_activities": dealy_activities,
-    }
-    
-    if request.method == "POST":
-        if request.POST.get("add_activity") == "add_activity":
-            return render(request, "admins/add_activity.html")
+    if request.session.has_key('admin_id'):
+        dealy_activities = Daily_activities.objects.all()
+        my_dict = {
+            "time": time(),
+            "dealy_activities": dealy_activities,
+        }
         
-        if request.POST.get("activity_added") == "activity_added":
-            activity = request.POST.get("activity")
-            activity_create = Daily_activities.objects.create(activity=activity)
-            return redirect("/other_service/daily_activities")
+        if request.method == "POST":
+            if request.POST.get("add_activity") == "add_activity":
+                return render(request, "admins/add_activity.html")
+            
+            if request.POST.get("activity_added") == "activity_added":
+                activity = request.POST.get("activity")
+                activity_create = Daily_activities.objects.create(activity=activity)
+                return redirect("/other_service/daily_activities")
+            
+            if request.POST.get("up_activity") == "up_activity":
+                activity_id = request.POST.get("activity_id")
+                activity_details = Daily_activities.objects.all().filter(id=activity_id)
+                my_dict = {
+                    "dealy_activities": activity_details,
+                }
+                return render(request, "admins/update_activity.html", context=my_dict)
+            if request.POST.get("activity_updated") == "activity_updated":
+                activity_id = request.POST.get("activity_id")
+                activity = request.POST.get("activity")
+                update_activity = Daily_activities.objects.filter(id=activity_id).update(activity=activity)
+                return redirect("/other_service/daily_activities")
+            if request.POST.get("delete_activity") == "delete_activity":
+                activity_id = request.POST.get("activity_id")
+                update_activity = Daily_activities.objects.filter(id=activity_id).delete()
+                return redirect("/other_service/daily_activities")
         
-        if request.POST.get("up_activity") == "up_activity":
-            activity_id = request.POST.get("activity_id")
-            activity_details = Daily_activities.objects.all().filter(id=activity_id)
-            my_dict = {
-                "dealy_activities": activity_details,
-            }
-            return render(request, "admins/update_activity.html", context=my_dict)
-        if request.POST.get("activity_updated") == "activity_updated":
-            activity_id = request.POST.get("activity_id")
-            activity = request.POST.get("activity")
-            update_activity = Daily_activities.objects.filter(id=activity_id).update(activity=activity)
-            return redirect("/other_service/daily_activities")
-        if request.POST.get("delete_activity") == "delete_activity":
-            activity_id = request.POST.get("activity_id")
-            update_activity = Daily_activities.objects.filter(id=activity_id).delete()
-            return redirect("/other_service/daily_activities")
-    
-    return render(request, "admins/daily_activities.html" , context=my_dict)
+        return render(request, "admins/daily_activities.html" , context=my_dict)
+
+    else:
+        return render(request, 'other/login.html')
