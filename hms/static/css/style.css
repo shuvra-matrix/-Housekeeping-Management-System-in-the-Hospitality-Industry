@@ -1,5 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+
+
+
+/* Works on Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #206eff1e;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #206eff1e;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #206eff1e;
+    border-radius: 20px;
+    border: 1px solid #206eff1e;
+}
+
+
+
+
+
 body{
     
     margin: 0px;
