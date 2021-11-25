@@ -27,7 +27,7 @@
                     {% for d in dealy_activities    %}
                     <tr>
                         <td>{{d.id}}</td>
-                        <td>{{d.activity}}</td>
+                        <td style="display: flex;justify-content: flex-start;">{{d.activity}}</td>
                         <td style="width: 2rem;">
                            
                         <form action="{% url 'hmsapp:housekeeping_daily_activity' %}" method="POST">
