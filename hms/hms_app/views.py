@@ -134,12 +134,13 @@ def index(requests):
         available_room = Room_details.objects.filter(room_occupancy="Vacant").count()
         not_available_room = Room_details.objects.filter(room_occupancy="Occupied").count()
         housekeeper = Housekeeper_details.objects.filter(housekeeper_status="Available").count()
+        name = requests.session.get("name").title()
         my_dict={
             
             "total_room": total_room,
             "cleaned": cleaned,
             "dirty": dirty,
-            
+            "name":name,
             "out_of_serviced": out_of_serviced,
             "out_of_order": out_of_order,
             "available_room": available_room,
