@@ -61,5 +61,9 @@ urlpatterns = [
     path("management/staff_type",views.Staff_types, name="staff_type"),
     path("other_service/monthly_roster",
          views.monthly_roster, name="monthly_roster"),
+    path("index/",
+         views.housekeeper_index, name="housekeeper_index"),
+    path("show_details/",
+         views.housekeeper_index, name="housekeeper_room_manage"),
     
 ]

@@ -1,0 +1,63 @@
+{% extends 'housekeeper/head.html' %}
+{% block body_blocks %}
+
+
+<div style="width: 90%; margin: 2rem auto; ">
+        <div>
+
+            <h3>Hi {{name}}</h3>
+            <h3 style="font-size: 1rem !important;">Your Work Details Are Here</h3>
+
+        </div>
+        <div style="margin-top: 2rem; ; margin-bottom: 5rem;overflow: auto;">
+                <table  class="table table-striped">
+
+                <thead >
+                    <tr style="background-color: rgb(205, 216, 47);">
+                        <th scope="col">Room #</th>
+                        <th scope="col">Room Type</th>
+                        <th scope="col">Room Status</th>
+                        <th scope="col">Reservation Info</th>
+                        <th scope="col">Occupancy</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Room Notes</th>
+                        <th scope="col">Updated By</th>
+                        <th scope="col">Update Time</th>
+                        <th scope="col">Edit Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if housekeeper_room_visit %}
+                    {% for room in  housekeeper_room_visit   %}
+                    <tr style="border: 2px solid rgba(9, 108, 221, 0.363);">
+                        <th scope="row">{{room.room_id.room_name}}</th>
+                        <td>{{room.room_type}}</td>
+                        <td class="{{room.room_status}}">{{room.room_status}}</td>
+                        <td>{{room.room_reservation_info}}</td>
+                        <td ><p class="{{room.room_occupancy}}">{{room.room_occupancy}}</p></td>
+                        <td ><p class="{{room.room_inspect_status}}">{{room.room_inspect_status}}</p></td>
+                        <td> <input class="note_class" type="text" value="{{room.room_notes}}"></td>
+                        <td style="color: rgb(0, 0, 0);">{{room.room_updated_by}}</td>
+                        <td>{{room.room_updated_time}}</td>
+                        <td style="width: 2rem;">
+                           
+                        <form action="{% url 'hmsapp:housekeeper_room_manage' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="room_data_id" value="{{room.id}}">
+                            <input type="hidden" name="room" value="room">
+                            <button  type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+                </table>
+
+        </div>
+</div>
+
+
+
+{% endblock %}
+    

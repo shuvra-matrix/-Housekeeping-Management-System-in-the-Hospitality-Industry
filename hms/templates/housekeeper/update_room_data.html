@@ -1,0 +1,73 @@
+{% extends 'housekeeper/head.html' %}
+{% block body_blocks %}
+
+{% if room_details %}
+{% for i in room_details %}
+<form action="{% url 'hmsapp:housekeeper_room_manage' %}" method="POST">
+    {% csrf_token %}
+    <div class="container" style="width: 93% ; margin-left: 12% ; margin-top: 2rem ;">
+        <div >
+            <h4>Room Status Update</h4>
+        </div>
+        <div >
+            <div >
+                <input type="hidden" name="update_data" value="update_data"> 
+                <input type="hidden" value="{{i.id}}" name="room_details_id">
+                <input type="hidden" value="{{i.room_id}}" name="room_id">
+                <p>Floor Name: </p>
+            </div>
+            <div >
+                <input class="input_class" type="text" value="{{i.room_id.floor_id.floor_name}}" readonly>
+            </div>
+        </div>
+        <div >
+            <div >
+                <p>Room Name:</p>
+            </div>
+            <div>
+                <input class="input_class"  type="text" value="{{i.room_id.room_name}}" readonly>
+               
+            </div>
+        </div>
+      
+      
+        <div >
+            <div >
+                <p>Room Inspection Status:</p>
+            </div>
+            <div >
+                <select class="input_class" name="room_inspected">
+                    <option value="{{i.room_inspect_status}}">{{i.room_inspect_status}}</option>
+                    <option value="Inspected">Inspected</option>
+                    <option value="Dirty">Dirty</option>
+                </select>
+            </div>
+        </div>
+        <div >
+            <div>
+                <p>Admin Notes:</h3>
+            </div>
+            <div>
+                <textarea class="input_class" name="room_note" id="" cols="40" rows="1" readonly>{{i.room_notes}}</textarea>
+            </div>
+        </div>
+        <div >
+            <div >
+                <p>Houkeeper Notes:</h3>
+            </div>
+            <div >
+                <textarea class="input_class" name="housekeeper_note" id="" cols="40" rows="1" >{{i.room_housekeeper_note}}</textarea>
+            </div>
+
+            <div style="display: flex; justify-content: center; margin-right: 28%; margin-top: 1rem;">
+                <button onclick="return confirm('Are you sure you want to Update ?')"  class="button-29" type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endfor %}
+{% endif %}
+
+
+{% endblock %}
