@@ -34,7 +34,7 @@ def login(request):
                 user_count = Admin.objects.filter(admin_email=user_email).count()
                 if user_count > 0:
                     user_details = Admin.objects.get(admin_email=user_email)
-                    if user_password == user_details.admin_password:
+                    if user_password == user_details.admin_password :
                         request.session['login'] = "login"
                         request.session['id'] = user_details.id
                         request.session['admin_id'] = user_details.id
@@ -62,9 +62,21 @@ def login(request):
                 if user_count > 0:
                     user_details = Staff.objects.get(staff_email=user_email)
                     if user_password == user_details.staff_password:
-                        request.session['login'] = "login"
                         request.session['id'] = user_details.id
                         request.session['name'] = user_details.staff_name
+                        request.session['staff_type'] = user_details.staff_type.staff_type
+                        if user_details.staff_type.staff_type == "Executive Housekeeper" or user_details.staff_type.staff_type == "Deputy Housekeeper":
+                            request.session['login'] = "login"
+                            request.session['admin_id'] = "admin_id"
+                        elif user_details.staff_type.staff_type == "Control desk supervisor":
+                            request.session['login'] = "login"
+                        else:
+                            message = "Invalid Credentials"
+                            my_dict = {
+                                "message": message,
+                            }
+                            return render(request, "other/login.html", context=my_dict)
+                            
                         return redirect("/")
                     else:
                         message = "Invalid Credentials"
