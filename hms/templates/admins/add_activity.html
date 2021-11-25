@@ -1,0 +1,35 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+ <div class="room_main" style="overflow: auto;">
+        <div class="">
+            <h3>Activity Section </h3>
+        </div>
+<form action="{% url 'hmsapp:dealy_activities' %}" method="POST">
+    {% csrf_token %}
+    <div class="main_div_manage">
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Activity: </p>
+            </div>
+            <div class="sp_sub">
+                <input class="input_class" type="text" value="" name="activity" required>
+            </div>
+            <div class="button_class">
+                <button class="button-29" type="submit">Submit</button>
+        </div>
+        </div>
+        <input type="hidden" name="activity_added" value="activity_added">
+</form>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

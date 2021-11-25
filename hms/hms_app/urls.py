@@ -52,4 +52,8 @@ urlpatterns = [
     
     path("other_service/customer_complaint", views.complaint, name="complaint"),
     
+    
+    
+    path("other_service/daily_activities",
+         views.dealy_activities, name="dealy_activities"),
 ]

@@ -102,7 +102,8 @@ class Customer_complaints(models.Model):
     time = models.CharField(max_length=20)
     status = models.CharField(max_length=20,default="Review")
      
-    
-    
+class Daily_activities(models.Model):
+    id = models.AutoField(primary_key=True)
+    activity = models.CharField(max_length=50)
     
         

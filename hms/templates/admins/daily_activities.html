@@ -1,0 +1,67 @@
+{% extends 'admins/header.html' %}
+{% block body_block %}
+<div id="main" style="overflow: hidden; margin-left: 180px;">
+    <div class="w3-container w3-display-container">
+            <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
+            
+    </div>
+    <div class="room_main" style="overflow: auto;">
+        <div class="">
+            <h3>Activity Section- {{time}}</h3>
+        </div>
+         {% if 'admin_id' in request.session %}
+        <div>
+            <form action="{% url 'hmsapp:dealy_activities' %}" method="POST">
+                 {% csrf_token %}
+                 <input type="hidden" name="add_activity" value="add_activity">
+                <button class="add_housekeeper"  type="submit"> Add Activity</button>
+            </form>
+            
+        </div>
+        {% endif %}
+        <div class="room_table">
+            <table class="table_class">
+                <thead class="table_head">
+                    <th>Id#</th>
+                    <th>Activity</th>
+                    <th>Inspect</th>
+                </thead>
+                <tbody>
+                    {% if dealy_activities %}
+                    {% for d in dealy_activities    %}
+                    <tr>
+                        <td>{{d.id}}</td>
+                        <td>{{d.activity}}</td>
+                        <td style="width: 2rem;">
+                           
+                        <form action="{% url 'hmsapp:dealy_activities' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="activity_id" value="{{d.id}}">
+                            <div style="display: flex; flex-direction: row;">
+                            <input type="hidden" name="up_activity" value="up_activity" >
+                            <button type="submit" class="click_button" >&#x1F441;</button>
+                        </form>
+                      
+                        <form action="{% url 'hmsapp:dealy_activities' %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="delete_activity" value="delete_activity">
+                            <input type="hidden" name="activity_id" value="{{d.id}}">
+                            <button onclick="return confirm('Are you sure you want to delete?')" type="submit" class="click_button" style="width: 2.06rem;">&#x274C;</button>
+                        </form>
+        
+                            </div>
+                            
+                       
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
+</div>
+ </body>
+ </html>
+{% endblock %}
