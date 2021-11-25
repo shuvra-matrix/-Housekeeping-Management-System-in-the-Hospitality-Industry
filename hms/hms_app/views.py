@@ -706,48 +706,50 @@ def view_room_service(request):
 
 
 def complaint(request):
-    
-    complaint = Customer_complaints.objects.all()
-    my_dict = {
-        "complaint":complaint,
-        "time":time(),
-    }
-    
-    if request.method == "POST":
-        if request.POST.get("add_complaint") == "add_complaint":
-            room_details = Room.objects.all()
-            my_dict = {
-                "room_details":room_details,
-            }
+    if request.session.has_key('login'):
+        complaint = Customer_complaints.objects.all()
+        my_dict = {
+            "complaint":complaint,
+            "time":time(),
+        }
+        
+        if request.method == "POST":
+            if request.POST.get("add_complaint") == "add_complaint":
+                room_details = Room.objects.all()
+                my_dict = {
+                    "room_details":room_details,
+                }
+                
+                return render(request, "admins/add_complaint.html", context=my_dict)
+                
+            elif request.POST.get("com_add") == "com_add":
+                room_id = request.POST.get("room_id")
+                room_details = Room.objects.get(room_id=room_id)
+                
+                customer_name = request.POST.get("customer_name")
+                complaint = request.POST.get("complaint")
+                updated_by = request.session.get("name")
+                create_complaints = Customer_complaints.objects.create(room_id=room_details,complaints=complaint,complaints_by=customer_name,complaints_taken_by=updated_by,time=time())
+                return redirect("/other_service/customer_complaint")
+                
+            elif request.POST.get("complaint_update") == "complaint_update":
+                complaint_id = request.POST.get("complaint_id")
+                complaints_details = Customer_complaints.objects.all().filter(id=complaint_id)
             
-            return render(request, "admins/add_complaint.html", context=my_dict)
-            
-        elif request.POST.get("com_add") == "com_add":
-            room_id = request.POST.get("room_id")
-            room_details = Room.objects.get(room_id=room_id)
-            
-            customer_name = request.POST.get("customer_name")
-            complaint = request.POST.get("complaint")
-            updated_by = request.session.get("name")
-            create_complaints = Customer_complaints.objects.create(room_id=room_details,complaints=complaint,complaints_by=customer_name,complaints_taken_by=updated_by,time=time())
-            return redirect("/other_service/customer_complaint")
-            
-        elif request.POST.get("complaint_update") == "complaint_update":
-            complaint_id = request.POST.get("complaint_id")
-            complaints_details = Customer_complaints.objects.all().filter(id=complaint_id)
-          
-            my_dict = {
-                "complaints_details": complaints_details,
-            
-            }
-            return render(request, "admins/update_complaints.html", context=my_dict)
-        elif request.POST.get("com_up") == "com_up":
-            com_id = request.POST.get("com_id")
-            com_status = request.POST.get("com_status")
-            update_com = Customer_complaints.objects.filter(
-                id=com_id).update(status=com_status)
-            
-            return redirect("/other_service/customer_complaint")
-            
-    
-    return render(request, "admins/complaint.html" , context=my_dict)
+                my_dict = {
+                    "complaints_details": complaints_details,
+                
+                }
+                return render(request, "admins/update_complaints.html", context=my_dict)
+            elif request.POST.get("com_up") == "com_up":
+                com_id = request.POST.get("com_id")
+                com_status = request.POST.get("com_status")
+                update_com = Customer_complaints.objects.filter(
+                    id=com_id).update(status=com_status)
+                
+                return redirect("/other_service/customer_complaint")
+                
+        
+        return render(request, "admins/complaint.html" , context=my_dict)
+    else:
+        return render(request, 'other/login.html')
