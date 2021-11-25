@@ -6,54 +6,65 @@
             <span title="open Sidebar" style="display: none;" id="openNav" class="w3-button w3-transparent w3-display-topleft w3-xlarge" onclick="w3_open()">☰</span>
             
     </div>
-
-<form action="{% url 'hmsapp:add_staff' %}" method="POST">
+{% for c in complaints_details %}
+<form action="{% url 'hmsapp:complaint' %}" method="POST">
     {% csrf_token %}
     <div class="main_div_manage">
         <div style="margin-left: 2rem;" class="">
-            <h3>Add Staff </h3>
+            <h3>Show Complaints </h3>
         </div>
         <div class="sub_div_manage">
             <div class="sp_sub">
-                <p>Staff Name: </p>
+                <p>Room Name: </p>
             </div>
             <div class="sp_sub">
-                <input class="input_class" type="text" value="" name="name">
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="sp_sub">
-                <p>Staff Email: </p>
-            </div>
-            <div class="sp_sub">
-                <input class="input_class" type="email" value="" name="email">
+                 
+                <input type="text" value="{{c.room_id.room_name}}" readonly class="input_class">  
             </div>
         </div>
         <div class="sub_div_manage">
             <div class="sp_sub">
-                <p>Staff Contact Number: </p>
+                <p>Customer Name </p>
             </div>
             <div class="sp_sub">
-                <input class="input_class" type="text" value="" name="number" maxlength="12">
+                <input class="input_class" type="text" value="{{c.complaints_by}}" name="customer_name" readonly>
             </div>
+        </div>
+        
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Complaint </p>
+            </div>
+            <div class="sp_sub">
+                <textarea class="input_class" name="complaint" id="" cols="10" rows="5">{{c.complaints}}</textarea>
+            </div>
+           
         </div>
         <div class="sub_div_manage">
             <div class="sp_sub">
-                <p>Staff ID: </p>
+                <p>Complaint Status </p>
             </div>
             <div class="sp_sub">
-                <input class="input_class" type="text" value="" name="id" maxlength="18">
+                <select name="com_status" class="input_class" required>
+                        <option value="{{c.status}}">{{c.status}}</option>
+                        
+                        <option value="Case-Closed">Case-Closed</option>
+                </select>
             </div>
-            <div class="button_class">
+             <div class="button_class">
                 <button class="button-29" type="submit">Submit</button>
+            </div>
         </div>
-        </div>
-        <input type="hidden" name="staff_added" value="staff_added">
+        <input type="hidden" name="com_id" value="{{c.id}}">
+        <input type="hidden" name="com_up" value="com_up">
 </form>
     </div>
-
+{% endfor %}
 
 </div>
 
 
 {% endblock %}
+
+
+         

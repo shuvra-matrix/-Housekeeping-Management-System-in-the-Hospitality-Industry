@@ -3,7 +3,7 @@ import pytz
 from datetime import datetime
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list
+from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list,Customer_complaints
 from random import randint
 
 
@@ -171,9 +171,11 @@ def room_manage(request):
                 "Housekeeper_data": Housekeeper_data,
             }
             return render(request, 'admins/room_manage.html',context=my_dict)
+        return redirect("/room_status")
     else:
         return render(request, 'other/login.html')
 
+    
 def room_update(request):
     if request.method == "POST":
         room_id = request.POST.get("room_id")
@@ -239,6 +241,7 @@ def housekeeper_details(request):
                 }
                 
             return render(request, "admins/housekeeper_details.html",context=my_dict)
+        return redirect("/housekeepers")
     else:
         return render(request, 'other/login.html')
     
@@ -248,7 +251,7 @@ def housekeeper_update(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         contact_number = request.POST.get('number')
-        housekeeper_id = request.POST.get('id')
+        housekeeper_id = request.POST.get('house_id')
         update_data = Housekeeper.objects.filter(id=id).update(housekeeper_name=name,housekeeper_email=email,housekeeper_id=housekeeper_id,housekeeper_mobile=contact_number)
         return redirect("/housekeepers")
         
@@ -347,6 +350,7 @@ def add_room_floor(request):
                 room_id = request.POST.get("room_id")
                 delete_room = Room.objects.filter(room_id=room_id).delete()
                 return redirect("/rooms_and_floor")
+        return redirect("/rooms_and_floor")
     else:
         return render(request, 'other/login.html')
     
@@ -376,6 +380,7 @@ def add_staff(request):
                 password = randint(123654, 986545)
                 add_staff = Staff.objects.create(staff_name=name,staff_email=email,staff_id=staff_id,staff_mobile=contact_number,staff_password=password)
                 return redirect("/staff")
+        
     else:
         return render(request, 'other/login.html')
     
@@ -406,6 +411,7 @@ def edit_staff(request):
                 staff_id = request.POST.get('id')
                 update_staff = Staff.objects.filter(id=id).update(staff_name=name,staff_email=email,staff_mobile=contact_number,staff_id=staff_id)
                 return redirect("/staff")
+        return redirect("/staff")
     else:
         return render(request, 'other/login.html')
 
@@ -529,6 +535,7 @@ def add_food(request):
                 quentity_id = request.POST.get("quentity_id")
                 delete_quentity = Food_quentity.objects.filter(id=quentity_id).delete()
                 return redirect("/food")
+        return redirect("/food")
     else:
         return render(request, 'other/login.html')
 
@@ -699,4 +706,48 @@ def view_room_service(request):
 
 
 def complaint(request):
-    return render(request, "admins/complaint.html")
+    
+    complaint = Customer_complaints.objects.all()
+    my_dict = {
+        "complaint":complaint,
+        "time":time(),
+    }
+    
+    if request.method == "POST":
+        if request.POST.get("add_complaint") == "add_complaint":
+            room_details = Room.objects.all()
+            my_dict = {
+                "room_details":room_details,
+            }
+            
+            return render(request, "admins/add_complaint.html", context=my_dict)
+            
+        elif request.POST.get("com_add") == "com_add":
+            room_id = request.POST.get("room_id")
+            room_details = Room.objects.get(room_id=room_id)
+            
+            customer_name = request.POST.get("customer_name")
+            complaint = request.POST.get("complaint")
+            updated_by = request.session.get("name")
+            create_complaints = Customer_complaints.objects.create(room_id=room_details,complaints=complaint,complaints_by=customer_name,complaints_taken_by=updated_by,time=time())
+            return redirect("/other_service/customer_complaint")
+            
+        elif request.POST.get("complaint_update") == "complaint_update":
+            complaint_id = request.POST.get("complaint_id")
+            complaints_details = Customer_complaints.objects.all().filter(id=complaint_id)
+          
+            my_dict = {
+                "complaints_details": complaints_details,
+            
+            }
+            return render(request, "admins/update_complaints.html", context=my_dict)
+        elif request.POST.get("com_up") == "com_up":
+            com_id = request.POST.get("com_id")
+            com_status = request.POST.get("com_status")
+            update_com = Customer_complaints.objects.filter(
+                id=com_id).update(status=com_status)
+            
+            return redirect("/other_service/customer_complaint")
+            
+    
+    return render(request, "admins/complaint.html" , context=my_dict)

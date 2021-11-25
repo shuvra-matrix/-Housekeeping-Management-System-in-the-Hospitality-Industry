@@ -7,48 +7,45 @@
             
     </div>
 
-<form action="{% url 'hmsapp:add_staff' %}" method="POST">
+<form action="{% url 'hmsapp:complaint' %}" method="POST">
     {% csrf_token %}
     <div class="main_div_manage">
         <div style="margin-left: 2rem;" class="">
-            <h3>Add Staff </h3>
+            <h3>Add Complaints </h3>
         </div>
         <div class="sub_div_manage">
             <div class="sp_sub">
-                <p>Staff Name: </p>
+                <p>Room Name: </p>
             </div>
             <div class="sp_sub">
-                <input class="input_class" type="text" value="" name="name">
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="sp_sub">
-                <p>Staff Email: </p>
-            </div>
-            <div class="sp_sub">
-                <input class="input_class" type="email" value="" name="email">
-            </div>
-        </div>
-        <div class="sub_div_manage">
-            <div class="sp_sub">
-                <p>Staff Contact Number: </p>
-            </div>
-            <div class="sp_sub">
-                <input class="input_class" type="text" value="" name="number" maxlength="12">
+                 <select name="room_id" class="input_class" required>
+                    <option value="">Select Room</option>
+                    {% for r in room_details %}
+                    <option value="{{r.room_id}}">{{r.room_name}}</option>
+                    {% endfor %}
+                </select>  
             </div>
         </div>
         <div class="sub_div_manage">
             <div class="sp_sub">
-                <p>Staff ID: </p>
+                <p>Customer Name </p>
             </div>
             <div class="sp_sub">
-                <input class="input_class" type="text" value="" name="id" maxlength="18">
+                <input class="input_class" type="text" value="" name="customer_name" required>
+            </div>
+        </div>
+        <div class="sub_div_manage">
+            <div class="sp_sub">
+                <p>Complaint </p>
+            </div>
+            <div class="sp_sub">
+                <textarea class="input_class" name="complaint" id="" cols="10" rows="10"></textarea>
             </div>
             <div class="button_class">
                 <button class="button-29" type="submit">Submit</button>
+            </div>
         </div>
-        </div>
-        <input type="hidden" name="staff_added" value="staff_added">
+        <input type="hidden" name="com_add" value="com_add">
 </form>
     </div>
 
