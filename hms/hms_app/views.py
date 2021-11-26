@@ -5,9 +5,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from hms_app.models import Admin, Food_type, Housekeeper, Room_floor, Room, Room_details, Housekeeper_details, Housekeeper_room_visit, Staff, Food_quentity, Food_drinks, Food_type, Room_service, Food_order_list, Customer_complaints, Daily_activities, Housekeeping_daily_activity, Staff_type, Monthly_roster
 from random import randint
-
-
-
+from hms_app.mail import mail
 
 
 
@@ -27,6 +25,10 @@ def time_tnd():
     IST = pytz.timezone('Asia/Kolkata')
     datetime_ist = datetime.now(IST)
     return datetime_ist.strftime('%Y-%m-%d')
+
+
+
+
 
 def login(request):
     if request.session.has_key('login'):
@@ -239,11 +241,18 @@ def add_housekeeper(request):
             contact_number = request.POST.get('number')
             housekeeper_id = request.POST.get('id')
             password = randint(123654, 986545)
+            position = "Housekeeper"
             insert_value = Housekeeper.objects.create(housekeeper_name=name,housekeeper_email=email,housekeeper_mobile=contact_number,housekeeper_id=housekeeper_id,housekeeper_password=password)
             get_value = Housekeeper.objects.get(housekeeper_id=housekeeper_id)
             insert_new_value = Housekeeper_details.objects.create(housekeeper_id=get_value,housekeeper_status="Available")
-            return redirect("/housekeepers")
-        
+            emails = mail(email,password,name,position)
+            if emails == "0":
+                message = "Housekeeper Add Successfully"
+                return render(request, 'admins/housekeeper.html', {'message': message})
+            elif emails == "1":
+                message = "Invalid Email Address"
+                return render(request, 'admins/housekeeper.html', {'message': message})
+
         return render(request, "admins/add_housekeeper.html")
     else:
         return render(request, 'other/login.html')
@@ -407,12 +416,6 @@ def Staff_types(request):
             my_dict = {"staff_type_details":staff_type_details}
             return render(request, "admins/update_staff_type.html", context=my_dict)
 
-            
-            
-            
-            
-            
-            
         elif request.POST.get("staff_type_updated") == "staff_type_updated":
             staff_type_id = request.POST.get("staff_type_id")
             staff_type = request.POST.get("staff_type")
@@ -457,6 +460,8 @@ def add_staff(request):
                 staff_type_details = Staff_type.objects.get(id=staff_type_id)
                 password = randint(123654, 986545)
                 add_staff = Staff.objects.create(staff_name=name,staff_email=email,staff_id=staff_id,staff_mobile=contact_number,staff_password=password,staff_type= staff_type_details)
+                if staff_type_details.staff_type == "Executive Housekeeper" or staff_type_details.staff_type == "Deputy Housekeeper" or staff_type_details.staff_type == "Control desk supervisor":
+                    emails = mail(email, password, name, staff_type_details.staff_type)
                 return redirect("/staff")
         
     else:
