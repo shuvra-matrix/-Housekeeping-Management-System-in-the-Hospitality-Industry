@@ -15,5 +15,5 @@
  <h4>Password : 654269 </h4>
  <br>
  <br>
- <h3>Note : Only portal for housekeeper are optimize for mobile view so open this portal in desktop-mode in mobile device or use it in desktop or laptop or in tablet </h3>
+ <h3>Note : only housekeeper portal is optimize for mobile view so open this portal in desktop-mode in mobile device or use it in desktop or laptop or in tablet </h3>
  
