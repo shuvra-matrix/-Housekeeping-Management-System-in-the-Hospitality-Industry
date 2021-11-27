@@ -6,7 +6,7 @@
 <h4>Email: shuvra232@outlook.com </h4>
 <h4>Password: 1234 </h4>
 <br>
-<h3>For High Rnked  Saff/h3>
+<h3>For High Rnked  Saff</h3>
  <h4>Email : shuvrachakrabarty97@gmail.com </h4>
  <h4>Password : 883752 </h4>
  <br>
