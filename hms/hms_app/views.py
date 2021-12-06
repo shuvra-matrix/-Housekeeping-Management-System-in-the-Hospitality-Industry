@@ -990,9 +990,6 @@ def monthly_roster(request):
         return render(request, 'other/login.html')
 
 
-
-
-
 def housekeeper_index(request):
     if request.session.has_key('login'):
         if request.method != "POST":
