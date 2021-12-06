@@ -995,30 +995,43 @@ def monthly_roster(request):
 
 def housekeeper_index(request):
     if request.session.has_key('login'):
-        user_id = request.session.get('housekeeper_id')
-        user_name = request.session.get('housekeepr_name')
-        housekeeper = Housekeeper.objects.get(id=user_id)
-        housekeeper_room_visit = Housekeeper_room_visit.objects.all().filter(
-            housekeeper_id=housekeeper).order_by("-id")[0:1]
-        for i in housekeeper_room_visit:
-            room_details = Room_details.objects.all().filter(room_id=i.room_id)
-        
-        my_dict = {
-            "name": user_name,
-            "housekeeper_room_visit": room_details,
-        }
-        
+        if request.method != "POST":
+            user_id = request.session.get('housekeeper_id')
+            user_name = request.session.get('housekeepr_name')
+            housekeeper = Housekeeper.objects.get(id=user_id)
+            housekeeper_room_visit = Housekeeper_room_visit.objects.all().filter(
+                housekeeper_id=housekeeper).order_by("-id")[0:1]
+            for i in housekeeper_room_visit:
+                room_details = Room_details.objects.all().filter(room_id=i.room_id)
+                room_details_count =  Room_details.objects.all().filter(room_id=i.room_id).count()
+
+                if room_details_count > 0 :
+                    my_dict = {
+                        "name": user_name,
+                        "housekeeper_room_visit": room_details,
+                    }
+                    return render(request, "housekeeper/index.html",context= my_dict)
+
+            my_dict = {
+                        "name": user_name,
+                    }
         if request.method == "POST":
             if request.POST.get("room") == "room":
                 room_id = request.POST.get("room_data_id")
+                user_id = request.session.get('housekeeper_id')
+                housekeeper = Housekeeper.objects.get(id=user_id)
+                housekeeper_room_visit = Housekeeper_room_visit.objects.all().filter(
+                housekeeper_id=housekeeper).order_by("-id")[0:1]
+                for i in housekeeper_room_visit:
+                    room_details = Room_details.objects.all().filter(room_id=i.room_id)
                 room_details = Room_details.objects.all().filter(room_id=i.room_id)
                 my_dict = {
                     "time":time(),
                     "room_details": room_details,
                 }
-                
+
                 return render(request, "housekeeper/update_room_data.html", context=my_dict)
-        
+
             if request.POST.get("update_data") == "update_data":
                 room_details_id = request.POST.get("room_details_id")
                 room_id = request.POST.get("room_id")
@@ -1031,7 +1044,7 @@ def housekeeper_index(request):
                 update_houkeeing_status = Housekeeper_details.objects.filter(
                     housekeeper_id=housekeeper).update(housekeeper_status="Available")
                 return redirect("/index")
-                
+
         return render(request, "housekeeper/index.html",context= my_dict)
     else:
         return render(request, 'other/login.html')
