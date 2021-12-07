@@ -15,5 +15,7 @@
  <h4>Password : 654269 </h4>
  <br>
  <br>
+ <p> In this project I need to develop a portal which manages housekeeping activity in the Hospitality Industry. Then I need to create a login portal pro admin, staff and also add some submodules like housekeeping daily activities, room service, customer complaints monthly roster etc. </p>
+ <br>
  <h3>Note : only housekeeper portal is optimize for mobile view so open this portal in desktop-mode in mobile device or use it in desktop or laptop or in tablet </h3>
  
